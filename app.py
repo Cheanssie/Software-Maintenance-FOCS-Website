@@ -11,7 +11,7 @@ def facilities():
     return render_template("facilities.html")
 
 @app.route('/staffDirectory')
-def facilities():
+def staffDirectory():
     return render_template("staffDirectory.html")
 
 if __name__ == "__name__":
