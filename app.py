@@ -18,6 +18,10 @@ def staffDirectory():
 def programmes():
     return render_template("programme.html")
 
+@app.route('/whyChooseUs')
+def whyChooseUs():
+    return render_template("whyChooseUs.html")
+
 if __name__ == "__name__":
     app.run(debug=True)
 
