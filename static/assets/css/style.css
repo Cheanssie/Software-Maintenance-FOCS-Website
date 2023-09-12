@@ -225,7 +225,7 @@ span {
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
-  color: #71c55d;
+  color: #EBA200;
 }
 
 .navbar .dropdown ul {
