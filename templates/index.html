@@ -1,35 +1,90 @@
 {% extends "base.html"%}
 {% block title %} Home {% endblock %}
 {%block content %}
-  <!-- ======= Hero Section ======= -->
+<!-- ======= Hero Section ======= -->
+
+<style>
   
+  .card-link {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
 
-  <main id="hero">
+.card-hover:hover .card-container {
+  transform: translateY(-10px); /* Adjust the value to control how much it moves up */
+  transition: transform 0.35s ease; /* Add a smooth transition */
+}
 
-    <div class="hero-container container d-flex flex-column ">
-      <div class="row ">
-        <div class="col-2 ">
-          <p>Why Choose Us</p>
-        </div>
-        <div class="col-2 ">
-          <p>Why Choose Us</p>
-        </div>
-        <div class="col-2 ">
-          <p>Why Choose Us</p>
-        </div>
-        <div class="col-2 ">
-          <p>Why Choose Us</p>
-        </div>
-        <div class="col-2 ">
-          <p>Why Choose Us</p>
-        </div>
-        <div class="col-2 ">
-          <p>Why Choose Us</p>
-        </div>
+</style>
+
+<main id="hero">
+
+  <div class="hero-container container d-flex flex-column">
+    <div class="row justify-content-center mx-1">
+      <div class="col-2 p-2">
+        <a href="#" class="card-link">
+          <div class="card m-1 py-2 d-flex align-content-between card-hover" style="min-height: 200px;">
+            <div class="my-auto card-container">
+              <img src="../static/assets/img/why-us.png" class="m-0 w-50 mx-auto" alt="Why Choose Us">
+              <p class="card-text">Why Choose Us</p>
+            </div>
+          </div>
+        </a>
       </div>
-      
+      <div class="col-2 p-2">
+        <a href="#" class="card-link">
+          <div class="card m-1 py-2 d-flex align-content-between card-hover" style="min-height: 200px;">
+            <div class="my-auto card-container">
+              <img src="../static/assets/img/programmes.png" class="m-0 w-50 mx-auto" alt="Programmes">
+              <p class="card-text">Programmes</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-2 p-2">
+        <a href="#" class="card-link">
+          <div class="card m-1 py-2 d-flex align-content-between card-hover" style="min-height: 200px;">
+            <div class="my-auto card-container">
+              <img src="../static/assets/img/Collaboration Partners.png" class="m-0 w-50 mx-auto"
+                alt="Collaboration Partners">
+              <p class="card-text text-wrap">Collaboration Partners</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-2 p-2">
+        <a href="#" class="card-link">
+          <div class="card m-1 py-2 d-flex align-content-between card-hover" style="min-height: 200px;">
+            <div class="my-auto card-container">
+              <img src="../static/assets/img/Highlights.png" class="m-0 w-50 mx-auto" alt="Highlights">
+              <p class="card-text">Highlights</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-2 p-2">
+        <a href="#" class="card-link">
+          <div class="card m-1 py-2 d-flex align-content-between card-hover" style="min-height: 200px;">
+            <div class="my-auto card-container">
+              <img src="../static/assets/img/Recognition.png" class="m-0 w-50 mx-auto" alt="Recognition">
+              <p class="card-text">Recognition</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-2 p-2">
+        <a href="#" class="card-link">
+          <div class="card m-1 py-2 d-flex align-content-between card-hover" style="min-height: 200px;">
+            <div class="my-auto card-container">
+              <img src="../static/assets/img/Testimonials.png" class="m-0 w-50 mx-auto" alt="Testimonials">
+              <p class="card-text">Testimonials</p>
+            </div>
+          </div>
+        </a>
+      </div>
     </div>
-   
+  </div>
 
-  </main><!-- End #main -->
-  {% endblock %}
+</main><!-- End #main -->
+{% endblock %}
