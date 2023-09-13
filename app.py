@@ -26,6 +26,10 @@ def whyChooseUs():
 def testimonials():
     return render_template("testimonials.html")
 
+@app.route('/collaborationPartners')
+def collaborationPartners():
+    return render_template("collaborationPartners.html")
+
 if __name__ == "__name__":
     app.run(debug=True)
 
