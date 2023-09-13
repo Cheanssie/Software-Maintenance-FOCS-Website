@@ -22,6 +22,10 @@ def programmes():
 def whyChooseUs():
     return render_template("whyChooseUs.html")
 
+@app.route('/testimonials')
+def testimonials():
+    return render_template("testimonials.html")
+
 if __name__ == "__name__":
     app.run(debug=True)
 
