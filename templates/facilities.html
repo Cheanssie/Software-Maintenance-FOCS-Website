@@ -1,10 +1,50 @@
-{% extends "base.html"%} 
-{% block title %} Facilities {% endblock %} 
-{%block content %} 
+{% extends "base.html"%} {% block title %} Facilities {% endblock %} {%block
+content %}
 
-<div class="container-fluid text-center" >
+<div
+  class="container-fluid text-center text-white d-flex align-items-center"
+  style="
+    background-image: url(../static/assets/img/header-image.jpg);
+    background-position: center 80%;
+    background-size: cover;
+    height: auto;
+    width: 100%;
+  "
+>
+  <div class="container-fluid justify-content-center">
     <h1>Facilities</h1>
+  </div>
 </div>
 
+<section class="mt-5 mb-5 container-fluid">
+    <div class="text pt-5 text-center">
+        <h2>Facilities</h2>
+    </div>
+    <div class="list d-flex justify-content-center align-items-center">
+        <div class="row">
+            <div class="col-md">
+                <li>Microsoft Lab</li>
+                <li>IBM Centre of Excellence Lab</li>
+                <li>Software & Development Lab</li>
+                <li>Project Lab</li>
+                <li>Database and Data Analytics Lab</li>
+                <li>Multimedia, Interactive Sofware cum Games Experience Lab</li>
+            </div>
+            <div class="col-md">
+                <li>Internet of Things Lab</li>
+                <li>Cisco Equipment Lab</li>
+                <li>PC Maintenance Lab</li>
+                <li>Digital Forensics Lab</li>
+                <li>Cyber Warfare Training Lab</li>
+                <li>Mobile Application Development Lab</li>
+                <li>Computer Science Teaching Lab</li>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container-fluid justify-content-center align-items-center text-center mb-5">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/VbLIvaqQwpY?si=FsVGT3AJboMK8NqI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</section>
 
 {%endblock %}
