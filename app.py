@@ -15,8 +15,16 @@ def staffDirectory():
     return render_template("staffDirectory.html")
 
 @app.route('/programme')
-def programmes():
+def programme():
     return render_template("programme.html")
+
+@app.route('/programme1')
+def programme1():
+    return render_template("programme1.html")
+
+@app.route('/programme2')
+def programme2():
+    return render_template("programme2.html")
 
 @app.route('/recognition')
 def recognition():
