@@ -1,0 +1,89 @@
+{% extends "base.html"%}
+{% block title %} programme {% endblock %}
+{%block content %}
+<style>
+        /* Example 2: Background image with specific position and size */
+        .custom-position-size {
+            background-image: url('../static/assets/img/programmePic.jpg');
+             /* Set a specific size for the background image */
+             background-size: cover;
+            background-position: 0vh 80vh; /* Set a specific position (20px from left, 50px from top) */
+            height: 20vh;
+        }
+        .col img {
+          margin: 0%;
+          padding: 0%;
+        }
+
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="custom-position-size " >
+      <div class="container m-5 text-light"><h1>Programmes</h1></div>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col">
+      <div class="mb-5 text-center"><h1>Doctor of Philosophy (Computer Science) (N/481/8/0788) (10/25) (MQA/PA 10772)</h1></div>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="">
+      <ul class="nav justify-content-center nav-tabs nav-justified">
+        <li class="nav-item "><a class="nav-link active" data-bs-toggle="tab" href="#overview"><div class="">Programme Overview</div></a></li>
+        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#outline"><div class="">Programme Outline</div></a></li>
+        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#career"><div class="">Career Prospect</div></a></li>
+        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#req"><div class="">Mininum Entry Requirement</div></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="tab-content">
+        <div id="overview" class="tab-pane fade show active">
+            <p>Programme Overview:</p>
+            <p>Intake</p>
+            <p>Duration</p>
+            <p>Campus</p>
+        </div>
+        <div id="outline" class="tab-pane fade">
+            <p>Compulsory</p>
+        </div>
+        <div id="career" class="tab-pane fade">
+            <p>Career Prospects</p>
+        </div>
+        <div id="req" class="tab-pane fade">
+            <ul>
+                <li>Minimum Entry Requirements
+                    <ul>
+                        <li></li>
+                    </ul>
+                </li>
+                <li>English Language Requirements
+                    <ul>
+                        <li>Malaysian Students
+                            <ul>
+                                <li>MUET Band 4.0 or IELTS Band 6.0 or CEFR Mid B2 or TOEFL iBT 60 or equivalent; OR</li>
+                                <li>Exemption of English Language requirement if medium of instruction during Master studies was in English</li>
+                            </ul>
+                        </li>
+                        <li>International Students
+                            <ul>
+                                <li>IELTS Band 6.0 or CEFR Mid B2, TOEFL iBT 60 or equivalent; OR</li>
+                                <li>Exemption of English Language requirement if medium of instruction during Master studies was in English</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}
