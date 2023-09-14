@@ -30,6 +30,18 @@ def testimonials():
 def collaborationPartners():
     return render_template("collaborationPartners.html")
 
+@app.route('/externalExaminers')
+def externalExaminers():
+    return render_template("externalExaminers.html")
+
+@app.route('/IEAPBachelorDegree')
+def IEAPBachelorDegree():
+    return render_template("IEAPBachelorDegree.html")
+
+@app.route('/IEAPPostgraduate')
+def IEAPPostgraduate():
+    return render_template("IEAPPostgraduate.html")
+
 if __name__ == "__name__":
     app.run(debug=True)
 

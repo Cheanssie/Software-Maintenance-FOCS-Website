@@ -5,9 +5,12 @@ Testimonials
 
 {%block content %}
 <style>
-.card-hover:hover .card-container {
-  transform: translateY(-10px); /* Adjust the value to control how much it moves up */
-  transition: transform 0.35s ease; /* Add a smooth transition */
+.card-hover {
+  transition: 0.3s;
+}
+.card-hover:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
 }
 
 .list-group-item a {
@@ -29,7 +32,7 @@ Testimonials
         <div class="col-9 text-center">
           <h2 class="m-2">FOCS Alumni</h2>
           <div class="row row-cols-1 row-cols-md-3 g-4 m-4 justify-content-center">
-            <div class="">
+            <div class="card-hover">
               <div class="card h-100">
                 <a href="#" class="card-link">
                   <img src="../static/assets/img/why-us.png" class="card-img-top" alt="">
@@ -40,7 +43,7 @@ Testimonials
                 </div>
               </div>
             </div>
-            <div class="">
+            <div class="card-hover">
               <div class="card h-100">
                 <a href="#" class="card-link">
                   <img src="../static/assets/img/why-us.png" class="card-img-top" alt="">
