@@ -18,6 +18,10 @@ def staffDirectory():
 def programmes():
     return render_template("programme.html")
 
+@app.route('/recognition')
+def recognition():
+    return render_template("recognition.html")
+
 @app.route('/whyChooseUs')
 def whyChooseUs():
     return render_template("whyChooseUs.html")

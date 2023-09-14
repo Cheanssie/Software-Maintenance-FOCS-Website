@@ -1,0 +1,95 @@
+{% extends "base.html"%}
+{% block title %} Testimonials {% endblock %}
+{%block content %}
+<style>
+    /* Example 2: Background image with specific position and size */
+    .custom-position-size {
+        background-image: url('../static/assets/img/programmePic.jpg');
+         /* Set a specific size for the background image */
+         background-size: cover;
+        background-position: 0vh 80vh; /* Set a specific position (20px from left, 50px from top) */
+        height: 20vh;
+    }
+    .card-hover {
+    transition: 0.3s;
+    }
+
+    .card-hover:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+    }
+
+    .list-group-item a {
+    color: black;
+    }
+
+    .list-group-item i {
+    color: #eba200;
+    }
+
+    .para {
+        text-align: justify;
+        text-justify: inter-word;
+    }
+    </style>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="custom-position-size " >
+                <div class="container m-5 text-light"><h1>Testimonials</h1></div>
+            </div>
+        </div>
+    </div>
+
+<div class="container d-flex flex-column">
+    <div class="row justify-content-center m-4">
+        <div class="col-9 text-center">
+            <h2 class="m-2">TAR UMT Awarded Premier Digital Tech Institution Status Again</h2>
+            
+                <img src="../static/assets/img/testimonial1.jpeg" class="img-fluid" width="50%" height="50%">
+                <div class="fw-bold my-3">Prof Ir Dr Lee (2nd from right) receiving the award from YBhg Dato’ Prof Ir Dr Mohd Saleh Jaafar (2nd from left) together with Surina Shukri (leftmost) and Ts Dr Mohammad Naim Bin Yaakub (rightmost), Deputy Director General (Planning), Polytechnic & Community College Education Department in the Ministry of Education.</div>
+                <img src="../static/assets/img/testimonial2.jpg" class="img-fluid" width="50%" height="50%">
+                <div class="fw-bold my-3">The award trophy recognising TAR UMT as the Premier Digital Tech University.</div>
+                <div class="para">
+                    <div class="my-2">
+                        TAR UMT reaffirms its status as the top institution of higher learning that delivers first-class theoretical and practical training in digital technology by retaining its Premier Digital Tech University recognition awarded by Malaysia Digital Economy Corporation (‘MDEC’) for the second time. The award was received by Prof Ir Dr Lee Sze Wei, President of TAR UMT during the award presentation ceremony on 17 June 2019.
+                    </div>
+                    <div class="my-2">
+                        TAR UMT first obtained the status in 2017 and was one of eight institutions of higher learning to be accorded this prestigious recognition. This year, TAR UMT is selected again as the Premier Digital Tech University which points to the top-notch education at TAR UMT that produces digital technology talents.
+                    </div>
+                    <div class="my-2">
+                        “The Premier Digital Tech Institution initiative is very much in line with our national aspiration in empowering human talent. The Ministry of Education is keen to work closely with other government agencies and industry partners to produce knowledgeable, skilled and values-driven talents,” said Dato’ Prof Ir Dr Mohd Saleh Jaafar, Education Ministry’s Higher Education Division Deputy Director General. “Our objective is very clear – to strengthen the quality of digital technology graduates in order to create strong talent for ICT and other industries.”
+                    </div>
+                    <div class="my-2">
+                        Surina Shukri, Chief Executive Officer of MDEC, highlighted the background of this initiative in her speech. “This programme was conceptualised back in 2017 and since then we have been working with 8 universities and 5 polytechnics to test and build the programme focusing on computer science,” said Surina Shukri. “These institutions were selected not only based on their global ranking, but also graduate employability rates. The initiative with our key institutions is to strengthen computer science curriculum as well as teaching. This has proved to be a milestone in our efforts to prepare and strengthen a holistic and sustainable digital pipeline.”
+                    </div>
+                    <div class="my-2">
+                        “Over the past 18 months, MDEC has been working closely with the Ministry of Education’s Higher Education division, more than 80 industry partners and the Premier Digital Tech universities to strengthen institutions’ career counselling via digital technology curriculum, providing visual exposure to the industry and facilitating internships and placements,” she elaborated.
+                    </div>
+                    <div class="my-2">
+                        Beaming with pride after receiving the award, Prof Ir Dr Lee expressed his delight that TAR UMT was accorded this recognition again.
+                    </div>
+                    <div class="my-2">
+                        “It is an honour to be able to receive this award for the second time as it reinforces TAR UMT’s status as the top provider of digital talents in the country while positioning ourselves at the forefront of the digital transformational shift,” he said. “Moving forward, we will continue to empower the transfer of digital knowledge and future-proof our students in preparation for the digital revolution.”
+                    </div>
+                    <div class="my-2">
+                        A joint initiative developed by the Ministry of Higher Education (‘MOHE’) and MDEC in 2017, the Premier Digital Tech Institution initiative aims to produce top talents and future leaders in digital technology as well as other sectors such as manufacturing and agriculture.
+                    </div>
+                </div>
+            
+        </div>
+
+
+        <div class="col-md-3">
+            <h4 class="m-2 fs-6">More</h4>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="#"><i class="bi bi-chevron-right"></i>An item</a></li>
+                <li class="list-group-item"><a href="#"><i class="bi bi-chevron-right"></i>A second item</a></li>
+                <li class="list-group-item"><a href="#"><i class="bi bi-chevron-right"></i>A third item</a></li>
+                <li class="list-group-item"><a href="#"><i class="bi bi-chevron-right"></i>A fourth item</a></li>
+                <li class="list-group-item"><a href="#"><i class="bi bi-chevron-right"></i>And a fifth one</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
