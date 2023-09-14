@@ -14,20 +14,13 @@
           margin: 0%;
           padding: 0%;
         }
-        .square-icon {
-            position: absolute;
-            left: -30px; /* Adjust the position of the square icon */
-            top: 0;
-            width: 20px;
-            height: 20px;
-            background-color: #007bff; /* Change the square color as desired */
-        }
+
 </style>
 
 <div class="container-fluid">
   <div class="row">
     <div class="custom-position-size " >
-      <div class="m-5 text-light"><h1>Programmes</h1></div>
+      <div class="container m-5 text-light"><h1>Programmes</h1></div>
     </div>
   </div>
 </div>
@@ -35,7 +28,7 @@
 <div class="container my-5">
   <div class="row">
     <div class="col">
-      <div class="justify-content-center"><h1>Programmes</h1></div>
+      <div class="mb-5 text-center"><h1>Programmes</h1></div>
     </div>
   </div>
 
@@ -48,15 +41,79 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row mt-5">
     <div class="">
       <ul class="nav justify-content-center nav-tabs nav-justified">
-        <li class="nav-item"><a class="nav-link" href="#"><div class="">Doctor of Philosophy</div></a></li>
-        <li class="nav-item"><a class="nav-link" href="#"><div class="">Master Degree</div></a></li>
-        <li class="nav-item"><a class="nav-link" href="#"><div class="">Bachelor</div></a></li>
-        <li class="nav-item"><a class="nav-link" href="#"><div class="">Diploma</div></a></li>
+        <li class="nav-item "><a class="nav-link active" data-bs-toggle="tab" href="#doctor"><div class="">Doctor of Philosophy</div></a></li>
+        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#master"><div class="">Master Degree</div></a></li>
+        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#bachelor"><div class="">Bachelor</div></a></li>
+        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#diploma"><div class="">Diploma</div></a></li>
       </ul>
     </div>
   </div>
+
+  <div class="container mt-4">
+    <div class="tab-content">
+        <div id="doctor" class="tab-pane fade show active">
+          <p>The Faculty of Computing and Information Technology (FOCS) offers the following Doctor of Philosophy programmes:</p>
+            <ul>
+              <li><a href="">Doctor of Philosophy (Computer Science)</a></li>
+              <li><a href="">Doctor of Philosophy (Information Technology)</a></li>
+              <li><a href="">Doctor of Philosophy (Mathematical Sciences)</a></li>
+            </ul>
+        </div>
+        <div id="master" class="tab-pane fade">
+          <p>The Faculty of Computing and Information Technology (FOCS) offers the following Master Degree programmes:</p>
+            <ul>
+              <li><a href="">Master of Computer Science</a></li>
+              <li><a href="">Master of Information Technology</a></li>
+              <li><a href="">Master of Science in Mathematical Sciences</a></li>
+            </ul>
+        </div>
+        <div id="bachelor" class="tab-pane fade">
+          <p>The Faculty of Computing and Information Technology (FOCS) offers the following Bachelor Degree programmes:</p>
+          <ul>
+            <li>Bachelor of Science
+              <ul>
+                <li><a href="">Management Mathematics with Computing</a></li>
+              </ul>
+            </li>
+            <li>Bachelor of Computer Science
+              <ul>
+                <li><a href="">Interactive Software Technology</a></li>
+                <li><a href="">Data Science</a></li>
+              </ul>
+            </li>
+            <li>Bachelor of Information Systems
+              <ul>
+                <li><a href="">Enterprice Information System</a></li>
+              </ul>
+            </li>
+            <li>Bachelor of Information Technology
+              <ul>
+                <li><a href="">Information Security </a></li>
+                <li><a href="">Internert Technology</a></li>
+                <li><a href="">Software Systems Development</a></li>
+              </ul>
+            </li>
+            <li>Bachelor of Software Engineering</li>
+          </ul>
+        </div>
+        <div id="diploma" class="tab-pane fade">
+            <p>The Faculty of Computing and Information Technology (FOCS) offers the following Diploma programmes:</p>
+            <ul>
+              <li>Diploma Programmes
+                <ul>
+                  <li><a href="">Diploma in Computer Science</a></li>
+                  <li><a href="">Diploma in Information Systems</a></li>
+                  <li><a href="">Diploma in Information Technology</a></li>
+                  <li><a href="">Diploma in Software Engineering</a></li>
+                </ul>
+              </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
 </div>
 {% endblock %}
