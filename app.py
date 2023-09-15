@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
+from datetime import date
 
 
 app = Flask(__name__)
@@ -96,14 +97,59 @@ def recognition():
 def whyChooseUs():
     return render_template("whyChooseUs.html")
 
-@app.route('/highlights/<int:page_num>')
+@app.route('/highlights/<int:page_num>', methods=['GET', 'POST'])
 def highlights(page_num):
-    award = Award.query.paginate(per_page = 8, page = page_num, error_out = True)
+    if request.method == 'POST':
+        awardYearInput = request.form.get('awardYear')
+
+        if awardYearInput == '2023':
+            start_date = date(2023, 1, 1)
+            end_date = date(2023, 12, 31)
+        elif awardYearInput == '2022':
+            start_date = date(2022, 1, 1)
+            end_date = date(2022, 12, 31)
+        elif awardYearInput == '2021':
+            start_date = date(2021, 1, 1)
+            end_date = date(2021, 12, 31)
+        elif awardYearInput == '2020':
+            start_date = date(2020, 1, 1)
+            end_date = date(2020, 12, 31) 
+        else: 
+            start_date = date(2020, 1, 1)
+            end_date = date(2023, 12, 31)
+
+        awardInputStartDate = start_date;
+        awardInputEndDate = end_date;
+        award = Award.query.filter(Award.awardDate.between(awardInputStartDate, awardInputEndDate)).paginate(per_page = 8, page = page_num, error_out = True)
+
+    else:
+        award = Award.query.paginate(per_page = 8, page = page_num, error_out = True)
     return render_template("highlights.html", awards=award)
 
 @app.route('/events/<int:page_num>')
 def events(page_num):
-    event = Event.query.paginate(per_page = 8, page = page_num, error_out = True)
+    if request.method == 'POST':
+        eventYearInput = request.form.get('eventYear')
+
+        if eventYearInput == '2023':
+            start_date = date(2023, 1, 1)
+            end_date = date(2023, 12, 31)
+        elif eventYearInput == '2022':
+            start_date = date(2022, 1, 1)
+            end_date = date(2022, 12, 31)
+        elif eventYearInput == '2021':
+            start_date = date(2021, 1, 1)
+            end_date = date(2021, 12, 31)
+        else: 
+            start_date = date(2021, 1, 1)
+            end_date = date(2023, 12, 31)
+
+        eventInputStartDate = start_date;
+        eventInputEndDate = end_date;
+        event = Event.query.filter(Event.eventDate.between(eventInputStartDate, eventInputEndDate)).paginate(per_page = 8, page = page_num, error_out = True)
+
+    else:
+        event = Event.query.paginate(per_page = 8, page = page_num, error_out = True)
     return render_template("events.html", events=event)
 
 @app.route('/testimonials')
