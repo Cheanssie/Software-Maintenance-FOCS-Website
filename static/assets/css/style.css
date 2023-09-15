@@ -207,7 +207,7 @@ span {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px 10px 20px;
+  padding: 10px 17px 10px 17px;
   font-family: "Montserrat", Helvetica, Arial, sans-serif;;
   font-size: 12px;
   color: #fff;
@@ -283,6 +283,18 @@ span {
   top: 0;
   left: 100%;
   visibility: visible;
+}
+
+/** Additional Nav Icon Css **/
+.nav-fa-circle {
+  font-size: 28px !important;
+  color: #d28900 !important;
+  margin-top: 12px !important;
+}
+
+.nav-fa {
+  font-size: 14px !important;
+  margin-top: 12px !important;
 }
 
 @media (max-width: 1366px) {
