@@ -45,6 +45,17 @@ class Event(db.Model):
 
     def __repr__(self):
         return f'Item {self.eventTitle}'
+    
+class Programme(db.Model):
+    progId = db.Column(db.Integer(), primary_key=True)
+    progName = db.Column(db.String(1000))
+    progOverview = db.Column(db.String(200))
+    progDuration = db.Column(db.String(100))
+    progCampus = db.Column(db.String(100))
+    progIntake = db.Column(db.String(100))
+    progReq = db.Column(db.String(200))
+    progOutline = db.Column(db.String(1000))
+    progCareer = db.Column(db.String(500))
 
 @app.route('/')
 def index():
@@ -70,7 +81,8 @@ def programme():
 
 @app.route('/programme1')
 def programme1():
-    return render_template("programme1.html")
+    id = request.args.get('id')
+    return render_template("programme1.html",content=id)
 
 @app.route('/programme2')
 def programme2():
