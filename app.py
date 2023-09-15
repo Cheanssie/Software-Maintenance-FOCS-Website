@@ -172,6 +172,14 @@ def IEAPBachelorDegree():
 def IEAPPostgraduate():
     return render_template("IEAPPostgraduate.html")
 
+@app.route('/aboutUs')
+def aboutUs():
+    return render_template("aboutUs.html")
+
+@app.route('/cictis')
+def cictis():
+    return render_template("cictis.html")
+
 if __name__ == "__name__":
     app.run(debug=True)
 
