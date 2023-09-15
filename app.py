@@ -164,6 +164,10 @@ def IEAPPostgraduate():
 def aboutUs():
     return render_template("aboutUs.html")
 
+@app.route('/cictis')
+def cictis():
+    return render_template("cictis.html")
+
 if __name__ == "__name__":
     app.run(debug=True)
 
