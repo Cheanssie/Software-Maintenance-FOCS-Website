@@ -160,6 +160,10 @@ def IEAPBachelorDegree():
 def IEAPPostgraduate():
     return render_template("IEAPPostgraduate.html")
 
+@app.route('/aboutUs')
+def aboutUs():
+    return render_template("aboutUs.html")
+
 if __name__ == "__name__":
     app.run(debug=True)
 
