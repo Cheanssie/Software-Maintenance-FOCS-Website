@@ -18,3 +18,25 @@ class staffDirectory(db.Model):
 
     def __repr__(self):
         return f'{self.staffName}'
+    
+class Award(db.Model):
+    __tablename__ = "Award"
+
+    awardId = db.Column(db.Integer(), primary_key=True)
+    awardTitle = db.Column(db.String(300), nullable=False, unique=True)
+    awardDate = db.Column(db.Date, nullable=False)
+    awardPhoto = db.Column(db.String(1024), nullable=False)
+
+    def __repr__(self):
+        return f'Item {self.awardTitle}'
+    
+class Event(db.Model):
+    __tablename__ = "Event"
+
+    eventId = db.Column(db.Integer(), primary_key=True)
+    eventTitle = db.Column(db.String(300), nullable=False, unique=True)
+    eventDate = db.Column(db.Date, nullable=False)
+    eventPhoto = db.Column(db.String(1024), nullable=False)
+
+    def __repr__(self):
+        return f'Item {self.eventTitle}'

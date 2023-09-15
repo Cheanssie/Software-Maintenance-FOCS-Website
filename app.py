@@ -23,6 +23,28 @@ class staffDirectory(db.Model):
 
     def __repr__(self):
         return f'{self.staffName}'
+    
+class Award(db.Model):
+    __tablename__ = "Award"
+
+    awardId = db.Column(db.Integer(), primary_key=True)
+    awardTitle = db.Column(db.String(300), nullable=False)
+    awardDate = db.Column(db.Date, nullable=False)
+    awardPhoto = db.Column(db.String(1024), nullable=False)
+
+    def __repr__(self):
+        return f'Item {self.awardTitle}'
+    
+class Event(db.Model):
+    __tablename__ = "Event"
+
+    eventId = db.Column(db.Integer(), primary_key=True)
+    eventTitle = db.Column(db.String(300), nullable=False)
+    eventDate = db.Column(db.Date, nullable=False)
+    eventPhoto = db.Column(db.String(1024), nullable=False)
+
+    def __repr__(self):
+        return f'Item {self.eventTitle}'
 
 @app.route('/')
 def index():
@@ -61,6 +83,16 @@ def recognition():
 @app.route('/whyChooseUs')
 def whyChooseUs():
     return render_template("whyChooseUs.html")
+
+@app.route('/highlights/<int:page_num>')
+def highlights(page_num):
+    award = Award.query.paginate(per_page = 8, page = page_num, error_out = True)
+    return render_template("highlights.html", awards=award)
+
+@app.route('/events/<int:page_num>')
+def events(page_num):
+    event = Event.query.paginate(per_page = 8, page = page_num, error_out = True)
+    return render_template("events.html", events=event)
 
 @app.route('/testimonials')
 def testimonials():
