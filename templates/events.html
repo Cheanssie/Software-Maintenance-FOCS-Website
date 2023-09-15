@@ -23,6 +23,21 @@ Highlights
     flex: 25%;
   }
 
+  input[type=submit] {
+    background-color: #0021f3;
+    font-size: 85%;
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    width: 200px;
+    height: 75%;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold
+  }
+
 </style>
 
 <main>
@@ -37,8 +52,6 @@ Highlights
         <tbody>
           {% for event in events.items %}
           <tr>
-            <th scope="row" style="width:5%; text-align: center">{{ event.eventId }}
-            </th>
             <td style="width:10%"><img src="../static/assets/img/{{ event.eventPhoto }}" alt="Events (Header)"
                 style="width: 100px; height: 70px; object-fit: contain" </td>
             <td style="font-weight: bold; width:65%">{{ event.eventTitle }}</td>
@@ -70,21 +83,38 @@ Highlights
     </div>
 
 
-    <!-- Archive Category -->
     <div class="flex-item-right">
-      <p style="float: right; width: 250px; font-family:Verdana, Geneva, Tahoma, sans-serif; font-weight: bold">Archive Categories</p>
-      <div class="list-group" style="float: right; width: 250px">
-        <a href="{{ url_for('highlights', page_num = 1) }}" class="list-group-item list-group-item-action">
+      <div>
+        <form method="POST" action="/highlights/1" style="float: left; margin-left: 30px">
+          <input type="radio" value=All name="eventYear">All Year</br>
+          <input type="radio" value=2023 name="eventYear">Year 2023</br>
+          <input type="radio" value=2022 name="eventYear">Year 2022</br>
+          <input type="radio" value=2021 name="eventYear">Year 2021</br>
+          <input type="submit" value="Filter"> 
+        </form>
+      </div>
+
+      <!-- Archive Category -->
+      <div>
+        <p style="float: left; margin-left: 30px; margin-top: 50px; width: 200px; font-family:Verdana, Geneva, Tahoma, sans-serif; font-weight: bold">
+          <u>Archive Categories</u></p>
+        <button type="button" class="btn btn-primary btn-sm" style="float: left; margin-left: 30px; width: 200px; height: fit-content">
           <div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
-            </svg>
-            <h style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Awards</h>
+            <a href="{{ url_for('highlights', page_num = 1) }}" class="list-group-item list-group-item-action">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z" />
+                </svg>
+                <h style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Awards</h>
+              </div>
+            </a>
           </div>
-        </a>
+        </button>   
+        
       </div>
     </div>
   </div>
-
 </main>
 {%endblock %}
