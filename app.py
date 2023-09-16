@@ -200,6 +200,11 @@ def ccncs():
 def cicrnd():
     return render_template("cicrnd.html")
 
+@app.route('/viewRecords')
+def viewRec():
+    records = staffDirectory.query.all()
+    return render_template('viewRecords.html', records=records)
+
 if __name__ == "__name__":
     app.run(debug=True)
 
