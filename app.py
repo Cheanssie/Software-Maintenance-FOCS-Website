@@ -58,6 +58,9 @@ class Programme(db.Model):
     progOutline = db.Column(db.String(1000))
     progCareer = db.Column(db.String(500))
 
+    def __repr__(self) :
+        return f'Item{self.progName}'
+
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -83,11 +86,12 @@ def programme():
 @app.route('/programme1')
 def programme1():
     id = request.args.get('id')
-    return render_template("programme1.html",content=id)
+    return render_template("programme1.html",progID=id)
 
 @app.route('/programme2')
 def programme2():
-    return render_template("programme2.html")
+    id = request.args.get('id')
+    return render_template("programme2.html",progID=id)
 
 @app.route('/recognition')
 def recognition():
