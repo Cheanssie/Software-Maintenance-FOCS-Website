@@ -40,10 +40,11 @@ Highlights
 </style>
 
 <main>
-  <div class="awardsHeader">
-    <img src="../static/assets/img/awardsHeader.PNG" alt="Awards (Header)"
-      style="width: 100%; height: auto; object-fit: contain">
+  <div
+    style="background-image: url('../static/assets/img/awardsHeader.jpg'); background-position: top 80%; background-size: cover; width: 100%; height: 150px;">
+    <h1 class="position-absolute ml-2" style="margin-top: 50px; color:white; margin-left: 120px;">Awards</h1>
   </div>
+
 
   <!-- Display Award Details -->
   <div class="flex-container">
@@ -91,15 +92,18 @@ Highlights
           <input type="radio" value=2022 name="awardYear">Year 2022</br>
           <input type="radio" value=2021 name="awardYear">Year 2021</br>
           <input type="radio" value=2020 name="awardYear">Year 2020</br>
-          <input type="submit" value="Filter"> 
+          <input type="submit" value="Filter">
         </form>
       </div>
 
       <!-- Archive Category -->
       <div>
-        <p style="float: left; margin-left: 30px; margin-top: 50px; width: 200px; font-family:Verdana, Geneva, Tahoma, sans-serif; font-weight: bold">
-          <u>Archive Categories</u></p>
-        <button type="button" class="btn btn-primary btn-sm" style="float: left; margin-left: 30px; width: 200px; height: fit-content">
+        <p
+          style="float: left; margin-left: 30px; margin-top: 50px; width: 200px; font-family:Verdana, Geneva, Tahoma, sans-serif; font-weight: bold">
+          <u>Archive Categories</u>
+        </p>
+        <button type="button" class="btn btn-primary btn-sm"
+          style="float: left; margin-left: 30px; width: 200px; height: fit-content">
           <div>
             <a href="{{ url_for('events', page_num = 1) }}" class="list-group-item list-group-item-action">
               <div>
@@ -108,12 +112,14 @@ Highlights
                   <path fill-rule="evenodd"
                     d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z" />
                 </svg>
-                <h style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Events</h>
+                <h
+                  style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                  Events</h>
               </div>
             </a>
           </div>
-        </button>   
-        
+        </button>
+
       </div>
     </div>
   </div>
