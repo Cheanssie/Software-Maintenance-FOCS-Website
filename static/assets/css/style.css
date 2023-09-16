@@ -378,6 +378,15 @@ span {
   .navbar ul {
     display: none !important;
   }
+  
+  #header{
+    height: 80px;
+  }
+
+  .void-overlap{
+    margin-top: 80px !important;
+  }
+
 }
 
 .navbar-mobile {
