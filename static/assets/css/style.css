@@ -297,6 +297,17 @@ span {
   margin-top: 12px !important;
 }
 
+.nav-fa-circle-mobile {
+  font-size: 28px !important;
+  color: #d28900 !important;
+}
+
+.nav-fa-mobile {
+  font-size: 14px !important;
+  color: white;
+  margin-top: 1px !important;
+}
+
 @media (max-width: 1366px) {
   .navbar .dropdown .dropdown ul {
     left: -90%;
@@ -365,7 +376,7 @@ span {
   }
 
   .navbar ul {
-    display: none;
+    display: none !important;
   }
 }
 
