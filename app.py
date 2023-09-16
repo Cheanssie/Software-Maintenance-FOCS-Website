@@ -201,7 +201,7 @@ def cicrnd():
     return render_template("cicrnd.html")
 
 @app.route('/viewRecords')
-def viewRec():
+def viewRecords():
     records = staffDirectory.query.all()
     return render_template('viewRecords.html', records=records)
 
