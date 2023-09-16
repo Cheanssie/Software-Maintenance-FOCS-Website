@@ -56,16 +56,25 @@
             <p>{{prog.progCampus}}</p>
         </div>
         <div id="outline" class="tab-pane fade">
-            <p>Compulsory</p>
+            <h4>Compulsory</h4>
+            <ul>
+              <li>Research Methodology</li>
+              <li>Doctoral Research</li>
+              <li>Special Topic</li>
+            </ul>
         </div>
         <div id="career" class="tab-pane fade">
-            <p>Career Prospects</p>
+            <h4>Career Prospects</h4>
+            {%set careers = prog.progCareer.split("#")%}
+            {%for career in careers%}
+            <p>{{career}}</p>
+            {% endfor %}
         </div>
         <div id="req" class="tab-pane fade">
             <ul>
                 <li>Minimum Entry Requirements
                     <ul>
-                        <li></li>
+                        <li>A Master's Degree or equivalent AND candidates must have completed ONE (1) of their Degrees (Master's or Bachelor's) in Computing or related to computing.</li>
                     </ul>
                 </li>
                 <li>English Language Requirements

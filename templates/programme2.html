@@ -55,20 +55,41 @@
   <div class="container mt-4">
     <div class="tab-content">
         <div id="overview" class="tab-pane fade show active">
-            <p>Programme Overview:</p>
-            <p>Intake</p>
-            <p>Duration</p>
-            <p>Campus</p>
+            <h4>Programme Overview:</h4>
+            <p>{{prog.progOverview}}</p>
+            <h4>Intake</h4>
+            {%set intakes = prog.progIntake.split("#")%}
+            {%for intake in intakes%}
+            <p>{{intake}}</p>
+            {% endfor %}
+            <h4>Duration</h4>
+            {%set durations = prog.progDuration.split("#")%}
+            {%for duration in durations%}
+            <p>{{duration}}</p>
+            {% endfor %}
+            <h4>Campus</h4>
+            {%set campuses = prog.progCampus.split("#")%}
+            {%for campus in campuses%}
+            <p>{{campus}}</p>
+            {% endfor %}
         </div>
         <div id="outline" class="tab-pane fade">
-            <p>Compulsory</p>
+            <h4>Programme Outline:</h4>
+            {%set outlines = prog.progOutline.split("#")%}
+            {%for outline in outlines%}
+            <p>{{outline}}</p>
+            {% endfor %}
         </div>
         <div id="career" class="tab-pane fade">
-            <p>Career Prospects</p>
+            <h4>Career Prospects</h4>
+            {%set careers = prog.progCareer.split("#")%}
+            {%for career in careers%}
+            <p>{{career}}</p>
+            {% endfor %}
         </div>
         <div id="req" class="tab-pane fade">
-            <p>Entry Requirement</p>
-            <img src="" class="img-fluid">
+            <h4>Entry Requirement</h4>
+            <img src="../static/assets/img/{{prog.progReq}}" class="img-fluid">
         </div>
     </div>
 </div>
