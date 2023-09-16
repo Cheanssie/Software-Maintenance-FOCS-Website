@@ -200,6 +200,10 @@ def ccncs():
 def cicrnd():
     return render_template("cicrnd.html")
 
+@app.route('/enrollment')
+def enrollment():
+    return render_template("enrollment.html")
+
 @app.route('/viewRecords')
 def viewRecords():
     records = staffDirectory.query.all()
