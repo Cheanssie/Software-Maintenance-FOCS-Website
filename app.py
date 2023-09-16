@@ -184,6 +184,35 @@ def aboutUs():
 def cictis():
     return render_template("cictis.html")
 
+@app.route('/cdsa')
+def cdsa():
+    return render_template("cdsa.html")
+
+@app.route('/cci')
+def cci():
+    return render_template("cci.html")
+
+@app.route('/ciot')
+def ciot():
+    return render_template("ciot.html")
+
+@app.route('/ccncs')
+def ccncs():
+    return render_template("ccncs.html")
+
+@app.route('/cicrnd')
+def cicrnd():
+    return render_template("cicrnd.html")
+
+@app.route('/enrollment')
+def enrollment():
+    return render_template("enrollment.html")
+
+@app.route('/viewRecords')
+def viewRecords():
+    records = staffDirectory.query.all()
+    return render_template('viewRecords.html', records=records)
+
 if __name__ == "__name__":
     app.run(debug=True)
 

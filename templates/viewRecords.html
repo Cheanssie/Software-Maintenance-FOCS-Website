@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+Highlights
+{% endblock %}
+
+{%block content %}
+
+<main>
+    <div class="m-4 ">
+{% for r in records %}
+<p>{{ r.staffPhoto }}</p>
+<p>{{ r.id }}</p>
+<p>{{ r.staffName }}</p>
+<p>{{ r.staffPosition }}</p>
+{% endfor %}
+</div>
+</main>
+{%endblock %}
