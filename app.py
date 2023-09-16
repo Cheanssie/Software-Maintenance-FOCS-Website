@@ -58,8 +58,15 @@ class Programme(db.Model):
     progOutline = db.Column(db.String(1000))
     progCareer = db.Column(db.String(500))
 
-    def __repr__(self) :
-        return f'Item{self.progName}'
+def __init__(self, progName, progOverview, progDuration, progCampus, progIntake, progReq, progOutline, progCareer):
+    self.progName = progName
+    self.progOverview = progOverview
+    self.progDuration = progDuration
+    self.progCampus = progCampus
+    self.progIntake = progIntake
+    self.progReq = progReq
+    self.progOutline = progOutline
+    self.progCareer = progCareer
 
 @app.route('/')
 def index():
@@ -86,12 +93,12 @@ def programme():
 @app.route('/programme1')
 def programme1():
     id = request.args.get('id')
-    return render_template("programme1.html",progID=id)
+    return render_template("programme1.html",progs = Programme.query.filter_by(progId = id).all())
 
 @app.route('/programme2')
 def programme2():
     id = request.args.get('id')
-    return render_template("programme2.html",progID=id)
+    return render_template("programme2.html",progs = Programme.query.filter_by(progId = id).all())
 
 @app.route('/recognition')
 def recognition():

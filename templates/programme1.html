@@ -24,11 +24,11 @@
     </div>
   </div>
 </div>
-
+{% for prog in progs %}
 <div class="container my-5">
   <div class="row">
     <div class="col">
-      <div class="mb-5 text-center"><h1>Doctor of Philosophy (Computer Science) (N/481/8/0788) (10/25) (MQA/PA 10772)</h1></div>
+      <div class="mb-5 text-center"><h1>{{prog.progName}}</h1></div>
     </div>
   </div>
 
@@ -46,10 +46,14 @@
   <div class="container mt-4">
     <div class="tab-content">
         <div id="overview" class="tab-pane fade show active">
-            <p>Programme Overview:</p>
-            <p>Intake</p>
-            <p>Duration</p>
-            <p>Campus</p>
+            <h4>Programme Overview:</h4>
+            <p>{{prog.progOverview}}</p>
+            <h4>Intake</h4>
+            <p>{{prog.progIntake}}</p>
+            <h4>Duration</h4>
+            <p>{{prog.progDuration}}</p>
+            <h4>Campus</h4>
+            <p>{{prog.progCampus}}</p>
         </div>
         <div id="outline" class="tab-pane fade">
             <p>Compulsory</p>
@@ -84,6 +88,6 @@
         </div>
     </div>
 </div>
-
+{% endfor %}
 </div>
 {% endblock %}
