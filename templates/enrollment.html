@@ -17,19 +17,28 @@ Enrollment
     <h1 class="position-absolute ml-2" style="margin-top: 50px; color:white; margin-left: 120px;">Enrollment</h1>
   </div>
   <div class="container d-flex flex-column m-auto m-5 p-5">
-    <form class="mt-1" id="section1">
+    <form class="mt-1 needs-validation" id="section1" novalidate>
       <h3 class="text-center">Personal Information</h3>
       <div class="mb-3">
         <label for="inputName" class="form-label">Name</label>
-        <input type="text" class="form-control" name="inputName" id="inputName">
+        <input type="text" class="form-control" name="inputName" id="inputName" required>
+        <div class="invalid-feedback">
+          Please enter your name
+        </div>
       </div>
       <div class="mb-3">
         <label for="inputEmail" class="form-label">Email address</label>
-        <input type="email" class="form-control" name="inputEmail" id="inputEmail">
+        <input type="email" class="form-control" name="inputEmail" id="inputEmail" required>
+        <div class="invalid-feedback">
+          Please enter your email
+        </div>
       </div>
       <div class="mb-3">
         <label for="inputTel" class="form-label">Phone Number</label>
-        <input type="tel" class="form-control" name="inputTel" id="inputTel">
+        <input type="tel" class="form-control" name="inputTel" id="inputTel" required>
+        <div class="invalid-feedback">
+          Please enter your phone number
+        </div>
       </div>
       <fieldset class="mb-3">
         <label class="form-label d-block">Gender</label>
@@ -46,20 +55,23 @@ Enrollment
           </label>
         </div>
       </fieldset>
-      <button type="button" class="btn btn-primary d-block m-auto" onclick="showSection('section2')">Next</button>
+      <button type="button" class="btn btn-primary d-block m-auto" onclick="showSection('section2')" id="nextButton">Next</button>
     </form>
 
-    <form class="mt-1" id="section2" style="display: none;">
+    <form class="mt-1 needs-validation" id="section2" style="display: none;" novalidate>
       <h3 class="text-center mb-3">Academic Qualification</h3>
       <div class="mb-3">
         <label class="form-label" for="inputProgramme">Select Your Programme</label>
-        <select class="form-select" name="inputProgramme" id="inputProgramme" aria-label="Default select example">
+        <select class="form-select" name="inputProgramme" id="inputProgramme" aria-label="Default select example" required>
           <option selected value="">Select an option</option>
           <option value="CS">Diploma in Computer Science</option>
           <option value="IS">Diploma in Information System</option>
           <option value="IT">Diploma in Information Technology</option>
           <option value="SE">Diploma in Software Engineering</option>
         </select>
+        <div class="invalid-feedback">
+          Please select your programme
+        </div>
       </div>
       <div class="row mb-3">
         <div class="col-6 ">
@@ -72,7 +84,10 @@ Enrollment
         </div>
         <div class="col-6 ">
           <label class="form-label " for="fileInput">Upload Result:</label>
-          <input class="form-control " type="file" id="fileInput" name="fileInput" onchange="uploadFile()">
+          <input class="form-control " type="file" id="fileInput" name="fileInput" onchange="uploadFile()" required>
+          <div class="invalid-feedback">
+            Please upload your result
+          </div>
         </div>
       </div>
       <div>
@@ -85,7 +100,7 @@ Enrollment
       </div>
       <div class="d-flex justify-content-center">
         <button type="button" class="btn btn-primary d-inline m-2" onclick="showSection('section1')">Previous</button>
-        <button type="button" class="btn btn-primary d-inline m-2" onclick="checkEligibility()">Submit</button>
+        <button type="button" class="btn btn-primary d-inline m-2" onclick="checkEligibility()" id="submitBtn">Submit</button>
       </div>
     </form>
   </div>
@@ -384,6 +399,67 @@ Enrollment
     }
 
   }
+
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+  'use strict';
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation');
+
+  // Fetch the section2 form
+  var section2Form = document.querySelector('#section2');
+  var submitButton = section2Form.querySelector('#submitBtn');
+
+  function enableOrDisableButton() {
+    if (section2Form.checkValidity()) {
+      submitButton.removeAttribute('disabled');
+    } else {
+      submitButton.setAttribute('disabled', 'disabled');
+    }
+  }
+
+  function showSection(sectionId) {
+    // Your showSection function implementation
+  }
+
+  enableOrDisableButton();
+
+  forms.forEach(function (form) {
+    var nextButton = form.querySelector('#nextButton');
+
+    enableOrDisableButton();
+
+    form.addEventListener('input', function () {
+      enableOrDisableButton();
+    });
+
+    nextButton.addEventListener('click', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      } else {
+        showSection('section2');
+      }
+
+      form.classList.add('was-validated');
+    }, false);
+  });
+
+  submitButton.addEventListener('click', function (event) {
+    if (!section2Form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      // Handle the form submission or other actions here
+      // For now, let's assume the form is valid and proceed
+      alert('Form submitted successfully.');
+    }
+
+    section2Form.classList.add('was-validated');
+  }, false);
+})();
+
 
 </script>
 {%endblock %}
