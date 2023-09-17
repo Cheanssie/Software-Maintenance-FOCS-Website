@@ -75,6 +75,9 @@ class Programme(db.Model):
     progOutline = db.Column(db.String(1000))
     progCareer = db.Column(db.String(500))
 
+    def __repr__(self):
+        return f'Item {self.progName}'
+
 def __init__(self, progName, progOverview, progDuration, progCampus, progIntake, progReq, progOutline, progCareer):
     self.progName = progName
     self.progOverview = progOverview
@@ -241,6 +244,14 @@ def viewRecords():
 @app.route('/uploadResult')
 def uploadResult():
     return render_template("uploadResult.html", os=os) 
+
+@app.route('/searchProgramme', methods=["GET", "POST"])
+def searchProgramme():
+    programmeName = request.form["programme"]
+    searchProgramme = Programme.query.filter(Programme.progName.contains(programmeName))
+    results = Programme.query.filter(Programme.progName.contains(programmeName)).count()
+    return render_template("searchProgramme.html", programmeName = programmeName, searchProgramme = searchProgramme, results = results)
+    return 
 
 def readImage(filename):
     myconfig = r"--psm 4 --oem 3"
