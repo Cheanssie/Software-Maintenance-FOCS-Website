@@ -1,12 +1,29 @@
-from flask import Flask, redirect, render_template, url_for, request
+from flask import Flask, flash, redirect, render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
-
+from werkzeug.utils import secure_filename
+import pytesseract
+from pytesseract import Output
+from PIL import Image
+import cv2
+import os
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///FOCS.db"
 db = SQLAlchemy(app)
 app.app_context().push()
+
+#change the folder name 
+imageUploadPath = 'C:/Users/2002c/Downloads/FOCS_Website/static/assets/img/uploadImageFolder'
+
+app.secret_key = "secret_key"
+app.config['UPLOAD_FOLDER'] = imageUploadPath
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+imageAllowedExtension = set(['png', 'jpg', 'jpeg', 'gif'])
+ 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in imageAllowedExtension
 
 class staffDirectory(db.Model):
     __tablename__ = "staffDirectory"
@@ -67,6 +84,7 @@ def __init__(self, progName, progOverview, progDuration, progCampus, progIntake,
     self.progReq = progReq
     self.progOutline = progOutline
     self.progCareer = progCareer
+
 
 @app.route('/')
 def index():
@@ -137,7 +155,7 @@ def highlights(page_num):
         award = Award.query.paginate(per_page = 8, page = page_num, error_out = True)
     return render_template("highlights.html", awards=award)
 
-@app.route('/events/<int:page_num>')
+@app.route('/events/<int:page_num>', methods=['GET', 'POST'])
 def events(page_num):
     if request.method == 'POST':
         eventYearInput = request.form.get('eventYear')
@@ -219,6 +237,40 @@ def enrollment():
 def viewRecords():
     records = staffDirectory.query.all()
     return render_template('viewRecords.html', records=records)
+
+@app.route('/uploadResult')
+def uploadResult():
+    return render_template("uploadResult.html") 
+
+#flash - show message to users
+@app.route('/uploadResult', methods=['POST', 'GET'])
+def upload_image():
+    if request.method == "POST":
+        if 'resultInputfile' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        inputFile = request.files['resultInputfile']
+        if inputFile.filename == '':
+            flash('No image selected for uploading')
+            return redirect(request.url)
+        if inputFile and allowed_file(inputFile.filename):
+            filename = secure_filename(inputFile.filename)
+            inputFile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            readImage(filename)
+            return render_template("extractResult.html", filename=filename)
+        else:
+            flash('Allowed image types are - png, jpg, jpeg, gif')
+            return redirect(request.url) 
+        
+    else:
+        return render_template("uploadResult.html")
+    
+def readImage(filename):
+    myconfig = r"--psm 4 --oem 3"
+    #change image path name
+    uploadImage = Image.open(f'C:/Users/2002c/Downloads/FOCS_Website/static/assets/img/uploadImageFolder/{filename}')
+    text = pytesseract.image_to_string(uploadImage, config=myconfig)
+    print(text)
 
 if __name__ == "__name__":
     app.run(debug=True)
