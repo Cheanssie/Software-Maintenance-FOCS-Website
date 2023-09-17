@@ -61,7 +61,7 @@ Enrollment
         </div>
         <div class="col-6 ">
           <label class="form-label " for="fileInput">Upload Result:</label>
-          <input class="form-control " type="file" id="fileInput" name="fileInput">
+          <input class="form-control " type="file" id="fileInput" name="fileInput" onchange="uploadFile()">
         </div>
       </div>
       <div>
@@ -441,6 +441,7 @@ Enrollment
       <div class="d-flex justify-content-center">
         <button type="button" class="btn btn-primary d-inline m-2" onclick="showSection('section1')">Previous</button>
         <button type="button" class="btn btn-primary d-inline m-2">Submit</button>
+        <p id="test"></p>
       </div>
     </form>
   </div>
@@ -459,6 +460,29 @@ Enrollment
     if (targetSection) {
       targetSection.style.display = 'block';
     }
+  }
+</script>
+
+<script>
+  function uploadFile() {
+    const fileInput = document.getElementById("fileInput");
+    const formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+
+    fetch("/process_ocr", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the returned JSON data (your result) here
+        // For example, update an HTML element with the result
+        const resultContainer = document.getElementById("test");
+        resultContainer.innerHTML = JSON.stringify(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }
 </script>
 {%endblock %}
