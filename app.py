@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, render_template, url_for, request
+from flask import Flask, flash, redirect, render_template, url_for, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 from werkzeug.utils import secure_filename
@@ -248,7 +248,7 @@ def readImage(filename):
     uploadImage = Image.open(f'{imageUploadPath}/{filename}')
     text = pytesseract.image_to_string(uploadImage, config=myconfig)
     print(text)
-    correctText(text)
+    return correctText(text)
 
 #build a grade dictionary
 grade_dict = {
@@ -309,6 +309,7 @@ subject_codes = {
 def correctText(text):
     corrected_input = correct_input(text, common_words)
     print(corrected_input)
+    subject_grade_dict = {}
     # Iterate over the list of subjects
     for subject in subjects:
         # Check if the subject is present in the input text
@@ -317,7 +318,10 @@ def correctText(text):
             grade = re.search(r"CEMERLANG TERTINGGI|CEMERLANG TINGGI|CEMERLANG|KEPUJIAN TERTINGGI|KEPUJIAN TINGGI|KEPUJIAN ATAS|KEPUJIAN|LULUS ATAS|LULUS|GAGAL|TIDAK HADIR", corrected_input).group()
 
             # Print the grade for the subject
-            print(f"{subject} : {grade_dict[grade]}")
+            subject_grade_dict[subject] = grade_dict[grade]
+            #print(f"{subject} : {grade_dict[grade]}")
+    
+    return subject_grade_dict
 
 
 def compare_words(word1, word2):
@@ -371,8 +375,9 @@ def upload_image():
         if inputFile and allowed_file(inputFile.filename):
             filename = secure_filename(inputFile.filename)
             inputFile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            readImage(filename)
-            return render_template("extractResult.html", filename=filename)
+            readResults = dict(readImage(filename))
+            print(readResults)
+            return render_template("extractResult.html", filename=filename, readResults=readResults)
         else:
             flash('Allowed image types are - png, jpg, jpeg, gif')
             return redirect(request.url) 
@@ -380,6 +385,26 @@ def upload_image():
     else:
         return render_template("uploadResult.html")
     
+@app.route('/process_ocr', methods=['POST'])
+def process_ocr():
+   if 'file' not in request.files:
+       return jsonify({'error':'No file apart'})
+   
+   file = request.files['file']
+   
+   if file.filename == '':
+        return jsonify({"error": "No selected file"})
+   
+   if file:
+        filename = secure_filename(file.filename)
+        file_path = f'{imageUploadPath}/{filename}'
+        file.save(filename)
+
+        readResults = readImage(filename)
+        os.remove(filename)  # Remove the uploaded file
+        
+        return jsonify(readResults)
+
 if __name__ == "__name__":
     app.run(debug=True)
 

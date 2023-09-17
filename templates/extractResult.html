@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 {% block title %}
-Upload Result
+Extract Result
 {% endblock %}
 
 {%block content %}
 <main>
-
+    <div>
+        {% for sub, grade in readResults.items() %}
+        <p>{{ sub }}</p>
+        <p>{{ grade }}</p>
+        {% endfor %}
+    </div>
 
 
 </main>
