@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 app.app_context().push()
 
 #change the folder name 
-imageUploadPath = 'C:/Users/2002c/Downloads/FOCS_Website/static/assets/img/uploadImageFolder'
+imageUploadPath = os.path.join(os.getcwd(), 'static', 'assets', 'img', 'uploadImageFolder')
 
 app.secret_key = "secret_key"
 app.config['UPLOAD_FOLDER'] = imageUploadPath
@@ -240,12 +240,12 @@ def viewRecords():
 
 @app.route('/uploadResult')
 def uploadResult():
-    return render_template("uploadResult.html") 
+    return render_template("uploadResult.html", os=os) 
 
 def readImage(filename):
     myconfig = r"--psm 4 --oem 3"
     #change image path name
-    uploadImage = Image.open(f'C:/Users/2002c/Downloads/FOCS_Website/static/assets/img/uploadImageFolder/{filename}')
+    uploadImage = Image.open(f'{imageUploadPath}/{filename}')
     text = pytesseract.image_to_string(uploadImage, config=myconfig)
     print(text)
     correctText(text)
