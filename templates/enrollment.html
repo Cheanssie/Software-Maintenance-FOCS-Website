@@ -8,7 +8,6 @@ Enrollment
   .card {
     border: none;
   }
-
 </style>
 
 <main>
@@ -104,6 +103,17 @@ Enrollment
       </div>
     </form>
   </div>
+
+  <!-- Add this within your HTML body -->
+  <div id="eligibilityPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+        <h2 id="popupMessageTitle"></h2>
+        <p id="popupMessageText"></p>
+        <button id="closePopup" class="btn-primary">Close</button>
+    </div>
+  </div>
+
+
 </main>
 
 <script>
@@ -120,9 +130,7 @@ Enrollment
       targetSection.style.display = 'block';
     }
   }
-</script>
 
-<script>
   function uploadFile() {
     const fileInput = document.getElementById("fileInput");
     const formData = new FormData();
@@ -387,15 +395,19 @@ Enrollment
           isEligible = true;
         } else {
           isEligible = false;
-          //pop up uneligible msg
-          console.log('uneligible');
           break;
         }
       }
     }
 
     if (isEligible) {
-      console.log('eligible');
+        // Eligible - Show success message in pop-up
+        showPopup("Success", "You are eligible for the program.");
+        console.log('eligible');
+    } else {
+        // Not eligible - Show fail message in pop-up
+        showPopup("Fail", "You are not eligible for the program.");
+        console.log('uneligible');
     }
 
   }
@@ -460,6 +472,22 @@ Enrollment
   }, false);
 })();
 
+function showPopup(title, message) {
+    const popup = document.getElementById("eligibilityPopup");
+    const popupTitle = document.getElementById("popupMessageTitle");
+    const popupText = document.getElementById("popupMessageText");
+
+    popupTitle.textContent = title;
+    popupText.textContent = message;
+
+    popup.style.display = "block";
+
+    // Close the pop-up when the close button is clicked
+    const closePopupBtn = document.getElementById("closePopup");
+    closePopupBtn.addEventListener("click", function () {
+        popup.style.display = "none";
+    });
+}
 
 </script>
 {%endblock %}
