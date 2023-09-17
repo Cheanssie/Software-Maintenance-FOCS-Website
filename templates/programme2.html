@@ -90,6 +90,8 @@
         <h4>Entry Requirement</h4>
         <img src="../static/assets/img/{{prog.progReq}}" class="img-fluid">
       </div>
+
+      <a href="{{ url_for('compareProg',id=prog.progId)}}" class="btn btn-success">Compare with other Programme</a>
     </div>
   </div>
   {% endfor %}
