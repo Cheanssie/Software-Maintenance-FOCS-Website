@@ -2,33 +2,23 @@
 {% block title %} programme {% endblock %}
 {%block content %}
 <style>
-        /* Example 2: Background image with specific position and size */
-        .custom-position-size {
-            background-image: url('../static/assets/img/programmePic.jpg');
-             /* Set a specific size for the background image */
-             background-size: cover;
-            background-position: 0vh 80vh; /* Set a specific position (20px from left, 50px from top) */
-            height: 20vh;
-        }
-        .col img {
-          margin: 0%;
-          padding: 0%;
-        }
-
+  .col img {
+    margin: 0%;
+    padding: 0%;
+  }
 </style>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="custom-position-size " >
-      <div class="container m-5 text-light"><h1>Programmes</h1></div>
-    </div>
-  </div>
+<div
+  style="background-image: url('../static/assets/img/Testimonial-bg.jpg'); background-position: top 80%; background-size: cover; width: 100%; height: 150px;">
+  <h1 class="position-absolute ml-2" style="margin-top: 50px; color:white; margin-left: 120px;">Programme</h1>
 </div>
 
 <div class="container my-5">
   <div class="row">
     <div class="col">
-      <div class="mb-5 text-center"><h1>Programmes</h1></div>
+      <div class="mb-5 text-center">
+        <h1>Programmes</h1>
+      </div>
     </div>
   </div>
 
@@ -44,76 +34,86 @@
   <div class="row mt-5">
     <div class="">
       <ul class="nav justify-content-center nav-tabs nav-justified">
-        <li class="nav-item "><a class="nav-link active" data-bs-toggle="tab" href="#doctor"><div class="">Doctor of Philosophy</div></a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#master"><div class="">Master Degree</div></a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#bachelor"><div class="">Bachelor</div></a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#diploma"><div class="">Diploma</div></a></li>
+        <li class="nav-item "><a class="nav-link active" data-bs-toggle="tab" href="#doctor">
+            <div class="">Doctor of Philosophy</div>
+          </a></li>
+        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#master">
+            <div class="">Master Degree</div>
+          </a></li>
+        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#bachelor">
+            <div class="">Bachelor</div>
+          </a></li>
+        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#diploma">
+            <div class="">Diploma</div>
+          </a></li>
       </ul>
     </div>
   </div>
 
   <div class="container mt-4">
     <div class="tab-content">
-        <div id="doctor" class="tab-pane fade show active">
-          <p>The Faculty of Computing and Information Technology (FOCS) offers the following Doctor of Philosophy programmes:</p>
+      <div id="doctor" class="tab-pane fade show active">
+        <p>The Faculty of Computing and Information Technology (FOCS) offers the following Doctor of Philosophy
+          programmes:</p>
+        <ul>
+          <li><a href="{{ url_for('programme1',id=1)}}">Doctor of Philosophy (Computer Science)</a></li>
+          <li><a href="{{ url_for('programme1',id=2)}}">Doctor of Philosophy (Information Technology)</a></li>
+          <li><a href="{{ url_for('programme1',id=3)}}">Doctor of Philosophy (Mathematical Sciences)</a></li>
+        </ul>
+      </div>
+      <div id="master" class="tab-pane fade">
+        <p>The Faculty of Computing and Information Technology (FOCS) offers the following Master Degree programmes:</p>
+        <ul>
+          <li><a href="{{ url_for('programme1',id='4')}}">Master of Computer Science</a></li>
+          <li><a href="{{ url_for('programme1',id='5')}}">Master of Information Technology</a></li>
+          <li><a href="{{ url_for('programme1',id='6')}}">Master of Science in Mathematical Sciences</a></li>
+        </ul>
+      </div>
+      <div id="bachelor" class="tab-pane fade">
+        <p>The Faculty of Computing and Information Technology (FOCS) offers the following Bachelor Degree programmes:
+        </p>
+        <ul>
+          <li>Bachelor of Science
             <ul>
-              <li><a href="{{ url_for('programme1',id=1)}}">Doctor of Philosophy (Computer Science)</a></li>
-              <li><a href="{{ url_for('programme1',id=2)}}">Doctor of Philosophy (Information Technology)</a></li>
-              <li><a href="{{ url_for('programme1',id=3)}}">Doctor of Philosophy (Mathematical Sciences)</a></li>
+              <li><a href="{{ url_for('programme2',id='7')}}">Management Mathematics with Computing</a></li>
             </ul>
-        </div>
-        <div id="master" class="tab-pane fade">
-          <p>The Faculty of Computing and Information Technology (FOCS) offers the following Master Degree programmes:</p>
+          </li>
+          <li>Bachelor of Computer Science
             <ul>
-              <li><a href="{{ url_for('programme1',id='4')}}">Master of Computer Science</a></li>
-              <li><a href="{{ url_for('programme1',id='5')}}">Master of Information Technology</a></li>
-              <li><a href="{{ url_for('programme1',id='6')}}">Master of Science in Mathematical Sciences</a></li>
+              <li><a href="{{ url_for('programme2',id='8')}}">Interactive Software Technology</a></li>
+              <li><a href="{{ url_for('programme2',id='9')}}">Data Science</a></li>
             </ul>
-        </div>
-        <div id="bachelor" class="tab-pane fade">
-          <p>The Faculty of Computing and Information Technology (FOCS) offers the following Bachelor Degree programmes:</p>
-          <ul>
-            <li>Bachelor of Science
-              <ul>
-                <li><a href="{{ url_for('programme2',id='7')}}">Management Mathematics with Computing</a></li>
-              </ul>
-            </li>
-            <li>Bachelor of Computer Science
-              <ul>
-                <li><a href="{{ url_for('programme2',id='8')}}">Interactive Software Technology</a></li>
-                <li><a href="{{ url_for('programme2',id='9')}}">Data Science</a></li>
-              </ul>
-            </li>
-            <li>Bachelor of Information Systems
-              <ul>
-                <li><a href="{{ url_for('programme2',id='10')}}">Enterprice Information System</a></li>
-              </ul>
-            </li>
-            <li>Bachelor of Information Technology
-              <ul>
-                <li><a href="{{ url_for('programme2',id='11')}}">Information Security </a></li>
-                <li><a href="{{ url_for('programme2',id='12')}}">Internert Technology</a></li>
-                <li><a href="{{ url_for('programme2',id='13')}}">Software Systems Development</a></li>
-              </ul>
-            </li>
-            <li>Bachelor of Software Engineering</li>
-          </ul>
-        </div>
-        <div id="diploma" class="tab-pane fade">
-            <p>The Faculty of Computing and Information Technology (FOCS) offers the following Diploma programmes:</p>
+          </li>
+          <li>Bachelor of Information Systems
             <ul>
-              <li>Diploma Programmes
-                <ul>
-                  <li><a href="{{ url_for('programme2',id='14')}}">Diploma in Computer Science</a></li>
-                  <li><a href="{{ url_for('programme2',id='15')}}">Diploma in Information Systems</a></li>
-                  <li><a href="{{ url_for('programme2',id='16')}}">Diploma in Information Technology</a></li>
-                  <li><a href="{{ url_for('programme2',id='17')}}">Diploma in Software Engineering</a></li>
-                </ul>
-              </li>
+              <li><a href="{{ url_for('programme2',id='10')}}">Enterprice Information System</a></li>
             </ul>
-        </div>
+          </li>
+          <li>Bachelor of Information Technology
+            <ul>
+              <li><a href="{{ url_for('programme2',id='11')}}">Information Security </a></li>
+              <li><a href="{{ url_for('programme2',id='12')}}">Internert Technology</a></li>
+              <li><a href="{{ url_for('programme2',id='13')}}">Software Systems Development</a></li>
+            </ul>
+          </li>
+          <li>Bachelor of Software Engineering</li>
+        </ul>
+      </div>
+      <div id="diploma" class="tab-pane fade">
+        <p>The Faculty of Computing and Information Technology (FOCS) offers the following Diploma programmes:</p>
+        <ul>
+          <li>Diploma Programmes
+            <ul>
+              <li><a href="{{ url_for('programme2',id='14')}}">Diploma in Computer Science</a></li>
+              <li><a href="{{ url_for('programme2',id='15')}}">Diploma in Information Systems</a></li>
+              <li><a href="{{ url_for('programme2',id='16')}}">Diploma in Information Technology</a></li>
+              <li><a href="{{ url_for('programme2',id='17')}}">Diploma in Software Engineering</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-</div>
+  </div>
 
 </div>
 {% endblock %}

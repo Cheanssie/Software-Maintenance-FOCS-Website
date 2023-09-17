@@ -121,6 +121,10 @@ def programme2():
     id = request.args.get('id')
     return render_template("programme2.html",progs = Programme.query.filter_by(progId = id).all())
 
+@app.route('/compareProg')
+def compareProg():
+    return render_template("compareProg.html")
+
 @app.route('/recognition')
 def recognition():
     return render_template("recognition.html")
