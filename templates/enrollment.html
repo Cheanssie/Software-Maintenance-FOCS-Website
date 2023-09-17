@@ -11,426 +11,454 @@ Enrollment
 </style>
 
 <main>
-  <div style="background-image: url('../static/assets/img/Testimonial-bg.jpg'); background-position: top 80%; background-size: cover; width: 100%; height: 150px;">
+  <div
+    style="background-image: url('../static/assets/img/Testimonial-bg.jpg'); background-position: top 80%; background-size: cover; width: 100%; height: 150px;">
     <h1 class="position-absolute ml-2" style="margin-top: 50px; color:white; margin-left: 120px;">Enrollment</h1>
   </div>
   <div class="container d-flex flex-column m-auto m-5 p-5">
-      <form class="mt-1" id="section1">
-        <h3 class="text-center">Personal Information</h3>
-        <div class="mb-3">
-          <label for="inputName" class="form-label">Name</label>
-          <input type="text" class="form-control" name="inputName" id="inputName">
+    <form class="mt-1" id="section1">
+      <h3 class="text-center">Personal Information</h3>
+      <div class="mb-3">
+        <label for="inputName" class="form-label">Name</label>
+        <input type="text" class="form-control" name="inputName" id="inputName">
+      </div>
+      <div class="mb-3">
+        <label for="inputEmail" class="form-label">Email address</label>
+        <input type="email" class="form-control" name="inputEmail" id="inputEmail">
+      </div>
+      <div class="mb-3">
+        <label for="inputTel" class="form-label">Phone Number</label>
+        <input type="tel" class="form-control" name="inputTel" id="inputTel">
+      </div>
+      <fieldset class="mb-3">
+        <label class="form-label d-block">Gender</label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inputGender" id="inputGenderM">
+          <label class="form-check-label" for="inputGenderM">
+            Male
+          </label>
         </div>
-        <div class="mb-3">
-          <label for="inputEmail" class="form-label">Email address</label>
-          <input type="email" class="form-control" name="inputEmail" id="inputEmail">
+        <div class="form-check form-check-inline ">
+          <input class="form-check-input" type="radio" name="inputGender" id="inputGenderF" checked>
+          <label class="form-check-label" for="inputGenderF">
+            Female
+          </label>
         </div>
-        <div class="mb-3">
-          <label for="inputTel" class="form-label">Phone Number</label>
-          <input type="tel" class="form-control" name="inputTel" id="inputTel">
-        </div>
-        <fieldset class="mb-3">
-          <label class="form-label d-block">Gender</label>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inputGender" id="inputGenderM">
-              <label class="form-check-label" for="inputGenderM">
-                  Male
-              </label>
-          </div>
-          <div class="form-check form-check-inline ">
-              <input class="form-check-input" type="radio" name="inputGender" id="inputGenderF" checked>
-              <label class="form-check-label" for="inputGenderF">
-                  Female
-              </label>
-          </div>
-        </fieldset>
-        <button type="button" class="btn btn-primary d-block m-auto" onclick="showSection('section2')">Next</button>
-      </form>
+      </fieldset>
+      <button type="button" class="btn btn-primary d-block m-auto" onclick="showSection('section2')">Next</button>
+    </form>
 
-      <form class="mt-1" id="section2" style="display: none;">
-        <h3 class="text-center mb-3">Academic Qualification</h3>
-        <div class="mb-3">
+    <form class="mt-1" id="section2" style="display: none;">
+      <h3 class="text-center mb-3">Academic Qualification</h3>
+      <div class="row mb-3">
+        <div class="col-6 ">
           <label class="form-label" for="inputQualification">Qualification</label>
-          <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
+          <select class="form-select" name="inputQualification" id="inputQualification"
+            aria-label="Default select example">
             <option selected value="SPM">SPM</option>
             <option value="GCSE">IGCSE/GCSE/O Level</option>
           </select>
         </div>
-        <div>
-          <table class="table table-borderless ">
-            <thead>
-              <tr>
-                <th style="width: 35%;">Subject</th>
-                <th style="width: 15%;">Grade</th>
-                <th style="width: 35%;">Subject</th>
-                <th style="width: 15%;">Grade</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="width: 35%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="BM">Bahasa Melayu</option>
-                    <option value="BI">Bahasa Inggeris</option>
-                    <option value="BC">Bahasa Cina</option>
-                    <option value="PM">Pendidikan Moral</option>
-                    <option value="MM">Matematik</option>
-                    <option value="MT">Matematik Tambahan</option>
-                    <option value="KM">Kimia</option>
-                    <option value="FZ">Fizik</option>
-                    <option value="BO">Biologi</option>
-                    <option value="SEJ">Sejarah</option>
-                    <option value="PP">Prinsip Perakaunan</option>
-                    <option value="PI">Pendidikan Islam</option>
-                  </select>
-                </td>
-                <td style="width: 15%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="G">G</option>
-                    <option value="X">X</option>
-                  </select>
-                </td>
-                <td style="width: 35%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="BM">Bahasa Melayu</option>
-                    <option value="BI">Bahasa Inggeris</option>
-                    <option value="BC">Bahasa Cina</option>
-                    <option value="PM">Pendidikan Moral</option>
-                    <option value="MM">Matematik</option>
-                    <option value="MT">Matematik Tambahan</option>
-                    <option value="KM">Kimia</option>
-                    <option value="FZ">Fizik</option>
-                    <option value="BO">Biologi</option>
-                    <option value="SEJ">Sejarah</option>
-                    <option value="PP">Prinsip Perakaunan</option>
-                    <option value="PI">Pendidikan Islam</option>
-                  </select>
-                </td>
-                <td style="width: 15%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="G">G</option>
-                    <option value="X">X</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td style="width: 35%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="BM">Bahasa Melayu</option>
-                    <option value="BI">Bahasa Inggeris</option>
-                    <option value="BC">Bahasa Cina</option>
-                    <option value="PM">Pendidikan Moral</option>
-                    <option value="MM">Matematik</option>
-                    <option value="MT">Matematik Tambahan</option>
-                    <option value="KM">Kimia</option>
-                    <option value="FZ">Fizik</option>
-                    <option value="BO">Biologi</option>
-                    <option value="SEJ">Sejarah</option>
-                    <option value="PP">Prinsip Perakaunan</option>
-                    <option value="PI">Pendidikan Islam</option>
-                  </select>
-                </td>
-                <td style="width: 15%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="G">G</option>
-                    <option value="X">X</option>
-                  </select>
-                </td>
-                <td style="width: 35%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="BM">Bahasa Melayu</option>
-                    <option value="BI">Bahasa Inggeris</option>
-                    <option value="BC">Bahasa Cina</option>
-                    <option value="PM">Pendidikan Moral</option>
-                    <option value="MM">Matematik</option>
-                    <option value="MT">Matematik Tambahan</option>
-                    <option value="KM">Kimia</option>
-                    <option value="FZ">Fizik</option>
-                    <option value="BO">Biologi</option>
-                    <option value="SEJ">Sejarah</option>
-                    <option value="PP">Prinsip Perakaunan</option>
-                    <option value="PI">Pendidikan Islam</option>
-                  </select>
-                </td>
-                <td style="width: 15%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="G">G</option>
-                    <option value="X">X</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td style="width: 35%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="BM">Bahasa Melayu</option>
-                    <option value="BI">Bahasa Inggeris</option>
-                    <option value="BC">Bahasa Cina</option>
-                    <option value="PM">Pendidikan Moral</option>
-                    <option value="MM">Matematik</option>
-                    <option value="MT">Matematik Tambahan</option>
-                    <option value="KM">Kimia</option>
-                    <option value="FZ">Fizik</option>
-                    <option value="BO">Biologi</option>
-                    <option value="SEJ">Sejarah</option>
-                    <option value="PP">Prinsip Perakaunan</option>
-                    <option value="PI">Pendidikan Islam</option>
-                  </select>
-                </td>
-                <td style="width: 15%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="G">G</option>
-                    <option value="X">X</option>
-                  </select>
-                </td>
-                <td style="width: 35%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="BM">Bahasa Melayu</option>
-                    <option value="BI">Bahasa Inggeris</option>
-                    <option value="BC">Bahasa Cina</option>
-                    <option value="PM">Pendidikan Moral</option>
-                    <option value="MM">Matematik</option>
-                    <option value="MT">Matematik Tambahan</option>
-                    <option value="KM">Kimia</option>
-                    <option value="FZ">Fizik</option>
-                    <option value="BO">Biologi</option>
-                    <option value="SEJ">Sejarah</option>
-                    <option value="PP">Prinsip Perakaunan</option>
-                    <option value="PI">Pendidikan Islam</option>
-                  </select>
-                </td>
-                <td style="width: 15%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="G">G</option>
-                    <option value="X">X</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td style="width: 35%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="BM">Bahasa Melayu</option>
-                    <option value="BI">Bahasa Inggeris</option>
-                    <option value="BC">Bahasa Cina</option>
-                    <option value="PM">Pendidikan Moral</option>
-                    <option value="MM">Matematik</option>
-                    <option value="MT">Matematik Tambahan</option>
-                    <option value="KM">Kimia</option>
-                    <option value="FZ">Fizik</option>
-                    <option value="BO">Biologi</option>
-                    <option value="SEJ">Sejarah</option>
-                    <option value="PP">Prinsip Perakaunan</option>
-                    <option value="PI">Pendidikan Islam</option>
-                  </select>
-                </td>
-                <td style="width: 15%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="G">G</option>
-                    <option value="X">X</option>
-                  </select>
-                </td>
-                <td style="width: 35%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="BM">Bahasa Melayu</option>
-                    <option value="BI">Bahasa Inggeris</option>
-                    <option value="BC">Bahasa Cina</option>
-                    <option value="PM">Pendidikan Moral</option>
-                    <option value="MM">Matematik</option>
-                    <option value="MT">Matematik Tambahan</option>
-                    <option value="KM">Kimia</option>
-                    <option value="FZ">Fizik</option>
-                    <option value="BO">Biologi</option>
-                    <option value="SEJ">Sejarah</option>
-                    <option value="PP">Prinsip Perakaunan</option>
-                    <option value="PI">Pendidikan Islam</option>
-                  </select>
-                </td>
-                <td style="width: 15%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="G">G</option>
-                    <option value="X">X</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td style="width: 35%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="BM">Bahasa Melayu</option>
-                    <option value="BI">Bahasa Inggeris</option>
-                    <option value="BC">Bahasa Cina</option>
-                    <option value="PM">Pendidikan Moral</option>
-                    <option value="MM">Matematik</option>
-                    <option value="MT">Matematik Tambahan</option>
-                    <option value="KM">Kimia</option>
-                    <option value="FZ">Fizik</option>
-                    <option value="BO">Biologi</option>
-                    <option value="SEJ">Sejarah</option>
-                    <option value="PP">Prinsip Perakaunan</option>
-                    <option value="PI">Pendidikan Islam</option>
-                  </select>
-                </td>
-                <td style="width: 15%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="G">G</option>
-                    <option value="X">X</option>
-                  </select>
-                </td>
-                <td style="width: 35%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="BM">Bahasa Melayu</option>
-                    <option value="BI">Bahasa Inggeris</option>
-                    <option value="BC">Bahasa Cina</option>
-                    <option value="PM">Pendidikan Moral</option>
-                    <option value="MM">Matematik</option>
-                    <option value="MT">Matematik Tambahan</option>
-                    <option value="KM">Kimia</option>
-                    <option value="FZ">Fizik</option>
-                    <option value="BO">Biologi</option>
-                    <option value="SEJ">Sejarah</option>
-                    <option value="PP">Prinsip Perakaunan</option>
-                    <option value="PI">Pendidikan Islam</option>
-                  </select>
-                </td>
-                <td style="width: 15%;">
-                  <select class="form-select" name="inputQualification" id="inputQualification" aria-label="Default select example">
-                    <option selected disabled value="">Select an option</option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="G">G</option>
-                    <option value="X">X</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="col-6 ">
+          <label class="form-label " for="fileInput">Upload Result:</label>
+          <input class="form-control " type="file" id="fileInput" name="fileInput">
         </div>
-        <div class="d-flex justify-content-center">
-          <button type="button" class="btn btn-primary d-inline m-2" onclick="showSection('section1')">Previous</button>
-          <button type="button" class="btn btn-primary d-inline m-2">Submit</button>
-        </div>
+      </div>
+      <div>
+        <table class="table table-borderless ">
+          <thead>
+            <tr>
+              <th style="width: 35%;">Subject</th>
+              <th style="width: 15%;">Grade</th>
+              <th style="width: 35%;">Subject</th>
+              <th style="width: 15%;">Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 35%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="BM">Bahasa Melayu</option>
+                  <option value="BI">Bahasa Inggeris</option>
+                  <option value="BC">Bahasa Cina</option>
+                  <option value="PM">Pendidikan Moral</option>
+                  <option value="MM">Matematik</option>
+                  <option value="MT">Matematik Tambahan</option>
+                  <option value="KM">Kimia</option>
+                  <option value="FZ">Fizik</option>
+                  <option value="BO">Biologi</option>
+                  <option value="SEJ">Sejarah</option>
+                  <option value="PP">Prinsip Perakaunan</option>
+                  <option value="PI">Pendidikan Islam</option>
+                </select>
+              </td>
+              <td style="width: 15%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C+">C+</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="G">G</option>
+                  <option value="X">X</option>
+                </select>
+              </td>
+              <td style="width: 35%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="BM">Bahasa Melayu</option>
+                  <option value="BI">Bahasa Inggeris</option>
+                  <option value="BC">Bahasa Cina</option>
+                  <option value="PM">Pendidikan Moral</option>
+                  <option value="MM">Matematik</option>
+                  <option value="MT">Matematik Tambahan</option>
+                  <option value="KM">Kimia</option>
+                  <option value="FZ">Fizik</option>
+                  <option value="BO">Biologi</option>
+                  <option value="SEJ">Sejarah</option>
+                  <option value="PP">Prinsip Perakaunan</option>
+                  <option value="PI">Pendidikan Islam</option>
+                </select>
+              </td>
+              <td style="width: 15%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C+">C+</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="G">G</option>
+                  <option value="X">X</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 35%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="BM">Bahasa Melayu</option>
+                  <option value="BI">Bahasa Inggeris</option>
+                  <option value="BC">Bahasa Cina</option>
+                  <option value="PM">Pendidikan Moral</option>
+                  <option value="MM">Matematik</option>
+                  <option value="MT">Matematik Tambahan</option>
+                  <option value="KM">Kimia</option>
+                  <option value="FZ">Fizik</option>
+                  <option value="BO">Biologi</option>
+                  <option value="SEJ">Sejarah</option>
+                  <option value="PP">Prinsip Perakaunan</option>
+                  <option value="PI">Pendidikan Islam</option>
+                </select>
+              </td>
+              <td style="width: 15%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C+">C+</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="G">G</option>
+                  <option value="X">X</option>
+                </select>
+              </td>
+              <td style="width: 35%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="BM">Bahasa Melayu</option>
+                  <option value="BI">Bahasa Inggeris</option>
+                  <option value="BC">Bahasa Cina</option>
+                  <option value="PM">Pendidikan Moral</option>
+                  <option value="MM">Matematik</option>
+                  <option value="MT">Matematik Tambahan</option>
+                  <option value="KM">Kimia</option>
+                  <option value="FZ">Fizik</option>
+                  <option value="BO">Biologi</option>
+                  <option value="SEJ">Sejarah</option>
+                  <option value="PP">Prinsip Perakaunan</option>
+                  <option value="PI">Pendidikan Islam</option>
+                </select>
+              </td>
+              <td style="width: 15%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C+">C+</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="G">G</option>
+                  <option value="X">X</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 35%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="BM">Bahasa Melayu</option>
+                  <option value="BI">Bahasa Inggeris</option>
+                  <option value="BC">Bahasa Cina</option>
+                  <option value="PM">Pendidikan Moral</option>
+                  <option value="MM">Matematik</option>
+                  <option value="MT">Matematik Tambahan</option>
+                  <option value="KM">Kimia</option>
+                  <option value="FZ">Fizik</option>
+                  <option value="BO">Biologi</option>
+                  <option value="SEJ">Sejarah</option>
+                  <option value="PP">Prinsip Perakaunan</option>
+                  <option value="PI">Pendidikan Islam</option>
+                </select>
+              </td>
+              <td style="width: 15%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C+">C+</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="G">G</option>
+                  <option value="X">X</option>
+                </select>
+              </td>
+              <td style="width: 35%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="BM">Bahasa Melayu</option>
+                  <option value="BI">Bahasa Inggeris</option>
+                  <option value="BC">Bahasa Cina</option>
+                  <option value="PM">Pendidikan Moral</option>
+                  <option value="MM">Matematik</option>
+                  <option value="MT">Matematik Tambahan</option>
+                  <option value="KM">Kimia</option>
+                  <option value="FZ">Fizik</option>
+                  <option value="BO">Biologi</option>
+                  <option value="SEJ">Sejarah</option>
+                  <option value="PP">Prinsip Perakaunan</option>
+                  <option value="PI">Pendidikan Islam</option>
+                </select>
+              </td>
+              <td style="width: 15%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C+">C+</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="G">G</option>
+                  <option value="X">X</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 35%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="BM">Bahasa Melayu</option>
+                  <option value="BI">Bahasa Inggeris</option>
+                  <option value="BC">Bahasa Cina</option>
+                  <option value="PM">Pendidikan Moral</option>
+                  <option value="MM">Matematik</option>
+                  <option value="MT">Matematik Tambahan</option>
+                  <option value="KM">Kimia</option>
+                  <option value="FZ">Fizik</option>
+                  <option value="BO">Biologi</option>
+                  <option value="SEJ">Sejarah</option>
+                  <option value="PP">Prinsip Perakaunan</option>
+                  <option value="PI">Pendidikan Islam</option>
+                </select>
+              </td>
+              <td style="width: 15%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C+">C+</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="G">G</option>
+                  <option value="X">X</option>
+                </select>
+              </td>
+              <td style="width: 35%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="BM">Bahasa Melayu</option>
+                  <option value="BI">Bahasa Inggeris</option>
+                  <option value="BC">Bahasa Cina</option>
+                  <option value="PM">Pendidikan Moral</option>
+                  <option value="MM">Matematik</option>
+                  <option value="MT">Matematik Tambahan</option>
+                  <option value="KM">Kimia</option>
+                  <option value="FZ">Fizik</option>
+                  <option value="BO">Biologi</option>
+                  <option value="SEJ">Sejarah</option>
+                  <option value="PP">Prinsip Perakaunan</option>
+                  <option value="PI">Pendidikan Islam</option>
+                </select>
+              </td>
+              <td style="width: 15%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C+">C+</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="G">G</option>
+                  <option value="X">X</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td style="width: 35%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="BM">Bahasa Melayu</option>
+                  <option value="BI">Bahasa Inggeris</option>
+                  <option value="BC">Bahasa Cina</option>
+                  <option value="PM">Pendidikan Moral</option>
+                  <option value="MM">Matematik</option>
+                  <option value="MT">Matematik Tambahan</option>
+                  <option value="KM">Kimia</option>
+                  <option value="FZ">Fizik</option>
+                  <option value="BO">Biologi</option>
+                  <option value="SEJ">Sejarah</option>
+                  <option value="PP">Prinsip Perakaunan</option>
+                  <option value="PI">Pendidikan Islam</option>
+                </select>
+              </td>
+              <td style="width: 15%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C+">C+</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="G">G</option>
+                  <option value="X">X</option>
+                </select>
+              </td>
+              <td style="width: 35%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="BM">Bahasa Melayu</option>
+                  <option value="BI">Bahasa Inggeris</option>
+                  <option value="BC">Bahasa Cina</option>
+                  <option value="PM">Pendidikan Moral</option>
+                  <option value="MM">Matematik</option>
+                  <option value="MT">Matematik Tambahan</option>
+                  <option value="KM">Kimia</option>
+                  <option value="FZ">Fizik</option>
+                  <option value="BO">Biologi</option>
+                  <option value="SEJ">Sejarah</option>
+                  <option value="PP">Prinsip Perakaunan</option>
+                  <option value="PI">Pendidikan Islam</option>
+                </select>
+              </td>
+              <td style="width: 15%;">
+                <select class="form-select" name="inputQualification" id="inputQualification"
+                  aria-label="Default select example">
+                  <option selected disabled value="">Select an option</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C+">C+</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="G">G</option>
+                  <option value="X">X</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-primary d-inline m-2" onclick="showSection('section1')">Previous</button>
+        <button type="button" class="btn btn-primary d-inline m-2">Submit</button>
+      </div>
     </form>
   </div>
 </main>
 
 <script>
   function showSection(sectionId) {
-      // Hide all form sections
-      const sections = document.querySelectorAll('form');
-      sections.forEach(section => {
-          section.style.display = 'none';
-      });
+    // Hide all form sections
+    const sections = document.querySelectorAll('form');
+    sections.forEach(section => {
+      section.style.display = 'none';
+    });
 
-      // Show the specified section
-      const targetSection = document.getElementById(sectionId);
-      if (targetSection) {
-          targetSection.style.display = 'block';
-      }
+    // Show the specified section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+      targetSection.style.display = 'block';
+    }
   }
 </script>
 {%endblock %}
