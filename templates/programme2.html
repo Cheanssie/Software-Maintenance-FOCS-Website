@@ -91,7 +91,8 @@
         <img src="../static/assets/img/{{prog.progReq}}" class="img-fluid">
       </div>
 
-      <a href="{{ url_for('compareProg',id=prog.progId)}}" class="btn btn-success">Compare with other Programme</a>
+      <button class="btn btn-success m-auto d-flex"><a href="{{ url_for('compareProg',id=prog.progId)}}" class="text-white">Compare with other Programme</a></button>
+      <button class="btn btn-primary d-flex m-auto"><a href="{{ url_for('enrollment')}}" class="text-white">Enroll</a></button>
     </div>
   </div>
   {% endfor %}
