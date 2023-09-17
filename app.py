@@ -317,6 +317,20 @@ subject_codes = {
     "3756": "PRINSIP PERAKAUNAN",
 }
 
+subject_abbreviation = {
+    "BAHASA MELAYU" : "BM" ,
+    "BAHASA INGGERIS" : "BI",
+    "PENDIDIKAN MORAL" : "PM",
+    "SEJARAH" : "SEJ",
+    "MATHEMATICS" : "MM",
+    "ADDITIONAL MATHEMATICS" : "MT",
+    "PHYSICS" : "FZ",
+    "CHEMISTRY" : "KM",
+    "BIOLOGY" : "BO",
+    "BAHASA CINA" : "BC",
+    "PRINSIP PERAKAUNAN" : "PP",
+}
+
 def correctText(text):
     corrected_input = correct_input(text, common_words)
     print(corrected_input)
@@ -329,7 +343,7 @@ def correctText(text):
             grade = re.search(r"CEMERLANG TERTINGGI|CEMERLANG TINGGI|CEMERLANG|KEPUJIAN TERTINGGI|KEPUJIAN TINGGI|KEPUJIAN ATAS|KEPUJIAN|LULUS ATAS|LULUS|GAGAL|TIDAK HADIR", corrected_input).group()
 
             # Print the grade for the subject
-            subject_grade_dict[subject] = grade_dict[grade]
+            subject_grade_dict[subject_abbreviation[subject]] = grade_dict[grade]
             #print(f"{subject} : {grade_dict[grade]}")
     
     return subject_grade_dict
