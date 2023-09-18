@@ -111,7 +111,7 @@ def index():
     device_name = socket.gethostbyaddr(ip_addr)
     return render_template("index.html", ip_addr=ip_addr, device_name=device_name)
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 
     if request.method == 'POST':
@@ -122,8 +122,8 @@ def login():
             return render_template("admin.html")
         else:
             pass
-
-    return render_template("login.html")
+    else:
+        return render_template("login.html")
 
 @app.route('/facilities')
 def facilities():

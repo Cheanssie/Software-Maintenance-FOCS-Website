@@ -114,7 +114,7 @@
             <div class="col-12 col-md-8 col-lg-6">
               <div class="card bg-white">
                 <div class="card-body p-5">
-                  <form class="mb-3 mt-md-4">
+                  <form class="mb-3 mt-md-4" method="POST" action="{{url_for('login')}}">
                     <h3 class="text-center">
                       <i
                         class="fa-solid fa-leaf fa fa-lg"
@@ -130,6 +130,7 @@
                         placeholder="User ID"
                         aria-label="User ID"
                         aria-describedby="basic-addon2"
+                        name="userID"
                       />
                       <span class="input-group-text" id="basic-addon2"
                         ><i class="ace-icon fa fa-user"></i
@@ -142,6 +143,7 @@
                         placeholder="Password"
                         aria-label="Password"
                         aria-describedby="basic-addon2"
+                        name="password"
                       />
                       <span class="input-group-text" id="basic-addon2"
                         ><i class="ace-icon fa fa-lock"></i
