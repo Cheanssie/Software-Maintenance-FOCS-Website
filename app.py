@@ -7,6 +7,7 @@ from PIL import Image
 import os
 import difflib
 import re
+import socket
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///FOCS.db"
@@ -88,10 +89,25 @@ def __init__(self, progName, progOverview, progDuration, progCampus, progIntake,
     self.progOutline = progOutline
     self.progCareer = progCareer
 
+class ipTracker(db.Model):
+    __tablename__ = "ipTracker"
+
+    id = db.Column(db.Integer, primary_key=True)
+    userIPAddr = db.Column(db.String(128), nullable=False)
+    userDeviceName = db.Column(db.String(128), nullable=False)
+    userBrowserType = db.Column(db.String(128), nullable=False)
+    userPlatform = db.Column(db.String(128), nullable=False)
+    userBrowserVersion = db.Column(db.String(128), nullable=False)
+    userBrowserLanguage = db.Column(db.String(128), nullable=False)
+
+    def __repr__(self):
+        return f'{self.userDeviceName}'
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+    device_name = socket.gethostbyaddr(ip_addr)
+    return render_template("index.html", ip_addr=ip_addr, device_name=device_name)
 
 @app.route('/facilities')
 def facilities():
@@ -433,6 +449,8 @@ def process_ocr():
         os.remove(filename)  # Remove the uploaded file
         
         return jsonify(readResults)
+
+
 
 if __name__ == "__name__":
     app.run(debug=True)
