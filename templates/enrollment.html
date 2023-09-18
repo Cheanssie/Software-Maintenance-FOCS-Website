@@ -39,7 +39,7 @@ Enrollment
     <h1 class="position-absolute ml-2" style="margin-top: 50px; color:white; margin-left: 120px;">Enrollment</h1>
   </div>
   <div class="container d-flex flex-column m-auto m-5 p-5">
-    <form class="mt-1 needs-validation" id="section1" novalidate>
+    <form class="mt-1 needs-validation active-section" id="section1" novalidate>
       <h3 class="text-center">Personal Information</h3>
       <div class="mb-3">
         <label for="inputName" class="form-label">Name</label>
@@ -137,23 +137,9 @@ Enrollment
     </div>
   </div>
 
-
 </main>
 
 <script>
-  function showSection(sectionId) {
-    // Hide all form sections
-    const sections = document.querySelectorAll('form');
-    sections.forEach(section => {
-      section.style.display = 'none';
-    });
-
-    // Show the specified section
-    const targetSection = document.getElementById(sectionId);
-    if (targetSection) {
-      targetSection.style.display = 'block';
-    }
-  }
 
   function uploadFile() {
     const fileInput = document.getElementById("fileInput");
@@ -436,64 +422,79 @@ Enrollment
   }
 
   // Example starter JavaScript for disabling form submissions if there are invalid fields
-  (function () {
-  'use strict';
+  function showSection(sectionId) {
+    const currentSection = document.querySelector('.active-section');
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation');
+    if (!currentSection) {
+      const targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        targetSection.style.display = 'block';
+        targetSection.classList.add('active-section');
+        window.scrollTo(0, targetSection.offsetTop); // Scroll to the new section
+      }
+    } else if (currentSection.checkValidity()) {
+      currentSection.style.display = 'none';
+      currentSection.classList.remove('active-section');
 
-  // Fetch the section2 form
-  var section2Form = document.querySelector('#section2');
-  var submitButton = section2Form.querySelector('#submitBtn');
-
-  function enableOrDisableButton() {
-    if (section2Form.checkValidity()) {
-      submitButton.removeAttribute('disabled');
+      const targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        targetSection.style.display = 'block';
+        targetSection.classList.add('active-section');
+        window.scrollTo(0, targetSection.offsetTop); // Scroll to the new section
+      }
     } else {
-      submitButton.setAttribute('disabled', 'disabled');
+      currentSection.classList.add('was-validated');
     }
   }
 
-  function showSection(sectionId) {
-    // Your showSection function implementation
-  }
+  (function () {
+    'use strict';
 
-  enableOrDisableButton();
+    var forms = document.querySelectorAll('.needs-validation');
+    var section2Form = document.querySelector('#section2');
+    var submitButton = section2Form.querySelector('#submitBtn');
 
-  forms.forEach(function (form) {
-    var nextButton = form.querySelector('#nextButton');
+    function enableOrDisableButton() {
+      if (section2Form.checkValidity()) {
+        submitButton.removeAttribute('disabled');
+      } else {
+        submitButton.setAttribute('disabled', 'disabled');
+      }
+    }
 
     enableOrDisableButton();
 
-    form.addEventListener('input', function () {
+    forms.forEach(function (form) {
+      var nextButton = form.querySelector('#nextButton');
+
       enableOrDisableButton();
+
+      form.addEventListener('input', function () {
+        enableOrDisableButton();
+      });
+
+      nextButton.addEventListener('click', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+          form.classList.add('was-validated');
+        } else {
+          showSection('section2');
+        }
+      }, false);
     });
 
-    nextButton.addEventListener('click', function (event) {
-      if (!form.checkValidity()) {
+    submitButton.addEventListener('click', function (event) {
+      if (!section2Form.checkValidity()) {
         event.preventDefault();
         event.stopPropagation();
       } else {
-        showSection('section2');
+        alert('Form submitted successfully.');
       }
 
-      form.classList.add('was-validated');
+      section2Form.classList.add('was-validated');
     }, false);
-  });
-
-  submitButton.addEventListener('click', function (event) {
-    if (!section2Form.checkValidity()) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-      // Handle the form submission or other actions here
-      // For now, let's assume the form is valid and proceed
-      alert('Form submitted successfully.');
-    }
-
-    section2Form.classList.add('was-validated');
-  }, false);
-})();
+  })();
 
 function showPopup(title, message) {
     const popup = document.getElementById("eligibilityPopup");
@@ -514,7 +515,6 @@ function showPopup(title, message) {
         popup.style.display = "none";
     });
 }
-
 
 </script>
 {%endblock %}
