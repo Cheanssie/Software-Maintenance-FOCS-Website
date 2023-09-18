@@ -51,15 +51,34 @@
           </button>
           <ul class="dropdown-menu">
 
-            {%for progs in progList %}
-            <li><a class="dropdown-item" href="{{ url_for('compareProg',id1=prog.progId, id2=progs.progId)}}"
-                value="{{progs.progId}}">{{progs.progName}}</a></li>
+            {%for progs in allProg %}
+            <li><a class="dropdown-item"
+                href="{{ url_for('compareProg',id1=progs.progId, id2=compareProg.progId)}}">{{progs.progName}}</a></li>
             {% endfor %}
 
           </ul>
         </div>
 
       </div>
+
+      <div class="col">
+
+        <div class="dropdown">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+            Select Programme
+          </button>
+          <ul class="dropdown-menu">
+
+            {%for progs in progList %}
+            <li><a class="dropdown-item"
+                href="{{ url_for('compareProg',id1=prog.progId, id2=progs.progId)}}">{{progs.progName}}</a></li>
+            {% endfor %}
+
+          </ul>
+        </div>
+
+      </div>
+
 
     </div>
     <div class="container-fluid">
@@ -149,7 +168,7 @@
           <div class="row">
             <div class="col">
               <h4>Career Prospects</h4>
-              
+
               {%set careers = prog.progCareer.split("#")%}
               {%for career in careers%}
               <p>{{career}}</p>

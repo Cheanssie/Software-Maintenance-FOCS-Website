@@ -147,6 +147,7 @@ def programme2():
 def compareProg():
     id1 = request.args.get('id1')
     id2 = request.args.get('id2')
+    allProg = Programme.query.filter((Programme.progCategory == 'Degree') | (Programme.progCategory == 'Diploma')).all()
 
     if id2 is None:
         abc = Programme.query.filter_by(progCategory = selectedProg.progCategory).first()
@@ -159,7 +160,7 @@ def compareProg():
         progList= Programme.query.filter_by(progCategory = selectedProg.progCategory).all()
         compareProg = Programme.query.filter_by(progId = id2).first()
     
-    return render_template("compareProg.html",prog = selectedProg, progList=progList , compareProg = compareProg)
+    return render_template("compareProg.html",allProg = allProg, prog = selectedProg, progList=progList , compareProg = compareProg)
 
 @app.route('/recognition')
 def recognition():
