@@ -1,342 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>{% block title %}{% endblock %}</title>
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <!-- Favicons -->
-    <link
-      href="{{ url_for('static', filename='assets/img/favicon.png')}}"
-      rel="icon"
-      type="image/x-icon"
-    />
-    <link
-      href="{{ url_for('static', filename='assets/img/favicon.png')}}"
-      rel="apple-touch-icon"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+  <title>{% block title %}{% endblock %}</title>
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
 
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i"
-      rel="stylesheet"
-    />
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='assets/img/favicon.png')}}" rel="icon" type="image/x-icon" />
+  <link href="{{ url_for('static', filename='assets/img/favicon.png')}}" rel="apple-touch-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-    <!-- Vendor CSS Files -->
-    <link
-      href="{{ url_for('static', filename='assets/vendor/aos/aos.css')}}"
-      rel="stylesheet"
-    />
-    <link
-      href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css')}}"
-      rel="stylesheet"
-    />
-    <link
-      href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css')}}"
-      rel="stylesheet"
-    />
-    <link
-      href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css')}}"
-      rel="stylesheet"
-    />
-    <link
-      href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css')}}"
-      rel="stylesheet"
-    />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i"
+    rel="stylesheet" />
 
-    <!-- Template Main CSS File -->
-    <link
-      href="{{ url_for('static', filename='assets/css/style.css')}}"
-      rel="stylesheet"
-    />
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='assets/vendor/aos/aos.css')}}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet" />
 
-    <style>
+  <!-- Template Main CSS File -->
+  <link href="{{ url_for('static', filename='assets/css/style.css')}}" rel="stylesheet" />
+
+  <style>
+    .nav-cus {
+      background-color: #eba200;
+      text-align: center;
+    }
+
+    .gold-orange {
+      font-size: 18em;
+      background-color: red !important;
+    }
+
+    .void-overlap {
+      margin-top: 0;
+    }
+
+    @media (max-width: 991px) {
       .nav-cus {
-        background-color: #eba200;
-        text-align: center;
+        background-color: white;
+        margin-bottom: 15px;
+      }
+    }
+
+    @keyframes slideUp {
+      0% {
+        top: 140px;
+        /* Start with no margin */
+        z-index: 999;
       }
 
-      .gold-orange {
-        font-size: 18em;
-        background-color: red !important;
+      100% {
+        top: 0;
+        /* Adjust the final margin value as needed */
+        z-index: 0;
+      }
+    }
+
+    @keyframes slideDown {
+      0% {
+        top: 0;
+        /* Start with no margin */
+        z-index: 0;
       }
 
-      .void-overlap {
-        margin-top: 128px;
+      100% {
+        top: 140px;
+        /* Adjust the final margin value as needed */
+        z-index: 999;
       }
+    }
 
-      @media (max-width: 991px) {
-        .nav-cus {
-          background-color: white;
-          margin-bottom: 15px;
-        }
-      }
-    </style>
+    .slide-down-animation {
+      animation: slideDown 0.5s ease forwards;
+    }
 
-    <!-- =======================================================
+    .slide-up-animation {
+      animation: slideUp 0.5s ease forwards;
+    }
+  </style>
+
+  <!-- =======================================================
   * Template Name: eStartup
   * Updated: Jul 27 2023 with Bootstrap v5.3.1
   * Template URL: https://bootstrapmade.com/estartup-bootstrap-landing-page-template/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  </head>
+</head>
 
-  <body>
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
-      <div class="container d-flex align-items-center justify-content-between">
-        <div id="logo" class="pt-2">
-          <img src="../static/assets/img/tarumt-logo1.png" height="80" />
-          <!-- Uncomment below if you prefer to use an image logo -->
-          <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" title="" /></a>-->
-        </div>
-
-        <nav id="navbar" class="navbar">
-          <ul>
-            <li>
-              <a
-                class="link-effect nav-link scrollto nav-cus"
-                href="{{ url_for('index')}}"
-              >
-                <span class="fa-stack d-block me-3 fa-hide">
-                  <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
-                  <i
-                    class="fa fa-home fa-stack-1x nav-fa"
-                    style="font-size: 14px; margin-top: 12px"
-                  ></i>
-                </span>
-                <span class="mr-3"> Home </span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="link-effect nav-link scrollto nav-cus"
-                href="{{ url_for('aboutUs')}}"
-              >
-                <span class="fa-stack d-block me-3 fa-hide">
-                  <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
-                  <i class="fa fa-briefcase fa-stack-1x nav-fa"></i>
-                </span>
-                <span class="mr-3"> About Us </span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="link-effect nav-link scrollto nav-cus"
-                href="{{ url_for('facilities')}}"
-              >
-                <span class="fa-stack d-block me-3 fa-hide">
-                  <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
-                  <i class="fa fa-laptop fa-stack-1x nav-fa"></i>
-                </span>
-                <span class="mr-3"> Facilities </span>
-              </a>
-            </li>
-            <li class="dropdown">
-              <a class="link-effect nav-cus" href="#">
-                <span class="fa-stack d-block me-3 fa-hide">
-                  <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
-                  <i class="fa fa-book fa-stack-1x nav-fa"></i>
-                </span>
-                <span class="mr-3"> Research </span>
-                <i class="bi bi-chevron-down"></i>
-              </a>
-              <ul>
-                <li>
-                  <a href="{{ url_for('cictis')}}" class="text-wrap text-start"
-                    >Centre for ICT Innovations and Creativity (CICTIC)</a
-                  >
-                </li>
-                <li>
-                  <a href="{{ url_for('cdsa')}}" class="text-wrap text-start"
-                    >Centre for Data Science and Analytics (CDSA)</a
-                  >
-                </li>
-                <li>
-                  <a href="{{ url_for('cci')}}" class="text-wrap text-start"
-                    >Centre for Computational Intelligence (CCI)</a
-                  >
-                </li>
-                <li>
-                  <a href="{{ url_for('ciot')}}" class="text-wrap text-start"
-                    >Centre for Internet of Things (CIOT)</a
-                  >
-                </li>
-                <li>
-                  <a href="{{ url_for('ccncs')}}" class="text-wrap text-start"
-                    >Centre for Computer Network and Cyber Security (CCNCS)</a
-                  >
-                </li>
-                <li>
-                  <a href="{{ url_for('cicrnd')}}" class="text-wrap text-start"
-                    >Centre for Integrated Circuit Research and Development
-                    (CICR&D)</a
-                  >
-                </li>
-              </ul>
-            </li>
-            <li class="link-effect dropdown">
-              <a class="link-effect nav-cus" href="#">
-                <span class="fa-stack d-block me-3 fa-hide">
-                  <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
-                  <i class="fa fa-university fa-stack-1x nav-fa"></i>
-                </span>
-                <span class="mr-3"> External Advisors </span>
-                <i class="bi bi-chevron-down"></i>
-              </a>
-              <ul>
-                <li>
-                  <a
-                    href="{{ url_for('externalExaminers')}}"
-                    class="text-wrap text-start"
-                    >External Examiners</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="{{ url_for('IEAPBachelorDegree')}}"
-                    class="text-wrap text-start"
-                    >Industrial Expert Advisory Panel (IEAP) - Bachelor
-                    Degree</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="{{ url_for('IEAPPostgraduate')}}"
-                    class="text-wrap text-start"
-                    >Industrial Expert Advisory Panel (IEAP) - Postgraduates
-                    Programmes</a
-                  >
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="link-effect nav-link scrollto nav-cus"
-                href="{{ url_for('staffDirectoryRoute', page_num = 1)}}"
-              >
-                <span class="fa-stack d-block me-3 fa-hide">
-                  <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
-                  <i class="fa fa-users fa-stack-1x nav-fa"></i>
-                </span>
-                <span class="mr-3"> Our Team </span>
-              </a>
-            </li>
-          </ul>
-          <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav>
-        <!-- .navbar -->
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+      <div id="logo" class="pt-2">
+        <img src="../static/assets/img/tarumt-logo1.png" height="80" />
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" title="" /></a>-->
       </div>
-    </header>
-    <!-- End Header -->
-    <section class="void-overlap">{%block content%} {%endblock%}</section>
 
-    <!-- ======= Footer ======= -->
-    <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md">
-            <div class="footer-logo">
-              <a class="navbar-brand" href="#">Contact Us</a>
-              <p>
-                FACULTY OF COMPUTING AND INFORMATION TECHNOLOGY <br />
-                TUNKU ABDUL RAHMAN UNIVERSITY OF MANAGEMENT AND TECHNOLOGY
-                <br />
-                JALAN GENTING KELANG <br />
-                SETAPAK 53300 <br />
-                KUALA LUMPUR
-              </p>
-              <p>
-                TELEPHONE: 603-41450123 Ext no. 3233 <br />
-                MOBILE PHONE: 6011-10758554 <br />
-                FAX: 603-41423166 / 018 925 1001 <br />
-                EMAIL : focs@tarc.edu.my
-              </p>
-              <p>OPENING HOURS 8.30am - 5.30pm (Monday - Friday)</p>
-            </div>
-          </div>
-
-          <div class="col-md">
-            <div class="list-menu">
-              <h4>Locations</h4>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7967.075625883707!2d101.72655700000001!3d3.215255!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc3843bfb6a031%3A0x2dc5e067aae3ab84!2sTunku%20Abdul%20Rahman%20University%20of%20Management%20and%20Technology%20(TAR%20UMT)!5e0!3m2!1sen!2sus!4v1694603779903!5m2!1sen!2sus"
-                height="450"
-                style="border: 0; width: 100%"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-          </div>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li>
+            <a class="link-effect nav-link scrollto nav-cus" href="{{ url_for('index')}}">
+              <span class="fa-stack d-block me-3 fa-hide">
+                <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
+                <i class="fa fa-home fa-stack-1x nav-fa" style="font-size: 14px; margin-top: 12px"></i>
+              </span>
+              <span class="mr-3"> Home </span>
+            </a>
+          </li>
+          <li>
+            <a class="link-effect nav-link scrollto nav-cus" href="{{ url_for('aboutUs')}}">
+              <span class="fa-stack d-block me-3 fa-hide">
+                <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
+                <i class="fa fa-briefcase fa-stack-1x nav-fa"></i>
+              </span>
+              <span class="mr-3"> About Us </span>
+            </a>
+          </li>
+          <li>
+            <a class="link-effect nav-link scrollto nav-cus" href="{{ url_for('facilities')}}">
+              <span class="fa-stack d-block me-3 fa-hide">
+                <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
+                <i class="fa fa-laptop fa-stack-1x nav-fa"></i>
+              </span>
+              <span class="mr-3"> Facilities </span>
+            </a>
+          </li>
+          <li class="dropdown">
+            <a class="link-effect nav-cus" href="#">
+              <span class="fa-stack d-block me-3 fa-hide">
+                <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
+                <i class="fa fa-book fa-stack-1x nav-fa"></i>
+              </span>
+              <span class="mr-3"> Research </span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul>
+              <li>
+                <a href="{{ url_for('cictis')}}" class="text-wrap text-start">Centre for ICT Innovations and Creativity
+                  (CICTIC)</a>
+              </li>
+              <li>
+                <a href="{{ url_for('cdsa')}}" class="text-wrap text-start">Centre for Data Science and Analytics
+                  (CDSA)</a>
+              </li>
+              <li>
+                <a href="{{ url_for('cci')}}" class="text-wrap text-start">Centre for Computational Intelligence
+                  (CCI)</a>
+              </li>
+              <li>
+                <a href="{{ url_for('ciot')}}" class="text-wrap text-start">Centre for Internet of Things (CIOT)</a>
+              </li>
+              <li>
+                <a href="{{ url_for('ccncs')}}" class="text-wrap text-start">Centre for Computer Network and Cyber
+                  Security (CCNCS)</a>
+              </li>
+              <li>
+                <a href="{{ url_for('cicrnd')}}" class="text-wrap text-start">Centre for Integrated Circuit Research and
+                  Development
+                  (CICR&D)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="link-effect dropdown">
+            <a class="link-effect nav-cus" href="#">
+              <span class="fa-stack d-block me-3 fa-hide">
+                <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
+                <i class="fa fa-university fa-stack-1x nav-fa"></i>
+              </span>
+              <span class="mr-3"> External Advisors </span>
+              <i class="bi bi-chevron-down"></i>
+            </a>
+            <ul>
+              <li>
+                <a href="{{ url_for('externalExaminers')}}" class="text-wrap text-start">External Examiners</a>
+              </li>
+              <li>
+                <a href="{{ url_for('IEAPBachelorDegree')}}" class="text-wrap text-start">Industrial Expert Advisory
+                  Panel (IEAP) - Bachelor
+                  Degree</a>
+              </li>
+              <li>
+                <a href="{{ url_for('IEAPPostgraduate')}}" class="text-wrap text-start">Industrial Expert Advisory Panel
+                  (IEAP) - Postgraduates
+                  Programmes</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="link-effect nav-link scrollto nav-cus" href="{{ url_for('staffDirectoryRoute', page_num = 1)}}">
+              <span class="fa-stack d-block me-3 fa-hide">
+                <i class="fa fa-circle fa-stack-2x nav-fa-circle"></i>
+                <i class="fa fa-users fa-stack-1x nav-fa"></i>
+              </span>
+              <span class="mr-3"> Our Team </span>
+            </a>
+          </li>
+          <li>
+            <button id="searchIcon" class="fa-stack d-block me-3 fa-hide">
+              <i class="fa fa-search"></i>
+              </span>
+          </li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      <!-- .navbar -->
+    </div>
+  </header>
+  <!-- End Header -->
+  <!-- Search Bar Begin -->
+  <form  id="animatedSearch" action="{{url_for('searchProgramme')}}" method="POST" class="position-fixed  d-flex align-items-center" style="width:100%;">
+    <div class="container-fluid d-flex justify-content-center align-items-center void-overlap">
+      <div class="w-100">
+        <div class="row d-flex justify-content-center my-1 ">
+          <input type="text" class="form-control h-50 d-block w-75 " placeholder="Programme" aria-label="Programme"
+            aria-describedby="button-addon2" name="programme">
         </div>
-        <div class="copyrights" style="background-color: #2a2c30">
-          <div class="container">
-            <p class="text-white">
-              TAR UMT © 2023 All Rights Reserved
-              <b style="color: #ffdb4a">Disclaimer Privacy Policy</b> and
-              <b style="color: #ffdb4a">ABAC Policy</b>
+        <div class="row  d-flex justify-content-center my-2  ">
+          <button class="btn btn-primary d-flex  w-50 align-items-center justify-content-center  " type="submit"
+            id="button-addon2" style="border-radius: 15px; height: 30px;">Search</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- Search Bar Ends -->
+  <section>{%block content%} {%endblock%}</section>
+
+  <!-- ======= Footer ======= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md">
+          <div class="footer-logo">
+            <a class="navbar-brand" href="#">Contact Us</a>
+            <p>
+              FACULTY OF COMPUTING AND INFORMATION TECHNOLOGY <br />
+              TUNKU ABDUL RAHMAN UNIVERSITY OF MANAGEMENT AND TECHNOLOGY
+              <br />
+              JALAN GENTING KELANG <br />
+              SETAPAK 53300 <br />
+              KUALA LUMPUR
             </p>
+            <p>
+              TELEPHONE: 603-41450123 Ext no. 3233 <br />
+              MOBILE PHONE: 6011-10758554 <br />
+              FAX: 603-41423166 / 018 925 1001 <br />
+              EMAIL : focs@tarc.edu.my
+            </p>
+            <p>OPENING HOURS 8.30am - 5.30pm (Monday - Friday)</p>
+          </div>
+        </div>
+
+        <div class="col-md">
+          <div class="list-menu">
+            <h4>Locations</h4>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7967.075625883707!2d101.72655700000001!3d3.215255!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc3843bfb6a031%3A0x2dc5e067aae3ab84!2sTunku%20Abdul%20Rahman%20University%20of%20Management%20and%20Technology%20(TAR%20UMT)!5e0!3m2!1sen!2sus!4v1694603779903!5m2!1sen!2sus"
+              height="450" style="border: 0; width: 100%" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>
-    </footer>
-    <!-- End  Footer -->
+      <div class="copyrights" style="background-color: #2a2c30">
+        <div class="container">
+          <p class="text-white">
+            TAR UMT © 2023 All Rights Reserved
+            <b style="color: #ffdb4a">Disclaimer Privacy Policy</b> and
+            <b style="color: #ffdb4a">ABAC Policy</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- End  Footer -->
 
-    <a
-      href="#"
-      class="back-to-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
-    <!-- Vendor JS Files -->
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
 
-    <!-- Template Main JS File -->
-    <script src="{{ url_for('static', filename='assets/js/main.js')}}"></script>
-    <script>
-      // Function to handle actions based on screen size
-      function handleScreenSize() {
-        const screenWidth = window.innerWidth;
+  <!-- Template Main JS File -->
+  <script src="{{ url_for('static', filename='assets/js/main.js')}}"></script>
+  <script>
+    // Function to handle actions based on screen size
+    function handleScreenSize() {
+      const screenWidth = window.innerWidth;
 
-        // Check if the screen width is beyond 991 pixels
-        if (screenWidth > 991) {
-          // Toggle off the 'navbar-mobile' class (assuming it hides the mobile navigation)
-          const navbar = document.querySelector(".navbar");
-          navbar.classList.remove("navbar-mobile");
+      // Check if the screen width is beyond 991 pixels
+      if (screenWidth > 991) {
+        // Toggle off the 'navbar-mobile' class (assuming it hides the mobile navigation)
+        const navbar = document.querySelector(".navbar");
+        navbar.classList.remove("navbar-mobile");
 
-          // Reset the mobile-nav-toggle to the 'bi-list' state
-          const mobileNavToggle = document.querySelector(".mobile-nav-toggle");
-          mobileNavToggle.classList.remove("bi-x");
-          mobileNavToggle.classList.add("bi-list");
-        }
+        // Reset the mobile-nav-toggle to the 'bi-list' state
+        const mobileNavToggle = document.querySelector(".mobile-nav-toggle");
+        mobileNavToggle.classList.remove("bi-x");
+        mobileNavToggle.classList.add("bi-list");
       }
+    }
 
-      // Initial call to handleScreenSize on page load
-      handleScreenSize();
+    // Initial call to handleScreenSize on page load
+    handleScreenSize();
 
-      // Listen for the window resize event
-      window.addEventListener("resize", handleScreenSize);
-    </script>
+    // Listen for the window resize event
+    window.addEventListener("resize", handleScreenSize);
 
-    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-    <df-messenger
-      intent="WELCOME"
-      chat-title="TARUMT-FAQ-BOT"
-      agent-id="ae4d72d5-f503-465c-85aa-1b8d690f7163"
-      language-code="en"
-    ></df-messenger>
-  </body>
+    let searchBar = document.getElementById('animatedSearch');
+    let searchIcon = document.getElementById('searchIcon');
+    searchIcon.addEventListener("click", () => {
+      if (!searchBar.classList.contains("slide-up-animation") && !searchBar.classList.contains("slide-down-animation")) {
+        searchBar.classList.toggle("slide-down-animation");
+      } else {
+        searchBar.classList.toggle("slide-up-animation");
+        searchBar.classList.toggle("slide-down-animation");
+      }
+    });
+
+
+  </script>
+
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger intent="WELCOME" chat-title="TARUMT-FAQ-BOT" agent-id="ae4d72d5-f503-465c-85aa-1b8d690f7163"
+    language-code="en"></df-messenger>
+</body>
+
 </html>
