@@ -40,8 +40,8 @@
       background-color: red !important;
     }
 
-    .void-overlap {
-      margin-top: 0;
+    .void-overlap{
+      margin-top: 128px !important;
     }
 
     @media (max-width: 991px) {
@@ -53,29 +53,33 @@
 
     @keyframes slideUp {
       0% {
-        top: 140px;
+        top: 104px;
         /* Start with no margin */
-        z-index: 999;
+        z-index: 990;
+        display: flex;
       }
 
       100% {
-        top: 0;
+        top: -100px;
         /* Adjust the final margin value as needed */
         z-index: 0;
+        display: none;
       }
     }
 
     @keyframes slideDown {
       0% {
-        top: 0;
+        top: -100px;
         /* Start with no margin */
         z-index: 0;
+        display: none;
       }
 
       100% {
-        top: 140px;
+        top: 104px;
         /* Adjust the final margin value as needed */
-        z-index: 999;
+        z-index: 990;
+        display: flex;
       }
     }
 
@@ -85,6 +89,17 @@
 
     .slide-up-animation {
       animation: slideUp 0.5s ease forwards;
+    }
+
+    #searchBtn {
+      background-color: #eba200;
+      border: none;
+    }
+
+    #animatedSearch {
+      width: 100%;
+      background-color: rgba(174, 169, 169, 0.9);
+      top: -100px
     }
   </style>
 
@@ -207,8 +222,8 @@
             </a>
           </li>
           <li>
-            <button id="searchIcon" class="fa-stack d-block me-3 fa-hide">
-              <i class="fa fa-search"></i>
+            <button id="searchIcon" class="border-0 bg-transparent  fa-stack d-block me-3 fa-hide">
+              <i class="fa fa-search" style="margin-left:5px; font-size: 16px;"></i>
               </span>
           </li>
         </ul>
@@ -219,22 +234,23 @@
   </header>
   <!-- End Header -->
   <!-- Search Bar Begin -->
-  <form  id="animatedSearch" action="{{url_for('searchProgramme')}}" method="POST" class="position-fixed  d-flex align-items-center" style="width:100%;">
-    <div class="container-fluid d-flex justify-content-center align-items-center void-overlap">
+  <form id="animatedSearch" action="{{url_for('searchProgramme')}}" method="POST"
+    class="position-fixed align-items-center">
+    <div class="container-fluid d-flex justify-content-center align-items-center p-3 ">
       <div class="w-100">
         <div class="row d-flex justify-content-center my-1 ">
-          <input type="text" class="form-control h-50 d-block w-75 " placeholder="Programme" aria-label="Programme"
+          <input type="text" class="form-control h-50 d-block w-75 mt-4 " placeholder="Programme" aria-label="Programme"
             aria-describedby="button-addon2" name="programme">
         </div>
         <div class="row  d-flex justify-content-center my-2  ">
-          <button class="btn btn-primary d-flex  w-50 align-items-center justify-content-center  " type="submit"
-            id="button-addon2" style="border-radius: 15px; height: 30px;">Search</button>
+          <button class="btn btn-primary d-flex w-25 align-items-center justify-content-center effect effect-1"
+            type="submit" id="searchBtn" style="border-radius: 0px; height: 30px;">Search</button>
         </div>
       </div>
     </div>
   </form>
   <!-- Search Bar Ends -->
-  <section>{%block content%} {%endblock%}</section>
+  <section class="void-overlap">{%block content%} {%endblock%}</section>
 
   <!-- ======= Footer ======= -->
   <footer class="footer">
@@ -270,6 +286,15 @@
               referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
+
+          <div class="col-md">
+            <div class="list-menu">
+              <h4>Admin Panel</h4>
+              <a href="{{ url_for('login')}}" class="btn btn-primary"
+                >Login</a>
+            </div>
+          </div>
+
       </div>
       <div class="copyrights" style="background-color: #2a2c30">
         <div class="container">
