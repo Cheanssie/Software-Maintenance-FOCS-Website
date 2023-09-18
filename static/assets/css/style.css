@@ -146,7 +146,7 @@ span {
   background: url("../img/header-bg.jpg") no-repeat;
   background-size: cover;
   z-index: 997;
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
   padding: 20px 0;
 }
 
