@@ -8,6 +8,32 @@ Enrollment
   .card {
     border: none;
   }
+
+  /* CSS for the pop-up */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Add any additional styles as needed */
+
 </style>
 
 <main>
@@ -109,7 +135,7 @@ Enrollment
     <div class="popup-content">
         <h2 id="popupMessageTitle"></h2>
         <p id="popupMessageText"></p>
-        <button id="closePopup" class="btn-primary">Close</button>
+        <button id="closePopup" class="btn btn-primary mx-2">Close</button>
     </div>
   </div>
 
@@ -476,6 +502,7 @@ function showPopup(title, message) {
     const popup = document.getElementById("eligibilityPopup");
     const popupTitle = document.getElementById("popupMessageTitle");
     const popupText = document.getElementById("popupMessageText");
+    const programme = document.getElementById("inputProgramme");
 
     popupTitle.textContent = title;
     popupText.textContent = message;
