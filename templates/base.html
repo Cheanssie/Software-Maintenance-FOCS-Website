@@ -40,7 +40,7 @@
       background-color: red !important;
     }
 
-    .void-overlap{
+    .void-overlap {
       margin-top: 128px !important;
     }
 
@@ -101,6 +101,23 @@
       background-color: rgba(174, 169, 169, 0.9);
       top: -100px
     }
+
+    df-messenger {
+      --df-messenger-bot-message: #eba200;
+      --df-messenger-button-titlebar-color: #eba200;
+      --df-messenger-chat-background-color: #fafafa;
+      --df-messenger-font-color: white;
+      --df-messenger-send-icon: #878fac;
+      --df-messenger-user-message: #878fac;
+    }
+
+    /*df-messenger {
+      margin: 0;
+      padding: 0;
+      position: fixed;
+      right: 0;
+      transform: translateX(50%) translateY(50%);
+    }*/
   </style>
 
   <!-- =======================================================
@@ -282,18 +299,17 @@
             <h4>Locations</h4>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7967.075625883707!2d101.72655700000001!3d3.215255!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc3843bfb6a031%3A0x2dc5e067aae3ab84!2sTunku%20Abdul%20Rahman%20University%20of%20Management%20and%20Technology%20(TAR%20UMT)!5e0!3m2!1sen!2sus!4v1694603779903!5m2!1sen!2sus"
-              height="450" style="border: 0; width: 100%" allowfullscreen="" loading="lazy"
+              height="450" style="border: 0; width: 100%;" allowfullscreen="" loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
 
-          <div class="col-md">
-            <div class="list-menu">
-              <h4>Admin Panel</h4>
-              <a href="{{ url_for('login')}}" class="btn btn-primary"
-                >Login</a>
-            </div>
+        <div class="col-md">
+          <div class="list-menu">
+            <h4>Admin Panel</h4>
+            <a href="{{ url_for('login')}}" class="btn btn-primary">Login</a>
           </div>
+        </div>
 
       </div>
       <div class="copyrights" style="background-color: #2a2c30">
@@ -309,8 +325,8 @@
   </footer>
   <!-- End  Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center  text-center"><i
+      class="bi bi-arrow-up-short text-center "></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/aos/aos.js"></script>
@@ -357,10 +373,27 @@
     });
 
 
+    document.addEventListener('DOMContentLoaded', function () {
+      // YOUR CODE (NOT RELATED TO DIALOGFLOW MESSENGER)
+
+      window.addEventListener('dfMessengerLoaded', function (event) {
+        const dfMessenger = document.querySelector('df-messenger');
+        const dfMessengerChat = dfMessenger.shadowRoot.querySelector('df-messenger-chat');
+        const dfMessengerUserInput = dfMessengerChat.shadowRoot.querySelector('df-messenger-user-input');
+
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync('div.chat-wrapper[opened="true"] { height: 400px; z-index:999; }');
+        dfMessengerChat.shadowRoot.adoptedStyleSheets = [sheet];
+
+        // MORE OF YOUR DIALOGFLOW MESSENGER CODE
+      });
+    });
+
+
   </script>
 
   <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-  <df-messenger intent="WELCOME" chat-title="TARUMT-FAQ-BOT" agent-id="ae4d72d5-f503-465c-85aa-1b8d690f7163"
+  <df-messenger intent="WELCOME" chat-title="TT Bot" agent-id="ae4d72d5-f503-465c-85aa-1b8d690f7163"
     language-code="en"></df-messenger>
 </body>
 

@@ -113,10 +113,10 @@ span {
   position: fixed;
   visibility: hidden;
   opacity: 0;
-  right: 15px;
-  bottom: 15px;
-  z-index: 996;
-  background: #71c55d;
+  right: 28px;
+  bottom: 90px;
+  z-index: 100;
+  background: #EBA200;
   width: 40px;
   height: 40px;
   border-radius: 4px;
