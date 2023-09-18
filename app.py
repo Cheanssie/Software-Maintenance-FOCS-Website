@@ -124,10 +124,21 @@ def programme2():
 
 @app.route('/compareProg')
 def compareProg():
-    id = request.args.get('id')
-    selectedProg = Programme.query.filter_by(progId = id).first()
-    progList= Programme.query.filter_by(progCategory = selectedProg.progCategory).all()
-    return render_template("compareProg.html",prog = selectedProg, progList=progList)
+    id1 = request.args.get('id1')
+    id2 = request.args.get('id2')
+
+    if id2 is None:
+        abc = Programme.query.filter_by(progCategory = selectedProg.progCategory).first()
+        id2 = abc.progId
+        selectedProg = Programme.query.filter_by(progId = id1).first()
+        progList= Programme.query.filter_by(progCategory = selectedProg.progCategory).all()
+        compareProg = Programme.query.filter_by(progId = id2).first()
+    else:
+        selectedProg = Programme.query.filter_by(progId = id1).first()
+        progList= Programme.query.filter_by(progCategory = selectedProg.progCategory).all()
+        compareProg = Programme.query.filter_by(progId = id2).first()
+    
+    return render_template("compareProg.html",prog = selectedProg, progList=progList , compareProg = compareProg)
 
 @app.route('/recognition')
 def recognition():

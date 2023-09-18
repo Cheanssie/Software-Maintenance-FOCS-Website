@@ -44,20 +44,21 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        
+
         <div class="dropdown">
           <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
             Select Programme
           </button>
           <ul class="dropdown-menu">
-            
-            {%for prog in progList %}
-            <li><a class="dropdown-item" href="#">{{prog.progName}}</a></li>
+
+            {%for progs in progList %}
+            <li><a class="dropdown-item" href="{{ url_for('compareProg',id1=prog.progId, id2=progs.progId)}}"
+                value="{{progs.progId}}">{{progs.progName}}</a></li>
             {% endfor %}
-          
+
           </ul>
         </div>
-      
+
       </div>
 
     </div>
@@ -67,33 +68,59 @@
         <div id="overview" class="tab-pane fade show active">
           <div class="row">
             <div class="col">
+              <h4>Programme Name</h4>
+              <p>{{prog.progName}}</p>
 
               <h4>Programme Overview:</h4>
               <p>{{prog.progOverview}}</p>
+
               <h4>Intake</h4>
               {%set intakes = prog.progIntake.split("#")%}
               {%for intake in intakes%}
               <p>{{intake}}</p>
               {% endfor %}
+
               <h4>Duration</h4>
               {%set durations = prog.progDuration.split("#")%}
               {%for duration in durations%}
               <p>{{duration}}</p>
               {% endfor %}
+
               <h4>Campus</h4>
               {%set campuses = prog.progCampus.split("#")%}
               {%for campus in campuses%}
               <p>{{campus}}</p>
               {% endfor %}
+
             </div>
             <div class="col">
+              <h4>Programme Name</h4>
+              <p>{{compareProg.progName}}</p>
+
               <h4>Programme Overview:</h4>
+              <p>{{compareProg.progOverview}}</p>
 
               <h4>Intake</h4>
-
+              {% if compareProg is not none and compareProg.progIntake is not none %}
+              {%set intakes1 = compareProg.progIntake.split("#")%}
+              {%for intake1 in intakes1%}
+              <p>{{intake1}}</p>
+              {% endfor %}
+              {% endif %}
               <h4>Duration</h4>
-
+              {% if compareProg is not none and compareProg.progDuration is not none%}
+              {%set durations1 = compareProg.progDuration.split("#")%}
+              {%for duration1 in durations1%}
+              <p>{{duration1}}</p>
+              {% endfor %}
+              {% endif %}
               <h4>Campus</h4>
+              {% if compareProg is not none and compareProg.progCampus is not none %}
+              {%set campuses1 = compareProg.progCampus.split("#")%}
+              {%for campus1 in campuses1%}
+              <p>{{campus1}}</p>
+              {% endfor %}
+              {% endif %}
             </div>
           </div>
         </div>
@@ -109,6 +136,12 @@
             </div>
             <div class="col">
               <h4>Programme Outline:</h4>
+              {% if compareProg is not none and compareProg.progOutline is not none %}
+              {% set outlines1 = compareProg.progOutline.split("#") %}
+              {% for outline1 in outlines1 %}
+              <p>{{ outline1 }}</p>
+              {% endfor %}
+              {% endif %}
             </div>
           </div>
         </div>
@@ -116,6 +149,7 @@
           <div class="row">
             <div class="col">
               <h4>Career Prospects</h4>
+              
               {%set careers = prog.progCareer.split("#")%}
               {%for career in careers%}
               <p>{{career}}</p>
@@ -123,6 +157,12 @@
             </div>
             <div class="col">
               <h4>Career Prospects</h4>
+              {% if compareProg is not none and compareProg.progCareer is not none %}
+              {%set careers1 = compareProg.progCareer.split("#")%}
+              {%for career1 in careers1%}
+              <p>{{career1}}</p>
+              {% endfor %}
+              {% endif %}
             </div>
           </div>
         </div>
@@ -134,7 +174,7 @@
             </div>
             <div class="col">
               <h4>Entry Requirement</h4>
-              <img src="../static/assets/img/" class="img-fluid">
+              <img src="../static/assets/img/{{compareProg.progReq}}" class="img-fluid">
             </div>
           </div>
         </div>
