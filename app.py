@@ -113,6 +113,16 @@ def index():
 
 @app.route('/login')
 def login():
+
+    if request.method == 'POST':
+        userID = request.form.get('userID')
+        password = request.form.get('password')
+
+        if(userID == 'admin' and password == 'admin'):
+            return render_template("admin.html")
+        else:
+            pass
+
     return render_template("login.html")
 
 @app.route('/facilities')
