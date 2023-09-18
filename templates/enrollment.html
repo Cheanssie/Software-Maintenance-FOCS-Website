@@ -8,6 +8,29 @@ Enrollment
   .card {
     border: none;
   }
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    text-align: center;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 </style>
 
 <main>
@@ -16,19 +39,28 @@ Enrollment
     <h1 class="position-absolute ml-2" style="margin-top: 50px; color:white; margin-left: 120px;">Enrollment</h1>
   </div>
   <div class="container d-flex flex-column m-auto m-5 p-5">
-    <form class="mt-1" id="section1">
+    <form class="mt-1 needs-validation" id="section1" novalidate>
       <h3 class="text-center">Personal Information</h3>
       <div class="mb-3">
         <label for="inputName" class="form-label">Name</label>
-        <input type="text" class="form-control" name="inputName" id="inputName">
+        <input type="text" class="form-control" name="inputName" id="inputName" required>
+        <div class="invalid-feedback">
+          Please enter your name
+        </div>
       </div>
       <div class="mb-3">
         <label for="inputEmail" class="form-label">Email address</label>
-        <input type="email" class="form-control" name="inputEmail" id="inputEmail">
+        <input type="email" class="form-control" name="inputEmail" id="inputEmail" required>
+        <div class="invalid-feedback">
+          Please enter your email
+        </div>
       </div>
       <div class="mb-3">
         <label for="inputTel" class="form-label">Phone Number</label>
-        <input type="tel" class="form-control" name="inputTel" id="inputTel">
+        <input type="tel" class="form-control" name="inputTel" id="inputTel" required>
+        <div class="invalid-feedback">
+          Please enter your phone number
+        </div>
       </div>
       <fieldset class="mb-3">
         <label class="form-label d-block">Gender</label>
@@ -45,21 +77,23 @@ Enrollment
           </label>
         </div>
       </fieldset>
-      <button type="button" class="btn btn-primary d-block m-auto" onclick="showSection('section2')">Next</button>
+      <button type="button" class="btn btn-primary d-block m-auto" onclick="showSection('section2')" id="nextButton">Next</button>
     </form>
 
-    <form class="mt-1" id="section2" style="display: none;">
+    <form class="mt-1 needs-validation" id="section2" style="display: none;" novalidate>
       <h3 class="text-center mb-3">Academic Qualification</h3>
       <div class="mb-3">
         <label class="form-label" for="inputProgramme">Select Your Programme</label>
-        <select class="form-select" name="inputProgramme" id="inputProgramme"
-          aria-label="Default select example">
+        <select class="form-select" name="inputProgramme" id="inputProgramme" aria-label="Default select example" required>
           <option selected value="">Select an option</option>
           <option value="CS">Diploma in Computer Science</option>
           <option value="IS">Diploma in Information System</option>
           <option value="IT">Diploma in Information Technology</option>
           <option value="SE">Diploma in Software Engineering</option>
         </select>
+        <div class="invalid-feedback">
+          Please select your programme
+        </div>
       </div>
       <div class="row mb-3">
         <div class="col-6 ">
@@ -72,536 +106,38 @@ Enrollment
         </div>
         <div class="col-6 ">
           <label class="form-label " for="fileInput">Upload Result:</label>
-          <input class="form-control " type="file" id="fileInput" name="fileInput" onchange="uploadFile()">
+          <input class="form-control " type="file" id="fileInput" name="fileInput" onchange="uploadFile()" required>
+          <div class="invalid-feedback">
+            Please upload your result
+          </div>
         </div>
       </div>
       <div>
         <table class="table table-borderless ">
-          <thead>
-            <tr>
-              <th style="width: 35%;">Subject</th>
-              <th style="width: 15%;">Grade</th>
-              <th style="width: 35%;">Subject</th>
-              <th style="width: 15%;">Grade</th>
-            </tr>
+          <thead id="gradeTableThread">
           </thead>
-          <tbody>
-            <tr>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-              
-            </tr>
-            <tr>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-              
-            </tr>
-            <tr>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-              <td style="width: 35%;">
-                <select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="BM">Bahasa Melayu</option>
-                  <option value="BI">Bahasa Inggeris</option>
-                  <option value="BC">Bahasa Cina</option>
-                  <option value="PM">Pendidikan Moral</option>
-                  <option value="MM">Matematik</option>
-                  <option value="MT">Matematik Tambahan</option>
-                  <option value="KM">Kimia</option>
-                  <option value="FZ">Fizik</option>
-                  <option value="BO">Biologi</option>
-                  <option value="SEJ">Sejarah</option>
-                  <option value="PP">Prinsip Perakaunan</option>
-                  <option value="PI">Pendidikan Islam</option>
-                </select>
-              </td>
-              <td style="width: 15%;">
-                <select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification"
-                  aria-label="Default select example">
-                  <option selected disabled value="">Select an option</option>
-                  <option value="A+">A+</option>
-                  <option value="A">A</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B">B</option>
-                  <option value="C+">C+</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="G">G</option>
-                  <option value="X">X</option>
-                </select>
-              </td>
-              
-            </tr>
+          <tbody id="gradeTableBody">
           </tbody>
         </table>
       </div>
       <div class="d-flex justify-content-center">
         <button type="button" class="btn btn-primary d-inline m-2" onclick="showSection('section1')">Previous</button>
-        <button type="button" class="btn btn-primary d-inline m-2" onclick="checkEligibility()">Submit</button>
+        <button type="button" class="btn btn-primary d-inline m-2" onclick="checkEligibility()" id="submitBtn">Submit</button>
       </div>
     </form>
   </div>
+
+  <!-- Add this within your HTML body -->
+  <div id="eligibilityPopup" class="popup" style="display: none;">
+    <div class="popup-content px-5">
+        <h2 id="popupMessageTitle" class="my-2"></h2>
+        <p id="popupMessageText"></p>
+        <p><a href="{{ url_for('index')}}">>> Go back to Home Page</a></p>
+        <button id="closePopup" class="btn btn-primary ">Close</button>
+    </div>
+  </div>
+
+
 </main>
 
 <script>
@@ -618,9 +154,7 @@ Enrollment
       targetSection.style.display = 'block';
     }
   }
-</script>
 
-<script>
   function uploadFile() {
     const fileInput = document.getElementById("fileInput");
     const formData = new FormData();
@@ -632,28 +166,209 @@ Enrollment
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle the returned JSON data (your result) here
-        // For example, update an HTML element with the result
-        const subjectContainer = document.getElementsByClassName("qualificationSubject");
-        const gradeContainer = document.getElementsByClassName("qualificationGrade");
-        const test = document.getElementById('test')
 
-        var count = 0;
+        //thead
+        const gradeTableThread = document.getElementById("gradeTableThread")
+
+        //inside one thead got tr 
+        const headerRow = document.createElement("tr")
+
+        //inside one thead got tr then got th which is subject header
+        const subjectHeader = document.createElement("th");
+
+        //in original HTML, it declare in this way: 
+        //<th style="width: 35%;">Subject</th>
+        //so text content is Subject 
+        subjectHeader.textContent = "Subject";
+
+        //width is 35%
+        subjectHeader.style.width = "35%"; 
+
+        //add subject header inside the tr
+        headerRow.appendChild(subjectHeader);
+
+        //inside one thead got tr then got th which is the grade header
+        const gradeHeader = document.createElement("th");
+
+        //in original HTML, it declare in this way: 
+        //<th style="width: 15%;">Grade</th>
+        //so text content is Grade 
+        gradeHeader.textContent = "Grade";
+        
+        //width is 15%
+        gradeHeader.style.width = "15%"; 
+        
+        //add grade header inside the tr
+        headerRow.appendChild(gradeHeader);
+
+        gradeTableThread.appendChild(headerRow);
+
+        const gradeTableBody = document.getElementById("gradeTableBody");
+
+        //how many data then how many row
         for (const d in data) {
-          for (let i = 0; i < subjectContainer[count].options.length; i++) {
-            if (subjectContainer[count].options[i].value === d) {
-              subjectContainer[count].selectedIndex = i;
-            }
-          }
-          for (let g = 0; g < gradeContainer[count].options.length; g++) {
-                if (gradeContainer[count].options[g].value === data[d]) {
-                  gradeContainer[count].selectedIndex = g;
-                }
-              }
-          count++;
-        }
+          //add each row which is tr, and each tr contains a subject row and a grade row
+          const newRow = document.createElement("tr");
 
-        resultContainer.innerHTML = JSON.stringify(data);
+          // in HTML, it will declare in this way --
+          //<select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification" aria-label="Default select example">
+          //create element of select so that can implement this select statement ^
+          const subjectRows = document.createElement("td");
+
+          //add class of subject select
+          const subjectSelect = document.createElement("select");
+
+          //add class of subject select
+          subjectSelect.className = "form-select qualificationSubject";
+
+          //add name of subject select
+          subjectSelect.name = "qualificationSubject";
+
+          //add id of subject select
+          subjectSelect.id = "inputQualification"
+
+          //add aria label of subject select
+          subjectSelect.ariaLabel = "Default select example";
+
+          //in HTML, it will declare in this way --
+          //<option selected disabled value="">Select an option</option>
+          //create element of option so that can implement this option statement^
+          const subjectDefaultOption = document.createElement("option");
+
+          //option is selected
+          subjectDefaultOption.selected = true;
+
+          //option is disabled
+          subjectDefaultOption.disabled = true;
+
+          //since default is "Select an option" so empty
+          subjectDefaultOption.value = "";
+
+          //option is disabled
+          subjectDefaultOption.text = "Select an option";
+
+          //inside one select got default option so add in as chield
+          subjectSelect.appendChild(subjectDefaultOption);
+
+          //list out all the subject abbreviation
+          const subjectAbbreviation = {
+            "BM": "BAHASA MELAYU",
+            "BI": "BAHASA INGGERIS",
+            "PM": "PENDIDIKAN MORAL",
+            "SEJ": "SEJARAH",
+            "MM": "MATHEMATICS",
+            "MT": "ADDITIONAL MATHEMATICS",
+            "FZ": "PHYSICS",
+            "KM": "CHEMISTRY",
+            "BO": "BIOLOGY",
+            "BC": "BAHASA CINA",
+            "PP": "PRINSIP PERAKAUNAN",
+          }
+
+          //in HTML, it will declare in this way
+          //<option value="BM">BAHASA MELAYU</option>
+          //so use for loop to iterate across all subject options
+          for (const subjectName in subjectAbbreviation) {
+            //create element of option so that can add <option value="BM">Bahasa Melayu</option>
+            const subjectOption = document.createElement("option");
+
+            //add value of the option
+            //want print the BI, BM, etc
+            subjectOption.value = subjectName;
+
+            //add text of the option
+            //print the text of value eg. BAHASA MELAYU if the subject name is BM
+            subjectOption.text = subjectAbbreviation[subjectName];
+
+            // Select the appropriate subject option based on d which is data dictionary
+            if (subjectName === d) {
+              subjectOption.selected = true;
+            }
+
+            //Inside one select got many subject option so add in as child
+            subjectSelect.appendChild(subjectOption);
+          }
+
+          //each new row got one select statement (and each select statement got many grade option)
+          //so add select statement inside rows
+          subjectRows.appendChild(subjectSelect);
+
+          //add grade row
+          const gradeRows = document.createElement("td");
+
+          //in HTML, it will declare in this way --
+          //<select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification" aria-label="Default select example">
+          //create element of select so that can implement this select statement ^
+          const gradeSelect = document.createElement("select");
+
+          //add class of grade select
+          gradeSelect.className = "form-select qualificationGrade";
+
+          //add name of grade select
+          gradeSelect.name = "qualificationGrade";
+
+          //add id of grade select
+          gradeSelect.id = "inputQualification";
+
+          //add aria label of grade select
+          gradeSelect.ariaLabel = "Default select example";
+
+          //in HTML, it will declare in this way --
+          //<option selected disabled value="">Select an option</option>
+          //create element of option so that can implement this option statement^ 
+          const gradeDefaultOption = document.createElement("option");
+
+          //option is selected
+          gradeDefaultOption.selected = true;
+
+          //option is disabled
+          gradeDefaultOption.disabled = true;
+
+          //since default is "Select an option" so empty
+          gradeDefaultOption.value = "";
+
+          //the text is "Select an option"
+          gradeDefaultOption.text = "Select an option";
+
+          //inside one select got default option so add in as child
+          gradeSelect.appendChild(gradeDefaultOption);
+
+          //list out all the grade options
+          const gradeOptions = ["A+", "A", "A-", "B+", "B", "C+", "C", "D", "E", "G", "X"];
+
+          //in HTML, it will declare in this way
+          //<option value="A+">A+</option>
+          //so use for loop to iterate across all grade options
+          for (const optionValue of gradeOptions) {
+            //create element of option so that can add <option value="A+">A+</option> statement
+            const gradeOption = document.createElement("option");
+
+            //add value of the option
+            gradeOption.value = optionValue;
+
+            //add text of the option
+            gradeOption.text = optionValue;
+
+            // Select the appropriate grade option based on data[d] which is dictionary
+            if (optionValue === data[d]) {
+              gradeOption.selected = true;
+            }
+
+            //inside one select got many option so add in as child
+            gradeSelect.appendChild(gradeOption);
+          }
+
+          //each new row got one select statement (and each select statement got many grade option)
+          //so add select statement inside rows
+          gradeRows.appendChild(gradeSelect);
+
+          //each td got two row - subject rows and grade rows so add them
+          newRow.appendChild(subjectRows);
+          newRow.appendChild(gradeRows);
+
+          //each table got a subject row and a grade row so add newRow that consists of a subject and a grade row
+          gradeTableBody.appendChild(newRow);
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -682,40 +397,124 @@ Enrollment
     "X": 0,
   };
 
-  function checkEligibility(){
-      const subjectContainer = document.getElementsByClassName("qualificationSubject");
-      const gradeContainer = document.getElementsByClassName("qualificationGrade");
-      let isEligible = false;
-      let selectedSubject = {};
+  function checkEligibility() {
+    const subjectContainer = document.getElementsByClassName("qualificationSubject");
+    const gradeContainer = document.getElementsByClassName("qualificationGrade");
+    let isEligible = false;
+    let selectedSubject = {};
 
-      for(let i = 0; i < subjectContainer.length; i++){
-        if(subjectContainer[i].selectedIndex != 0 && gradeContainer[i].selectedIndex != 0){
-            selectedSubject[subjectContainer[i].value] = gradeContainer[i].value; 
+    for (let i = 0; i < subjectContainer.length; i++) {
+      if (subjectContainer[i].selectedIndex != 0 && gradeContainer[i].selectedIndex != 0) {
+        selectedSubject[subjectContainer[i].value] = gradeContainer[i].value;
+      }
+    }
+
+
+    if (Object.keys(minRequirement).every((key) => selectedSubject.hasOwnProperty(key))) {
+      for (let req in minRequirement) {
+        console.log(req);
+        if (gradingSystem[minRequirement[req]] <= gradingSystem[selectedSubject[req]]) {
+          console.log('True')
+          isEligible = true;
+        } else {
+          isEligible = false;
+          break;
         }
       }
+    }
 
-
-      if(Object.keys(minRequirement).every((key) => selectedSubject.hasOwnProperty(key))){
-        console.log("Enter first if");
-        for(let req in minRequirement){
-          console.log(req);
-          if(gradingSystem[minRequirement[req]] <= gradingSystem[selectedSubject[req]]){
-            console.log('True')
-            isEligible = true;
-          } else {
-            isEligible = false;
-            //pop up uneligible msg
-            console.log('uneligible');
-            break;
-          }
-        }
-      }
-
-      if(isEligible){
+    if (isEligible) {
+        // Eligible - Show success message in pop-up
+        showPopup("Success", "You are eligible for the program:");
         console.log('eligible');
-      }
-      
+    } else {
+        // Not eligible - Show fail message in pop-up
+        showPopup("Fail", "You are not eligible for the program:");
+        console.log('uneligible');
+    }
+
   }
+
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function () {
+  'use strict';
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation');
+
+  // Fetch the section2 form
+  var section2Form = document.querySelector('#section2');
+  var submitButton = section2Form.querySelector('#submitBtn');
+
+  function enableOrDisableButton() {
+    if (section2Form.checkValidity()) {
+      submitButton.removeAttribute('disabled');
+    } else {
+      submitButton.setAttribute('disabled', 'disabled');
+    }
+  }
+
+  function showSection(sectionId) {
+    // Your showSection function implementation
+  }
+
+  enableOrDisableButton();
+
+  forms.forEach(function (form) {
+    var nextButton = form.querySelector('#nextButton');
+
+    enableOrDisableButton();
+
+    form.addEventListener('input', function () {
+      enableOrDisableButton();
+    });
+
+    nextButton.addEventListener('click', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      } else {
+        showSection('section2');
+      }
+
+      form.classList.add('was-validated');
+    }, false);
+  });
+
+  submitButton.addEventListener('click', function (event) {
+    if (!section2Form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    } else {
+      // Handle the form submission or other actions here
+      // For now, let's assume the form is valid and proceed
+      alert('Form submitted successfully.');
+    }
+
+    section2Form.classList.add('was-validated');
+  }, false);
+})();
+
+function showPopup(title, message) {
+    const popup = document.getElementById("eligibilityPopup");
+    const popupTitle = document.getElementById("popupMessageTitle");
+    const popupText = document.getElementById("popupMessageText");
+    const programmeChose = document.getElementById("inputProgramme");
+
+    const selectedProgram = programmeChose.options[programmeChose.selectedIndex].text;
+
+    popupTitle.textContent = title;
+    popupText.innerHTML = message + "<br/>" + selectedProgram;
+
+    popup.style.display = "block";
+
+    // Close the pop-up when the close button is clicked
+    const closePopupBtn = document.getElementById("closePopup");
+    closePopupBtn.addEventListener("click", function () {
+        popup.style.display = "none";
+    });
+}
+
 
 </script>
 {%endblock %}

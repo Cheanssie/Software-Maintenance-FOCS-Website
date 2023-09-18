@@ -75,11 +75,12 @@ class Programme(db.Model):
     progReq = db.Column(db.String(200))
     progOutline = db.Column(db.String(1000))
     progCareer = db.Column(db.String(500))
+    progCategory = db.Column(db.String(100))
 
     def __repr__(self):
         return f'Item {self.progName}'
 
-def __init__(self, progName, progOverview, progDuration, progCampus, progIntake, progReq, progOutline, progCareer):
+def __init__(self, progName, progOverview, progDuration, progCampus, progIntake, progReq, progOutline, progCareer, progCategory):
     self.progName = progName
     self.progOverview = progOverview
     self.progDuration = progDuration
@@ -88,6 +89,7 @@ def __init__(self, progName, progOverview, progDuration, progCampus, progIntake,
     self.progReq = progReq
     self.progOutline = progOutline
     self.progCareer = progCareer
+    self.progCategory = progCategory
 
 class ipTracker(db.Model):
     __tablename__ = "ipTracker"
@@ -143,7 +145,10 @@ def programme2():
 
 @app.route('/compareProg')
 def compareProg():
-    return render_template("compareProg.html")
+    id = request.args.get('id')
+    selectedProg = Programme.query.filter_by(progId = id).first()
+    progList= Programme.query.filter_by(progCategory = selectedProg.progCategory).all()
+    return render_template("compareProg.html",prog = selectedProg, progList=progList)
 
 @app.route('/recognition')
 def recognition():
