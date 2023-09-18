@@ -5,6 +5,10 @@
   span {
     font-size: 0.8rem;
   }
+
+  .card {
+    border: none;
+  }
 </style>
 
 <div style="background-image: url('../static/assets/img/Testimonial-bg.jpg'); background-position: top 80%; background-size: cover; width: 100%; height: 150px;">
@@ -20,7 +24,7 @@
       {% for staff in staffs.items %}
       <div class="row">
         <div class="col">
-          <div class="card mb-3" style="max-width: 540px">
+          <div class="card" style="max-width: 540px">
             <div class="row g-0 align-items-center">
               <div class="col-md-4 py-2 px-2">
                 <img
@@ -49,11 +53,12 @@
           </div>
         </div>
       </div>
+      <hr/>
       {% endfor %}
 
       <div class="container mt-2">
         <nav aria-label="Page navigation example">
-          <ul class="pagination">
+          <ul class="pagination justify-content-center ">
             <li class="page-item {%if not staffs.has_prev %} disabled {% endif %}"><a href="{{url_for('staffDirectoryRoute', page_num=staffs.page -1)}}" class="page-link">Previous</a></li>
         {% for page in staffs.iter_pages() %}
           {% if page %}
@@ -71,13 +76,13 @@
     </div>
     <div class="col-md-4">
       <form class="form" method="post" action="/staffDirectory/1"> 
-        <select class="form-select">
+        <select class="form-select mb-2 ">
           <option selected value="KL">Kuala Lumpur Campus</option>
         </select>
-        <select class="form-select">
+        <select class="form-select my-2 ">
           <option selected value="FOCS">Faculty of Computing and Information Technology</option>
         </select>
-        <select class="form-select">
+        <select class="form-select mt-2 ">
           <option selected value="divisions">All Divisions</option>
         </select>
         <br />
