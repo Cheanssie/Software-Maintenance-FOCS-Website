@@ -109,6 +109,10 @@ def index():
     device_name = socket.gethostbyaddr(ip_addr)
     return render_template("index.html", ip_addr=ip_addr, device_name=device_name)
 
+@app.route('/login')
+def login():
+    return render_template("login.html")
+
 @app.route('/facilities')
 def facilities():
     return render_template("facilities.html")
