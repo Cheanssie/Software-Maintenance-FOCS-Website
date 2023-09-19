@@ -99,12 +99,12 @@
                         <div id="chat-messages" class="chat-messages p-4">
                             {% for r in chatRecords %}
                             {% if r['sender'] != 'admin'%}
-                            <div class="chat-message-right mb-4">
+                            <div class="chat-message-left pb-4">
                                 <div>
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                        class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
                                 </div>
-                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
                                     <div class="font-weight-bold mb-1">{{ r['sender'] }}</div>
                                     {{ r['content'] }}
                                     <div class="text-muted small text-nowrap mt-1">
@@ -113,12 +113,12 @@
                                 </div>
                             </div>
                             {% else %}
-                            <div class="chat-message-left pb-4">
+                            <div class="chat-message-right mb-4">
                                 <div>
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                        class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                        class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
                                 </div>
-                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
                                     <div class="font-weight-bold mb-1">{{ r['sender'] }}</div>
                                     {{ r['content'] }}
                                     <div class="text-muted small text-nowrap mt-1">
@@ -156,7 +156,7 @@
 
     socket.on('connect', function(){
         console.log('test222')
-        socket.emit('addChatId', { 'chatId': "{{isSessionExist['chatId']}}" });
+        socket.emit('addChatId', { 'chatId': "admin-{{isSessionExist['chatId']}}" });
     });
 
     socket.on('message', function (data) {
@@ -164,21 +164,6 @@
         var messageContainer = document.createElement('div');
 
         if (data.sender === 'admin') {
-            messageContainer.classList.add('chat-message-left', 'mb-4');
-            messageContainer.innerHTML = `
-                <div>
-                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                        class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-                </div>
-                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                    <div class="font-weight-bold ml-1">${data.sender}</div>
-                    ${data.content}
-                    <div class="text-muted small text-nowrap mt-1">
-                        ${data.date}&nbsp;${data.time}
-                    </div>
-                </div>
-            `;
-        } else {
             messageContainer.classList.add('chat-message-right', 'mb-4');
             messageContainer.innerHTML = `
                 <div>
@@ -187,6 +172,21 @@
                 </div>
                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
                     <div class="font-weight-bold mb-1">${data['sender']}</div>
+                    ${data.content}
+                    <div class="text-muted small text-nowrap mt-1">
+                        ${data.date}&nbsp;${data.time}
+                    </div>
+                </div>
+            `;
+        } else {
+            messageContainer.classList.add('chat-message-left', 'mb-4');
+            messageContainer.innerHTML = `
+                <div>
+                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                        class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                </div>
+                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                    <div class="font-weight-bold ml-1">${data.sender}</div>
                     ${data.content}
                     <div class="text-muted small text-nowrap mt-1">
                         ${data.date}&nbsp;${data.time}
@@ -202,7 +202,7 @@
     var sendButton = document.getElementById('sendBtn');
     function sendMessage() {
         var message = message_input.value;
-        socket.emit('message', { 'content': message, 'sender': "{{isSessionExist['userName']}}", 'requestId': "{{isSessionExist['chatId']}}" });
+        socket.emit('message', { 'content': message, 'sender': "admin", 'requestId': "{{isSessionExist['chatId']}}" });
         message_input.value = '';
         sendButton.disabled = true;
     }

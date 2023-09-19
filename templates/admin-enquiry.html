@@ -112,34 +112,16 @@
             <ul
               class="nav nav-pills flex-sm-column flex-row mb-auto justify-content-between text-truncate"
             >
-              <li class="nav-item">
+              <li>
                 <a href="{{url_for('admin')}}" class="nav-link px-2 text-truncate">
                   <i class="bi bi-house fs-5"></i>
                   <span class="d-none d-sm-inline">IP Tracker</span>
                 </a>
               </li>
-              <li>
+              <li class="nav-item">
                 <a href="{{url_for('adminEnquiry')}}" class="nav-link px-2 text-truncate">
                   <i class="bi bi-speedometer fs-5"></i>
                   <span class="d-none d-sm-inline">Enquiries</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link px-2 text-truncate"
-                  ><i class="bi bi-card-text fs-5"></i>
-                  <span class="d-none d-sm-inline">Orders</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link px-2 text-truncate"
-                  ><i class="bi bi-bricks fs-5"></i>
-                  <span class="d-none d-sm-inline">Products</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link px-2 text-truncate"
-                  ><i class="bi bi-people fs-5"></i>
-                  <span class="d-none d-sm-inline">Customers</span>
                 </a>
               </li>
             </ul>
@@ -151,22 +133,14 @@
             <table class="table table-hover table-bordered table-responsive mt-5">
               <caption class="text-center">List of visited users</caption>
               <thead>
-                <th>No</th>
-                <th>IP Address</th>
-                <th>Host Name</th>
-                <th>Host Operating System</th>
-                <th>Host Browser</th>
-                <th>Host Version</th>
+                <th>Enquiries</th>
+                <th>Status</th>
               </thead>
               <tbody>
-                {% for ip in userIP %}
+                {% for en in allEnquiry %}
                 <tr>
-                  <td>{{ip.id}}</td>
-                  <td>{{ip.userIPAddr}}</td>
-                  <td>{{ip.userDeviceName}}</td>
-                  <td>{{ip.userPlatform}}</td>
-                  <td>{{ip.userBrowserType}}</td>
-                  <td>{{ip.userBrowserVersion}}</td>
+                  <td><a href="{{url_for('enquiryChatAdmin', chatId=en.chatId)}}" style="letter-spacing: normal;">{{en.chatTitle}}</a></td>
+                  <td>{{en.status}}</td>
                 </tr>
                 {% endfor %}
               </tbody>

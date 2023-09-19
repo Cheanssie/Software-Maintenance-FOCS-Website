@@ -173,6 +173,29 @@ def login():
     else:
         return render_template("login.html")
 
+@app.route('/adminEnquiry')
+def adminEnquiry():
+    allEnquiry = EnquiryRequest.query.filter_by(status=True).all()
+    return render_template('admin-enquiry.html', allEnquiry=allEnquiry)
+
+@app.route('/admin')
+def admin():
+    userIP = ipTracker.query.all()
+
+    return render_template('admin.html', userIP = userIP)
+
+@app.route('/enquiryChatAdmin')
+def enquiryChatAdmin():
+    request_id = request.args.get('chatId')
+    if not request_id:
+        isSessionExist = False
+    else:
+        isSessionExist = EnquiryRequest.query.filter_by(chatId=request_id).first()
+    
+    if isSessionExist:
+        chatRecords = ChatMessage.query.filter_by(requestId=request_id).order_by(ChatMessage.date.asc(), ChatMessage.time.asc()).all()
+    return render_template('enquiryChat-admin.html', request_id=request_id, isSessionExist=isSessionExist, chatRecords=chatRecords)
+
 @app.route('/facilities')
 def facilities():
     return render_template("facilities.html")
@@ -602,6 +625,8 @@ def handle_message(message):
     message['date'] = current_date
 
     socketio.emit('message', message, room=connected_clients[message['requestId']])
+    socketio.emit('message', message, room=( connected_clients["admin-" + message['requestId']]))
+
 
 if __name__ == "__name__":
     socketio.run(app, debug=True)
