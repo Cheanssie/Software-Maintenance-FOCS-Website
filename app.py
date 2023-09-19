@@ -9,6 +9,9 @@ import difflib
 import re
 import socket
 import uuid
+from ua_parser import user_agent_parser
+import pprint
+
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///FOCS.db"
@@ -112,16 +115,26 @@ class ipTracker(db.Model):
     userBrowserType = db.Column(db.String(128), nullable=False)
     userPlatform = db.Column(db.String(128), nullable=False)
     userBrowserVersion = db.Column(db.String(128), nullable=False)
-    userBrowserLanguage = db.Column(db.String(128), nullable=False)
 
     def __repr__(self):
         return f'{self.userDeviceName}'
 
 @app.route('/')
 def index():
+
     ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
-    device_name = socket.gethostbyaddr(ip_addr)
-    return render_template("index.html", ip_addr=ip_addr, device_name=device_name)
+    device_name = socket.gethostbyaddr(ip_addr)[0]
+    user_agent_string = user_agent_parser.Parse(request.headers.get('User-Agent'))
+    browser_type = user_agent_string['user_agent']['family']
+    browser_version = user_agent_string['user_agent']['major']
+    platform = user_agent_string['os']['family']
+    print(user_agent_string, ip_addr, device_name, browser_type, browser_version, platform)
+
+    newIP = ipTracker(userIPAddr=ip_addr, userDeviceName=device_name, userBrowserType=browser_type, userBrowserVersion=browser_version, userPlatform=platform)
+    db.session.add(newIP)
+    db.session.commit()
+
+    return render_template("index.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
