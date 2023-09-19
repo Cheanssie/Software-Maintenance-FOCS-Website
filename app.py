@@ -480,6 +480,10 @@ def process_ocr():
         os.remove(filename)  # Remove the uploaded file
         
         return jsonify(readResults)
+   
+@app.route('/liveSupport')
+def liveSupport():
+    return render_template('liveSupport.html')
 
 
 

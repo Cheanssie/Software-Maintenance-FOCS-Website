@@ -1,0 +1,47 @@
+{% extends "base.html"%}
+{% block title %} Live Support {% endblock %}
+{%block content %}
+<style>
+    #form-background {
+        background: url("{{url_for('static', filename='assets/img/bg2.jpg')}}");
+    }
+    
+    #enquiryForm{
+        background-color: rgba(204, 204, 204, 0.953);
+        border-radius: 5px;
+    }
+
+</style>
+
+<!-- ======= Main Section ======= -->
+<main>
+    <div id="form-background" class="d-flex justify-content-center w-75 p-5 m-auto ">
+        <form id="enquiryForm" class="p-5 w-75">
+            <div>
+                <h3 class="text-center">Enquiry Portal</h3>
+            </div>
+            <div class="form-group mb-3 ">
+                <label for="inputName" class="form-label ">Name</label>
+                <input type="email" class="form-control" id="inputName" placeholder="Enter name">
+            </div>
+            <div class="form-group mb-3 ">
+                <label for="inputEmail" class="form-label ">Email address</label>
+                <input type="email" class="form-control" id="inputEmail" placeholder="Enter email">
+            </div>
+            <div class="form-group mb-3 ">
+                <label for="inputRequest" class="form-label ">Enquiry</label>
+                <textarea class="form-control" id="inputRequest" rows="3" placeholder="Describe your enquire here" style="max-height: 100px;"></textarea>
+            </div>
+            <div class="form-check mb-3 d-flex  justify-content-center ">
+                <input type="checkbox" class="form-check-input" id="checkAgree">
+                <label class="form-check-label" for="checkAgree">&nbsp;I agree to share these details for enquiry
+                    purpose</label>
+            </div>
+            <div class="d-flex justify-content-center ">
+                <button type="submit" class="btn btn-primary">Send Enquiry</button>
+            </div>
+        </form>
+    </div>
+</main>
+<!-- End #main -->
+{% endblock %}
