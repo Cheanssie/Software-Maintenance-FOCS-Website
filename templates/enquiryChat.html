@@ -83,6 +83,32 @@
         .border-top {
             border-top: 1px solid #dee2e6 !important;
         }
+
+        .centered-button {
+            height: 30px; /* Adjust the height as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(42, 240, 11);
+        }
+
+        .centered-button:hover{
+            background-color: rgb(34, 220, 5) !important;
+            border: none !important;
+        }
+
+        .centered-button-t {
+            height: 30px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(255, 0, 0);
+        }
+
+        .centered-button-t:hover{
+            background-color: rgb(233, 0, 0) !important;
+            border: none !important;
+        }
     </style>
 
 </head>
@@ -92,6 +118,13 @@
 
         {% if isSessionExist %}
         <h3 class="h3 mb-3 text-center ">Enquiry Chat Session</h3>
+        <div class="d-flex justify-content-center mb-2 ">
+            {% if isSessionExist['status'] == True %}
+            <button class="btn centered-button" type="button">In Progress</button>
+            {% else %}
+            <button class="btn centered-button-t" type="button">Terminated</button>
+            {% endif %}
+            </div>
         <div class="card">
             <div class="row">
                 <div class="col-12">
@@ -134,8 +167,12 @@
 
                     <div class="flex-grow-0 py-3 px-4 border-top">
                         <div class="input-group">
+                            {% if isSessionExist['status'] == True %}
                             <input id="newMsg" type="text" class="form-control" placeholder="Type your message">
-                            <button id="sendBtn" class="btn btn-primary" onclick="sendMessage()" disabled >Send</button>
+                            {% else %}
+                            <input id="newMsg" type="text" class="form-control" placeholder="Session is no longer available" disabled >
+                            {% endif %}
+                            <button id="sendBtn" class="btn btn-primary" onclick="sendMessage()" disabled>Send</button>
                         </div>
                     </div>
 
@@ -154,7 +191,7 @@
 <script type="text/javascript">
     var socket = io.connect("{{request.host_url}}");
 
-    socket.on('connect', function(){
+    socket.on('connect', function () {
         console.log('test222')
         socket.emit('addChatId', { 'chatId': "{{isSessionExist['chatId']}}" });
     });
@@ -196,6 +233,7 @@
         }
 
         messages.appendChild(messageContainer);
+        scrollToBottom();
     });
 
     var message_input = document.getElementById('newMsg');
@@ -207,7 +245,7 @@
         sendButton.disabled = true;
     }
 
-    message_input.addEventListener('input', function() {
+    message_input.addEventListener('input', function () {
         var message = message_input.value.trim();
 
         if (message === '') {
@@ -217,4 +255,9 @@
         }
     });
 
+    function scrollToBottom() {
+        var chatContainer = document.getElementById('chat-messages');
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    scrollToBottom();
 </script>
