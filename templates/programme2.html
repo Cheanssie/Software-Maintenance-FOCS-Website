@@ -10,6 +10,16 @@
     text-align: justify;
   text-justify: inter-word;
   }
+
+  .btn{
+    background-color: #eba200;
+    border-radius: 0%;
+
+  }
+
+  .btn:hover {
+    background-color: #c98900;
+  }
 </style>
 
 <div
@@ -105,11 +115,11 @@
         <img src="../static/assets/img/{{prog.progReq}}" class="img-fluid">
       </div>
 
-      <button class="btn btn-success m-auto d-flex"><a href="{{ url_for('compareProg',id1=prog.progId, id2='')}}"
+      <button class="btn m-auto d-flex my-2"><a href="{{ url_for('compareProg',id1=prog.progId, id2='')}}"
           class="text-white">Compare with other Programme</a></button>
 
-      <button class="btn btn-primary d-flex m-auto"><a href="{{ url_for('enrollment')}}"
-          class="text-white">Enroll</a></button>
+      <button class="btn d-flex m-auto my-2"><a href="{{ url_for('enrollment')}}"
+          class="text-white">Enroll Now!</a></button>
     </div>
   </div>
 </div>
