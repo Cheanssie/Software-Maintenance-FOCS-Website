@@ -48,34 +48,41 @@
                 <label for="inputName" class="form-label">Name</label>
                 <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name"
                     required>
+                    <div class="invalid-feedback">Please enter your name.</div>
             </div>
             <div class="form-group mb-3">
                 <label for="inputEmail" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Enter email"
                     required>
+                    <div class="invalid-feedback">Please enter a valid email address.</div>
             </div>
             <div class="form-group mb-3">
                 <label for="inputTitle" class="form-label">Email Title</label>
                 <input class="form-control" id="inputTitle" name="inputTitle" placeholder="Enter Title" required>
+                <div class="invalid-feedback">Please enter the title.</div>
             </div>
             <div class="form-group mb-3">
                 <label for="inputRequest" class="form-label">Enquiry</label>
                 <textarea class="form-control" id="inputRequest" name="inputRequest" rows="2"
                     placeholder="Describe your enquiry here" style="max-height: 100px;" required></textarea>
+                    <div class="invalid-feedback">Please describe your enquiry.</div>
             </div>
             <div class="form-check mb-3 d-flex justify-content-center">
                 <input type="checkbox" class="form-check-input" id="checkAgree" required>
                 <label class="form-check-label" for="checkAgree">&nbsp;I agree to share these details for enquiry
                     purpose</label>
+                    <div class="invalid-feedback">You must agree to proceed.</div>
             </div>
             <div class="d-flex justify-content-center">
                 <button id="submitBtn" type="submit" class="btn btn-primary">Send Enquiry</button>
             </div>
             {% else %}
-            <div class="form-group mb-3">
-                <label class="form-label">Enquiry Submitted</label>
-                <!--input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name"
-                    required-->
+            <div class="form-group mb-3 d-block bg-white p-4 m-3">
+                <label class="form-label mb-4 fs-4 d-flex justify-content-center">Enquiry Submitted</label>
+                <input type="text" class="form-control text-center m-auto w-75" id="inputName1" name="inputName1" placeholder="Enter name"
+                    required>
+                    <div class="invalid-feedback">Please enter your name.</div>
+                    <button id="enterBtn" type="submit" class="btn btn-primary d-flex mt-4 mx-auto ">Enter</button>
             </div>
             {% endif %}
         </form>
@@ -83,5 +90,37 @@
    
 </main>
 
+<script>
+
+(function () {
+    'use strict';
+
+    var submitButton = document.getElementById('submitBtn');
+    var form = document.querySelector('#enquiryForm');
+    var enterButton = document.getElementById('enterBtn');
+    var nameInput = document.getElementById('#inputName1');
+
+    submitButton.addEventListener('click', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      form.classList.add('was-validated');
+    }, false);
+
+    enterButton.addEventListener('click', function (event) {
+        if (!nameInput.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            alert('Form submitted successfully.');
+        }
+
+        nameInput.classList.add('was-validated');
+    }, false);
+  })();
+
+</script>
 <!-- End #main -->
 {% endblock %}
