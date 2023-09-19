@@ -1485,7 +1485,6 @@ section {
   color: #fff;
   display: inline-block;
   float: none;
-  font-family: "Philosopher", sans-serif;
   font-size: 24px;
   font-weight: 500;
   height: 100%;
@@ -1500,8 +1499,12 @@ section {
   letter-spacing: 1px;
 }
 
-.footer .list-menu>h4 {
+.footer .list-menu>h3 {
   color: #fff;
+  font-size: 24px;
+  font-weight: 500;
+  font-family: "Lato", Helvetica, Arial, sans-serif !important;
+  letter-spacing: 0.2em;
   padding-bottom: 20px;
 }
 
