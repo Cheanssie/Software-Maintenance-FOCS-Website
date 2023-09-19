@@ -204,16 +204,16 @@
         var message = message_input.value;
         socket.emit('message', { 'content': message, 'sender': "{{isSessionExist['userName']}}", 'requestId': "{{isSessionExist['chatId']}}" });
         message_input.value = '';
-        sendButton.disabled = true; // Disable the button if the input is empty
+        sendButton.disabled = true;
     }
 
     message_input.addEventListener('input', function() {
-        var message = message_input.value.trim(); // Remove leading and trailing whitespace
+        var message = message_input.value.trim();
 
         if (message === '') {
-            sendButton.disabled = true; // Disable the button if the input is empty
+            sendButton.disabled = true;
         } else {
-            sendButton.disabled = false; // Enable the button if there is input
+            sendButton.disabled = false;
         }
     });
 
