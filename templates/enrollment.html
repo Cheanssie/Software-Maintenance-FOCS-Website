@@ -9,7 +9,7 @@ Enrollment
     border: none;
   }
 
-.popup {
+  .popup {
     display: none;
     position: fixed;
     top: 0;
@@ -19,9 +19,9 @@ Enrollment
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1;
     text-align: center;
-}
+  }
 
-.popup-content {
+  .popup-content {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
@@ -29,8 +29,7 @@ Enrollment
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
+  }
 </style>
 
 <main>
@@ -77,14 +76,24 @@ Enrollment
           </label>
         </div>
       </fieldset>
-      <button type="button" class="btn btn-primary d-block m-auto" onclick="showSection('section2')" id="nextButton">Next</button>
+      <button type="button" class="btn btn-primary d-block m-auto" onclick="showSection('section2')"
+        id="nextButton">Next</button>
     </form>
 
     <form class="mt-1 needs-validation" id="section2" style="display: none;" novalidate>
       <h3 class="text-center mb-3">Academic Qualification</h3>
+      <div style="float:right">
+        <button type="button" class="btn btn-primary d-inline m-2" id="uploadResultButton"
+          onclick="enableUploadResultContainer()">Upload
+          Result</button>
+        <button type="button" class="btn btn-primary d-inline m-2" id="manualInputButton"
+          onclick="showManualInput()">Input Manually</button>
+      </div>
+      </br>
       <div class="mb-3">
         <label class="form-label" for="inputProgramme">Select Your Programme</label>
-        <select class="form-select" name="inputProgramme" id="inputProgramme" aria-label="Default select example" required>
+        <select class="form-select" name="inputProgramme" id="inputProgramme" aria-label="Default select example"
+          required>
           <option selected value="">Select an option</option>
           <option value="CS">Diploma in Computer Science</option>
           <option value="IS">Diploma in Information System</option>
@@ -95,6 +104,7 @@ Enrollment
           Please select your programme
         </div>
       </div>
+
       <div class="row mb-3">
         <div class="col-6 ">
           <label class="form-label" for="inputQualification">Qualification</label>
@@ -104,9 +114,9 @@ Enrollment
             <option value="GCSE">IGCSE/GCSE/O Level</option>
           </select>
         </div>
-        <div class="col-6 ">
-          <label class="form-label " for="fileInput">Upload Result:</label>
-          <input class="form-control " type="file" id="fileInput" name="fileInput" onchange="uploadFile()" required>
+        <div class="col-6 fileInput">
+          <label class="form-label" for="fileInput">Upload Result</label>
+          <input class="form-control" type="file" id="fileInput" name="fileInput" onchange="uploadFile()" required>
           <div class="invalid-feedback">
             Please upload your result
           </div>
@@ -120,20 +130,42 @@ Enrollment
           </tbody>
         </table>
       </div>
+      <button type="button" class="btn btn-primary d-inline m-2" onclick="addNewRow()" disabled id="addRowButton">Add
+        Row</button>
+      <button type="button" class="btn btn-primary d-inline m-2" onclick="deletePreviousRow()" disabled
+        id="deletePreviousRowButton">Delete Row</button>
       <div class="d-flex justify-content-center">
         <button type="button" class="btn btn-primary d-inline m-2" onclick="showSection('section1')">Previous</button>
-        <button type="button" class="btn btn-primary d-inline m-2" onclick="checkEligibility()" id="submitBtn">Submit</button>
+        <button type="button" class="btn btn-primary d-inline m-2" onclick="checkEligibility()"
+          id="submitBtn">Submit</button>
       </div>
     </form>
   </div>
 
-  <!-- Add this within your HTML body -->
   <div id="eligibilityPopup" class="popup" style="display: none;">
     <div class="popup-content px-5">
-        <h2 id="popupMessageTitle" class="my-2"></h2>
-        <p id="popupMessageText"></p>
-        <p><a href="{{ url_for('index')}}">>> Go back to Home Page</a></p>
-        <button id="closePopup" class="btn btn-primary ">Close</button>
+      <h2 id="popupMessageTitle" class="my-2"></h2>
+      <p id="popupMessageText"></p>
+      <p><a href="{{ url_for('index')}}">>> Go back to Home Page</a></p>
+      <button id="closePopup" class="btn btn-primary ">Close</button>
+    </div>
+  </div>
+
+  <div id="eligibilityPopupDuplicateSubject" class="popup" style="display: none;">
+    <div class="popup-content px-5">
+      <h2 id="popupMessageTitleDuplicateSubject" class="my-2"></h2>
+      <p id="popupMessageTextDuplicateSubject"></p>
+      <p><a href="{{ url_for('index')}}">>> Go back to Home Page</a></p>
+      <button id="closePopupDuplicateSubject" class="btn btn-primary " onclick="checkEligibility()">Close</button>
+    </div>
+  </div>
+
+  <div id="eligibilityPopupLackSubject" class="popup" style="display: none;">
+    <div class="popup-content px-5">
+      <h2 id="popupMessageTitleLackSubject" class="my-2"></h2>
+      <p id="popupMessageTextLackSubject"></p>
+      <p><a href="{{ url_for('index')}}">>> Go back to Home Page</a></p>
+      <button id="closePopupLackSubject" class="btn btn-primary " onclick="checkEligibility()">Close</button>
     </div>
   </div>
 
@@ -141,8 +173,349 @@ Enrollment
 
 <script>
 
-  function uploadFile() {
+  //once user press upload result button then will show the container
+  function enableUploadResultContainer() {
+    if (gradeTableThread) {
+      // Select the <tr> (table row) you want to remove
+      const headerRowToRemove = gradeTableThread.querySelector("tr");
+
+      // Check if the header row exists
+      if (headerRowToRemove) {
+        // Remove the header row from the <thead>
+        gradeTableThread.removeChild(headerRowToRemove);
+      }
+    }
+
+    //clear subject containers and its row
+    const subjectContainersUploadFile = document.querySelectorAll(".qualificationSubject");
+    subjectContainersUploadFile.forEach(container => {
+      const row = container.closest("tr");
+      if (row) {
+        row.remove();
+      }
+      container.remove();
+    });
+
+    //clear grade containers and its row
+    const gradeContainersUploadFile = document.querySelectorAll(".qualificationGrade");
+    gradeContainersUploadFile.forEach(container => {
+      const row = container.closest("tr");
+      if (row) {
+        row.remove();
+      }
+      container.remove();
+    });
+
+    var fileInputElements = document.querySelectorAll(".fileInput");
+    var invalidUploadImageFeedback = document.querySelector(".invalid-feedback");
     const fileInput = document.getElementById("fileInput");
+
+    fileInputElements.forEach(function (element) {
+      element.style.display = "block";
+    });
+
+    invalidUploadImageFeedback.style.display = "block";
+    fileInput.style.display = "block";
+
+    console.log("Elements with class 'fileInput' shown.");
+
+    const addRowButtonA = document.getElementById("addRowButton");
+    addRowButtonA.setAttribute('disabled', 'disabled');
+    console.log("Done")
+    const deletePreviousRowButtonA = document.getElementById("deletePreviousRowButton");
+    deletePreviousRowButtonA.setAttribute('disabled', 'disabled');
+    console.log("Done")
+  }
+
+  const subjectAbbreviation = {
+    "BM": "BAHASA MELAYU",
+    "BI": "BAHASA INGGERIS",
+    "PM": "PENDIDIKAN MORAL",
+    "SEJ": "SEJARAH",
+    "MM": "MATHEMATICS",
+    "MT": "ADDITIONAL MATHEMATICS",
+    "FZ": "PHYSICS",
+    "KM": "CHEMISTRY",
+    "BO": "BIOLOGY",
+    "BC": "BAHASA CINA",
+    "PI": "PENDIDIKAN ISLAM",
+    "PP": "PRINSIP PERAKAUNAN",
+  }
+
+  //list out all the grade options
+  const gradeOptions = ["A+", "A", "A-", "B+", "B", "C+", "C", "D", "E", "G", "X"];
+
+  function addTableDetails() {
+    const gradeTableBody = document.getElementById("gradeTableBody");
+
+    //add each row which is tr, and each tr contains a subject row and a grade row
+    const newRow = document.createElement("tr");
+
+    // in HTML, it will declare in this way --
+    //<select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification" aria-label="Default select example">
+    //create element of select so that can implement this select statement ^
+    const subjectRows = document.createElement("td");
+    subjectRows.style.width = "35%";
+
+    //add class of subject select
+    const subjectSelect = document.createElement("select");
+
+    //add class of subject select
+    subjectSelect.className = "form-select qualificationSubject";
+
+    //add name of subject select
+    subjectSelect.name = "qualificationSubject";
+
+    //add id of subject select
+    subjectSelect.id = "inputQualification"
+
+    //add aria label of subject select
+    subjectSelect.ariaLabel = "Default select example";
+
+    //in HTML, it will declare in this way --
+    //<option selected disabled value="">Select an option</option>
+    //create element of option so that can implement this option statement^
+    const subjectDefaultOption = document.createElement("option");
+
+    //option is selected
+    subjectDefaultOption.selected = true;
+
+    //option is disabled
+    subjectDefaultOption.disabled = true;
+
+    //since default is "Select an option" so empty
+    subjectDefaultOption.value = "";
+
+    //option is disabled
+    subjectDefaultOption.text = "Select an option";
+
+    //inside one select got default option so add in as chield
+    subjectSelect.appendChild(subjectDefaultOption);
+
+    //in HTML, it will declare in this way
+    //<option value="BM">BAHASA MELAYU</option>
+    //so use for loop to iterate across all subject options
+    for (const subjectName in subjectAbbreviation) {
+      //create element of option so that can add <option value="BM">Bahasa Melayu</option>
+      const subjectOption = document.createElement("option");
+
+      //add value of the option
+      //want print the BI, BM, etc
+      subjectOption.value = subjectName;
+
+      //add text of the option
+      //print the text of value eg. BAHASA MELAYU if the subject name is BM
+      subjectOption.text = subjectAbbreviation[subjectName];
+
+      //Inside one select got many subject option so add in as child
+      subjectSelect.appendChild(subjectOption);
+    }
+
+    //each new row got one select statement (and each select statement got many grade option)
+    //so add select statement inside rows
+    subjectRows.appendChild(subjectSelect);
+
+    //add grade row
+    const gradeRows = document.createElement("td");
+    gradeRows.style.width = "15%";
+    //in HTML, it will declare in this way --
+    //<select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification" aria-label="Default select example">
+    //create element of select so that can implement this select statement ^
+    const gradeSelect = document.createElement("select");
+
+    //add class of grade select
+    gradeSelect.className = "form-select qualificationGrade";
+
+    //add name of grade select
+    gradeSelect.name = "qualificationGrade";
+
+    //add id of grade select
+    gradeSelect.id = "inputQualification";
+
+    //add aria label of grade select
+    gradeSelect.ariaLabel = "Default select example";
+
+    //in HTML, it will declare in this way --
+    //<option selected disabled value="">Select an option</option>
+    //create element of option so that can implement this option statement^ 
+    const gradeDefaultOption = document.createElement("option");
+
+    //option is selected
+    gradeDefaultOption.selected = true;
+
+    //option is disabled
+    gradeDefaultOption.disabled = true;
+
+    //since default is "Select an option" so empty
+    gradeDefaultOption.value = "";
+
+    //the text is "Select an option"
+    gradeDefaultOption.text = "Select an option";
+
+    //inside one select got default option so add in as child
+    gradeSelect.appendChild(gradeDefaultOption);
+
+    //in HTML, it will declare in this way
+    //<option value="A+">A+</option>
+    //so use for loop to iterate across all grade options
+    for (const optionValue of gradeOptions) {
+      //create element of option so that can add <option value="A+">A+</option> statement
+      const gradeOption = document.createElement("option");
+
+      //add value of the option
+      gradeOption.value = optionValue;
+
+      //add text of the option
+      gradeOption.text = optionValue;
+
+      //inside one select got many option so add in as child
+      gradeSelect.appendChild(gradeOption);
+    }
+
+    //each new row got one select statement (and each select statement got many grade option)
+    //so add select statement inside rows
+    gradeRows.appendChild(gradeSelect);
+
+    // in HTML, it will declare in this way --
+    //<select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification" aria-label="Default select example">
+    //create element of select so that can implement this select statement ^
+    const subjectRowsA = document.createElement("td");
+    subjectRowsA.style.width = "35%";
+
+    //add class of subject select
+    const subjectSelectA = document.createElement("select");
+
+    //add class of subject select
+    subjectSelectA.className = "form-select qualificationSubject";
+
+    //add name of subject select
+    subjectSelectA.name = "qualificationSubject";
+
+    //add id of subject select
+    subjectSelectA.id = "inputQualification"
+
+    //add aria label of subject select
+    subjectSelectA.ariaLabel = "Default select example";
+
+    //in HTML, it will declare in this way --
+    //<option selected disabled value="">Select an option</option>
+    //create element of option so that can implement this option statement^
+    const subjectDefaultOptionA = document.createElement("option");
+
+    //option is selected
+    subjectDefaultOptionA.selected = true;
+
+    //option is disabled
+    subjectDefaultOptionA.disabled = true;
+
+    //since default is "Select an option" so empty
+    subjectDefaultOptionA.value = "";
+
+    //option is disabled
+    subjectDefaultOptionA.text = "Select an option";
+
+    //inside one select got default option so add in as chield
+    subjectSelectA.appendChild(subjectDefaultOptionA);
+
+    //in HTML, it will declare in this way
+    //<option value="BM">BAHASA MELAYU</option>
+    //so use for loop to iterate across all subject options
+    for (const subjectNameA in subjectAbbreviation) {
+      //create element of option so that can add <option value="BM">Bahasa Melayu</option>
+      const subjectOptionA = document.createElement("option");
+
+      //add value of the option
+      //want print the BI, BM, etc
+      subjectOptionA.value = subjectNameA;
+
+      //add text of the option
+      //print the text of value eg. BAHASA MELAYU if the subject name is BM
+      subjectOptionA.text = subjectAbbreviation[subjectNameA];
+
+      //Inside one select got many subject option so add in as child
+      subjectSelectA.appendChild(subjectOptionA);
+    }
+
+    //each new row got one select statement (and each select statement got many grade option)
+    //so add select statement inside rows
+    subjectRowsA.appendChild(subjectSelectA);
+
+    //add grade row
+    const gradeRowsA = document.createElement("td");
+    gradeRowsA.style.width = "15%";
+    //in HTML, it will declare in this way --
+    //<select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification" aria-label="Default select example">
+    //create element of select so that can implement this select statement ^
+    const gradeSelectA = document.createElement("select");
+
+    //add class of grade select
+    gradeSelectA.className = "form-select qualificationGrade";
+
+    //add name of grade select
+    gradeSelectA.name = "qualificationGrade";
+
+    //add id of grade select
+    gradeSelectA.id = "inputQualification";
+
+    //add aria label of grade select
+    gradeSelectA.ariaLabel = "Default select example";
+
+    //in HTML, it will declare in this way --
+    //<option selected disabled value="">Select an option</option>
+    //create element of option so that can implement this option statement^ 
+    const gradeDefaultOptionA = document.createElement("option");
+
+    //option is selected
+    gradeDefaultOptionA.selected = true;
+
+    //option is disabled
+    gradeDefaultOptionA.disabled = true;
+
+    //since default is "Select an option" so empty
+    gradeDefaultOptionA.value = "";
+
+    //the text is "Select an option"
+    gradeDefaultOptionA.text = "Select an option";
+
+    //inside one select got default option so add in as child
+    gradeSelectA.appendChild(gradeDefaultOptionA);
+
+    //in HTML, it will declare in this way
+    //<option value="A+">A+</option>
+    //so use for loop to iterate across all grade options
+    for (const optionValueA of gradeOptions) {
+      //create element of option so that can add <option value="A+">A+</option> statement
+      const gradeOptionA = document.createElement("option");
+
+      //add value of the option
+      gradeOptionA.value = optionValueA;
+
+      //add text of the option
+      gradeOptionA.text = optionValueA;
+
+      //inside one select got many option so add in as child
+      gradeSelectA.appendChild(gradeOptionA);
+    }
+
+    //each new row got one select statement (and each select statement got many grade option)
+    //so add select statement inside rows
+    gradeRowsA.appendChild(gradeSelectA);
+
+    //each td got two row - subject rows and grade rows so add them
+    newRow.appendChild(subjectRows);
+    newRow.appendChild(gradeRows);
+    newRow.appendChild(subjectRowsA);
+    newRow.appendChild(gradeRowsA);
+
+    //each table got a subject row and a grade row so add newRow that consists of a subject and a grade row
+    gradeTableBody.appendChild(newRow);
+
+  }
+
+  function uploadFile() {
+    enableUploadResultContainer();
+    const fileInput = document.getElementById("fileInput");
+    console.log(fileInput)
     const formData = new FormData();
     formData.append("file", fileInput.files[0]);
 
@@ -156,6 +529,8 @@ Enrollment
         //thead
         const gradeTableThread = document.getElementById("gradeTableThread")
 
+        gradeTableThread.innerHTML = '';
+
         //inside one thead got tr 
         const headerRow = document.createElement("tr")
 
@@ -168,7 +543,7 @@ Enrollment
         subjectHeader.textContent = "Subject";
 
         //width is 35%
-        subjectHeader.style.width = "35%"; 
+        subjectHeader.style.width = "35%";
 
         //add subject header inside the tr
         headerRow.appendChild(subjectHeader);
@@ -180,185 +555,383 @@ Enrollment
         //<th style="width: 15%;">Grade</th>
         //so text content is Grade 
         gradeHeader.textContent = "Grade";
-        
+
         //width is 15%
-        gradeHeader.style.width = "15%"; 
-        
+        gradeHeader.style.width = "15%";
+
         //add grade header inside the tr
         headerRow.appendChild(gradeHeader);
 
+        //inside one thead got tr then got th which is subject header
+        const subjectHeaderA = document.createElement("th");
+
+        //in original HTML, it declare in this way: 
+        //<th style="width: 35%;">Subject</th>
+        //so text content is Subject 
+        subjectHeaderA.textContent = "Subject";
+
+        //width is 35%
+        subjectHeaderA.style.width = "35%";
+
+        //add subject header inside the tr
+        headerRow.appendChild(subjectHeaderA);
+
+        //inside one thead got tr then got th which is the grade header
+        const gradeHeaderA = document.createElement("th");
+
+        //in original HTML, it declare in this way: 
+        //<th style="width: 15%;">Grade</th>
+        //so text content is Grade 
+        gradeHeaderA.textContent = "Grade";
+
+        //width is 15%
+        gradeHeaderA.style.width = "15%";
+
+        //add grade header inside the tr
+        headerRow.appendChild(gradeHeaderA);
+
         gradeTableThread.appendChild(headerRow);
 
-        const gradeTableBody = document.getElementById("gradeTableBody");
+        //get how many data
+        count = Object.keys(data).length;
+        const numRowsToDisplay = (count / 2) + 1;
 
-        //how many data then how many row
-        for (const d in data) {
-          //add each row which is tr, and each tr contains a subject row and a grade row
-          const newRow = document.createElement("tr");
-
-          // in HTML, it will declare in this way --
-          //<select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification" aria-label="Default select example">
-          //create element of select so that can implement this select statement ^
-          const subjectRows = document.createElement("td");
-
-          //add class of subject select
-          const subjectSelect = document.createElement("select");
-
-          //add class of subject select
-          subjectSelect.className = "form-select qualificationSubject";
-
-          //add name of subject select
-          subjectSelect.name = "qualificationSubject";
-
-          //add id of subject select
-          subjectSelect.id = "inputQualification"
-
-          //add aria label of subject select
-          subjectSelect.ariaLabel = "Default select example";
-
-          //in HTML, it will declare in this way --
-          //<option selected disabled value="">Select an option</option>
-          //create element of option so that can implement this option statement^
-          const subjectDefaultOption = document.createElement("option");
-
-          //option is selected
-          subjectDefaultOption.selected = true;
-
-          //option is disabled
-          subjectDefaultOption.disabled = true;
-
-          //since default is "Select an option" so empty
-          subjectDefaultOption.value = "";
-
-          //option is disabled
-          subjectDefaultOption.text = "Select an option";
-
-          //inside one select got default option so add in as chield
-          subjectSelect.appendChild(subjectDefaultOption);
-
-          //list out all the subject abbreviation
-          const subjectAbbreviation = {
-            "BM": "BAHASA MELAYU",
-            "BI": "BAHASA INGGERIS",
-            "PM": "PENDIDIKAN MORAL",
-            "SEJ": "SEJARAH",
-            "MM": "MATHEMATICS",
-            "MT": "ADDITIONAL MATHEMATICS",
-            "FZ": "PHYSICS",
-            "KM": "CHEMISTRY",
-            "BO": "BIOLOGY",
-            "BC": "BAHASA CINA",
-            "PP": "PRINSIP PERAKAUNAN",
-          }
-
-          //in HTML, it will declare in this way
-          //<option value="BM">BAHASA MELAYU</option>
-          //so use for loop to iterate across all subject options
-          for (const subjectName in subjectAbbreviation) {
-            //create element of option so that can add <option value="BM">Bahasa Melayu</option>
-            const subjectOption = document.createElement("option");
-
-            //add value of the option
-            //want print the BI, BM, etc
-            subjectOption.value = subjectName;
-
-            //add text of the option
-            //print the text of value eg. BAHASA MELAYU if the subject name is BM
-            subjectOption.text = subjectAbbreviation[subjectName];
-
-            // Select the appropriate subject option based on d which is data dictionary
-            if (subjectName === d) {
-              subjectOption.selected = true;
-            }
-
-            //Inside one select got many subject option so add in as child
-            subjectSelect.appendChild(subjectOption);
-          }
-
-          //each new row got one select statement (and each select statement got many grade option)
-          //so add select statement inside rows
-          subjectRows.appendChild(subjectSelect);
-
-          //add grade row
-          const gradeRows = document.createElement("td");
-
-          //in HTML, it will declare in this way --
-          //<select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification" aria-label="Default select example">
-          //create element of select so that can implement this select statement ^
-          const gradeSelect = document.createElement("select");
-
-          //add class of grade select
-          gradeSelect.className = "form-select qualificationGrade";
-
-          //add name of grade select
-          gradeSelect.name = "qualificationGrade";
-
-          //add id of grade select
-          gradeSelect.id = "inputQualification";
-
-          //add aria label of grade select
-          gradeSelect.ariaLabel = "Default select example";
-
-          //in HTML, it will declare in this way --
-          //<option selected disabled value="">Select an option</option>
-          //create element of option so that can implement this option statement^ 
-          const gradeDefaultOption = document.createElement("option");
-
-          //option is selected
-          gradeDefaultOption.selected = true;
-
-          //option is disabled
-          gradeDefaultOption.disabled = true;
-
-          //since default is "Select an option" so empty
-          gradeDefaultOption.value = "";
-
-          //the text is "Select an option"
-          gradeDefaultOption.text = "Select an option";
-
-          //inside one select got default option so add in as child
-          gradeSelect.appendChild(gradeDefaultOption);
-
-          //list out all the grade options
-          const gradeOptions = ["A+", "A", "A-", "B+", "B", "C+", "C", "D", "E", "G", "X"];
-
-          //in HTML, it will declare in this way
-          //<option value="A+">A+</option>
-          //so use for loop to iterate across all grade options
-          for (const optionValue of gradeOptions) {
-            //create element of option so that can add <option value="A+">A+</option> statement
-            const gradeOption = document.createElement("option");
-
-            //add value of the option
-            gradeOption.value = optionValue;
-
-            //add text of the option
-            gradeOption.text = optionValue;
-
-            // Select the appropriate grade option based on data[d] which is dictionary
-            if (optionValue === data[d]) {
-              gradeOption.selected = true;
-            }
-
-            //inside one select got many option so add in as child
-            gradeSelect.appendChild(gradeOption);
-          }
-
-          //each new row got one select statement (and each select statement got many grade option)
-          //so add select statement inside rows
-          gradeRows.appendChild(gradeSelect);
-
-          //each td got two row - subject rows and grade rows so add them
-          newRow.appendChild(subjectRows);
-          newRow.appendChild(gradeRows);
-
-          //each table got a subject row and a grade row so add newRow that consists of a subject and a grade row
-          gradeTableBody.appendChild(newRow);
+        for (let i = 1; i < numRowsToDisplay; i++) {
+          addTableDetails();
         }
+
+        //return elements with class = qualificationSubject 
+        const subjectContainers = document.querySelectorAll(".qualificationSubject");
+
+        //return elements with class = qualificationGrade
+        const gradeContainers = document.querySelectorAll(".qualificationGrade");
+
+        //return count of data
+        const dataKeys = Object.keys(data);
+
+        //One subject has many select
+        //Iterate over each subject and grade container
+        for (let i = 0; i < subjectContainers.length; i++) {
+          const subjectSelect = subjectContainers[i];
+          const gradeSelect = gradeContainers[i];
+
+          //Check if there is data for this row
+          //data format: {"BM": "A+"}
+          if (i < dataKeys.length) {
+            //subjectKey = "BM"
+            const subjectKey = dataKeys[i];
+            //gradeValue = "A+"
+            const gradeValue = data[subjectKey];
+
+            //Iterate over options and set the selected index when there's a match
+            for (let j = 0; j < subjectSelect.options.length; j++) {
+              if (subjectSelect.options[j].value == subjectKey) {
+                subjectSelect.selectedIndex = j;
+                break;
+              }
+            }
+
+            for (let k = 0; k < gradeSelect.options.length; k++) {
+              if (gradeSelect.options[k].value == gradeValue) {
+                gradeSelect.selectedIndex = k;
+                break;
+              }
+            }
+          } else {
+            // No data for this row, so reset the selections
+            subjectSelect.selectedIndex = 0;
+            gradeSelect.selectedIndex = 0;
+          }
+        }
+
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+
+    //once user upload result, then they got the flexibility to add new rows
+    //in case OCR cannot capture completely
+    const addRowButton = document.getElementById("addRowButton");
+    addRowButton.removeAttribute("disabled");
+    const deletePreviousRowButton = document.getElementById("deletePreviousRowButton");
+    deletePreviousRowButton.removeAttribute("disabled");
+  }
+
+  function addNewRow() {
+    const gradeTableBody = document.getElementById("gradeTableBody");
+
+    //add each row which is tr, and each tr contains a subject row and a grade row
+    const newRow = document.createElement("tr");
+
+    // in HTML, it will declare in this way --
+    //<select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification" aria-label="Default select example">
+    //create element of select so that can implement this select statement ^
+    const subjectRows = document.createElement("td");
+    subjectRows.style.width = "35%";
+
+    //add class of subject select
+    const subjectSelect = document.createElement("select");
+
+    //add class of subject select
+    subjectSelect.className = "form-select qualificationSubject";
+
+    //add name of subject select
+    subjectSelect.name = "qualificationSubject";
+
+    //add id of subject select
+    subjectSelect.id = "inputQualification"
+
+    //add aria label of subject select
+    subjectSelect.ariaLabel = "Default select example";
+
+    //in HTML, it will declare in this way --
+    //<option selected disabled value="">Select an option</option>
+    //create element of option so that can implement this option statement^
+    const subjectDefaultOption = document.createElement("option");
+
+    //option is selected
+    subjectDefaultOption.selected = true;
+
+    //option is disabled
+    subjectDefaultOption.disabled = true;
+
+    //since default is "Select an option" so empty
+    subjectDefaultOption.value = "";
+
+    //option is disabled
+    subjectDefaultOption.text = "Select an option";
+
+    //inside one select got default option so add in as chield
+    subjectSelect.appendChild(subjectDefaultOption);
+
+    //in HTML, it will declare in this way
+    //<option value="BM">BAHASA MELAYU</option>
+    //so use for loop to iterate across all subject options
+    for (const subjectName in subjectAbbreviation) {
+      //create element of option so that can add <option value="BM">Bahasa Melayu</option>
+      const subjectOption = document.createElement("option");
+
+      //add value of the option
+      //want print the BI, BM, etc
+      subjectOption.value = subjectName;
+
+      //add text of the option
+      //print the text of value eg. BAHASA MELAYU if the subject name is BM
+      subjectOption.text = subjectAbbreviation[subjectName];
+
+      //Inside one select got many subject option so add in as child
+      subjectSelect.appendChild(subjectOption);
+    }
+
+    //each new row got one select statement (and each select statement got many grade option)
+    //so add select statement inside rows
+    subjectRows.appendChild(subjectSelect);
+
+    //add grade row
+    const gradeRows = document.createElement("td");
+    gradeRows.style.width = "15%";
+    //in HTML, it will declare in this way --
+    //<select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification" aria-label="Default select example">
+    //create element of select so that can implement this select statement ^
+    const gradeSelect = document.createElement("select");
+
+    //add class of grade select
+    gradeSelect.className = "form-select qualificationGrade";
+
+    //add name of grade select
+    gradeSelect.name = "qualificationGrade";
+
+    //add id of grade select
+    gradeSelect.id = "inputQualification";
+
+    //add aria label of grade select
+    gradeSelect.ariaLabel = "Default select example";
+
+    //in HTML, it will declare in this way --
+    //<option selected disabled value="">Select an option</option>
+    //create element of option so that can implement this option statement^ 
+    const gradeDefaultOption = document.createElement("option");
+
+    //option is selected
+    gradeDefaultOption.selected = true;
+
+    //option is disabled
+    gradeDefaultOption.disabled = true;
+
+    //since default is "Select an option" so empty
+    gradeDefaultOption.value = "";
+
+    //the text is "Select an option"
+    gradeDefaultOption.text = "Select an option";
+
+    //inside one select got default option so add in as child
+    gradeSelect.appendChild(gradeDefaultOption);
+
+    //in HTML, it will declare in this way
+    //<option value="A+">A+</option>
+    //so use for loop to iterate across all grade options
+    for (const optionValue of gradeOptions) {
+      //create element of option so that can add <option value="A+">A+</option> statement
+      const gradeOption = document.createElement("option");
+
+      //add value of the option
+      gradeOption.value = optionValue;
+
+      //add text of the option
+      gradeOption.text = optionValue;
+
+      //inside one select got many option so add in as child
+      gradeSelect.appendChild(gradeOption);
+    }
+
+    //each new row got one select statement (and each select statement got many grade option)
+    //so add select statement inside rows
+    gradeRows.appendChild(gradeSelect);
+
+    // in HTML, it will declare in this way --
+    //<select class="form-select qualificationSubject" name="qualificationSubject" id="inputQualification" aria-label="Default select example">
+    //create element of select so that can implement this select statement ^
+    const subjectRowsA = document.createElement("td");
+    subjectRowsA.style.width = "35%";
+
+    //add class of subject select
+    const subjectSelectA = document.createElement("select");
+
+    //add class of subject select
+    subjectSelectA.className = "form-select qualificationSubject";
+
+    //add name of subject select
+    subjectSelectA.name = "qualificationSubject";
+
+    //add id of subject select
+    subjectSelectA.id = "inputQualification"
+
+    //add aria label of subject select
+    subjectSelectA.ariaLabel = "Default select example";
+
+    //in HTML, it will declare in this way --
+    //<option selected disabled value="">Select an option</option>
+    //create element of option so that can implement this option statement^
+    const subjectDefaultOptionA = document.createElement("option");
+
+    //option is selected
+    subjectDefaultOptionA.selected = true;
+
+    //option is disabled
+    subjectDefaultOptionA.disabled = true;
+
+    //since default is "Select an option" so empty
+    subjectDefaultOptionA.value = "";
+
+    //option is disabled
+    subjectDefaultOptionA.text = "Select an option";
+
+    //inside one select got default option so add in as chield
+    subjectSelectA.appendChild(subjectDefaultOptionA);
+
+    //in HTML, it will declare in this way
+    //<option value="BM">BAHASA MELAYU</option>
+    //so use for loop to iterate across all subject options
+    for (const subjectNameA in subjectAbbreviation) {
+      //create element of option so that can add <option value="BM">Bahasa Melayu</option>
+      const subjectOptionA = document.createElement("option");
+
+      //add value of the option
+      //want print the BI, BM, etc
+      subjectOptionA.value = subjectNameA;
+
+      //add text of the option
+      //print the text of value eg. BAHASA MELAYU if the subject name is BM
+      subjectOptionA.text = subjectAbbreviation[subjectNameA];
+
+      //Inside one select got many subject option so add in as child
+      subjectSelectA.appendChild(subjectOptionA);
+    }
+
+    //each new row got one select statement (and each select statement got many grade option)
+    //so add select statement inside rows
+    subjectRowsA.appendChild(subjectSelectA);
+
+    //add grade row
+    const gradeRowsA = document.createElement("td");
+    gradeRowsA.style.width = "15%";
+    //in HTML, it will declare in this way --
+    //<select class="form-select qualificationGrade" name="qualificationGrade" id="inputQualification" aria-label="Default select example">
+    //create element of select so that can implement this select statement ^
+    const gradeSelectA = document.createElement("select");
+
+    //add class of grade select
+    gradeSelectA.className = "form-select qualificationGrade";
+
+    //add name of grade select
+    gradeSelectA.name = "qualificationGrade";
+
+    //add id of grade select
+    gradeSelectA.id = "inputQualification";
+
+    //add aria label of grade select
+    gradeSelectA.ariaLabel = "Default select example";
+
+    //in HTML, it will declare in this way --
+    //<option selected disabled value="">Select an option</option>
+    //create element of option so that can implement this option statement^ 
+    const gradeDefaultOptionA = document.createElement("option");
+
+    //option is selected
+    gradeDefaultOptionA.selected = true;
+
+    //option is disabled
+    gradeDefaultOptionA.disabled = true;
+
+    //since default is "Select an option" so empty
+    gradeDefaultOptionA.value = "";
+
+    //the text is "Select an option"
+    gradeDefaultOptionA.text = "Select an option";
+
+    //inside one select got default option so add in as child
+    gradeSelectA.appendChild(gradeDefaultOptionA);
+
+    //in HTML, it will declare in this way
+    //<option value="A+">A+</option>
+    //so use for loop to iterate across all grade options
+    for (const optionValueA of gradeOptions) {
+      //create element of option so that can add <option value="A+">A+</option> statement
+      const gradeOptionA = document.createElement("option");
+
+      //add value of the option
+      gradeOptionA.value = optionValueA;
+
+      //add text of the option
+      gradeOptionA.text = optionValueA;
+
+      //inside one select got many option so add in as child
+      gradeSelectA.appendChild(gradeOptionA);
+    }
+
+    //each new row got one select statement (and each select statement got many grade option)
+    //so add select statement inside rows
+    gradeRowsA.appendChild(gradeSelectA);
+
+    //each td got two row - subject rows and grade rows so add them
+    newRow.appendChild(subjectRows);
+    newRow.appendChild(gradeRows);
+    newRow.appendChild(subjectRowsA);
+    newRow.appendChild(gradeRowsA);
+
+    //each table got a subject row and a grade row so add newRow that consists of a subject and a grade row
+    gradeTableBody.appendChild(newRow);
+
+  }
+
+  function deletePreviousRow() {
+    const gradeTableBody = document.getElementById("gradeTableBody");
+
+    //check if there are rows to delete
+    if (gradeTableBody.children.length > 0) {
+      //remove the last row from the table
+      gradeTableBody.removeChild(gradeTableBody.lastChild);
+    }
   }
 
   const minRequirement = {
@@ -383,12 +956,97 @@ Enrollment
     "X": 0,
   };
 
+  //check duplicate subjects
+  function hasDuplicateSubjects() {
+    const subjectContainers = document.querySelectorAll(".qualificationSubject");
+    let selectedSubjects = new Set();
+
+    for (let i = 0; i < subjectContainers.length; i++) {
+      //iterate over each subject container
+      const subjectSelect = subjectContainers[i];
+
+      //get its value eg "BM"
+      const subjectValue = subjectSelect.value
+
+      //if selectedSubjects got BM then mean duplicate already
+      if (selectedSubjects.has(subjectValue)) {
+        return true;
+      }
+
+      //once iterate then add the subject inside selectedSubjects
+      selectedSubjects.add(subjectValue);
+    }
+
+    //if no duplicate subject found then return false
+    return false;
+
+  }
+
+  const compulsorySubject = ["BM", "BI", "MM", "SEJ", "MT"]
+
+  //check whether student is eligible or not
   function checkEligibility() {
-    const subjectContainer = document.getElementsByClassName("qualificationSubject");
-    const gradeContainer = document.getElementsByClassName("qualificationGrade");
+    //get subject value(e.g. BM, BI) and grade value(e.g. A+, A)
+    const subjectContainer = document.querySelectorAll(".qualificationSubject");
+    const gradeContainer = document.querySelectorAll(".qualificationGrade");
     let isEligible = false;
     let selectedSubject = {};
 
+    //create an array to track which compulsory subjects are missing
+    const missingSubjects = [];
+
+    //iterate over each compulsory subject
+    for (const subject of compulsorySubject) {
+      let found = false;
+
+      //iterate over each subject container
+      for (const container of subjectContainer) {
+        const containerSubject = container.value.trim();
+
+        //if subject found in this container then not need continue find
+        if (containerSubject == subject) {
+          found = true;
+          break; 
+        }
+      }
+
+      //if the subject is not found in any container, add it to the missingSubjects array
+      if (!found) {
+        missingSubjects.push(subject);
+      }
+    }
+
+    // Check if any compulsory subjects are missing
+    if (missingSubjects.length > 0) {
+      console.log(`The following compulsory subjects are missing: ${missingSubjects.join(', ')}`);
+      showLackSubjectPopup("Error", "Required Subject That Must Fill: Bahasa Melayu, Bahasa Inggeris, Mathematics, Sejarah, Additional Mathematics");
+      return;
+      // Display an error message or take necessary action here
+    } else {
+      console.log('All compulsory subjects are present in the containers.');
+      // Continue with your desired logic
+    }
+    // //must got 5 required subject
+    // for (const subject of compulsorySubject) {
+    //   const subjectIndex = Array.from(subjectContainer).findIndex(element => element.value == subject);
+    //   if (gradeContainer[subjectIndex].selectedIndex == 0) {
+    //     console.log("Empty");
+    //     showLackSubjectPopup("Error", "Required Subject: Bahasa Melayu, Bahasa Inggeris, Mathematics, Sejarah, Additional Mathematics");
+    //     return;
+    //   }
+    // }
+
+    for (let i = 0; i < subjectContainer.length; i++) {
+      if (subjectContainer[i].value != "") {
+        if (gradeContainer[i].value == "") {
+          showLackSubjectPopup("Error", "Grade Cannot Be Empty");
+          return;
+        }
+      }
+    }
+
+    //iterate over each subject and put it inside set
+    //the selectedSubject will contain {"BM": "A+", and so on}
     for (let i = 0; i < subjectContainer.length; i++) {
       if (subjectContainer[i].selectedIndex != 0 && gradeContainer[i].selectedIndex != 0) {
         selectedSubject[subjectContainer[i].value] = gradeContainer[i].value;
@@ -396,29 +1054,180 @@ Enrollment
     }
 
 
-    if (Object.keys(minRequirement).every((key) => selectedSubject.hasOwnProperty(key))) {
-      for (let req in minRequirement) {
-        console.log(req);
-        if (gradingSystem[minRequirement[req]] <= gradingSystem[selectedSubject[req]]) {
-          console.log('True')
-          isEligible = true;
-        } else {
+    //check for duplicate subjects
+    if (hasDuplicateSubjects()) {
+      showDuplicateSubjectPopup("Error", "Duplicate Subjects Are Not Allowed");
+      return;
+    }
+
+    //iterate across the min requirement
+    for (const req in minRequirement) {
+
+      //if true then baru proceed to compare
+      if (selectedSubject.hasOwnProperty(req)) {
+        const requiredGrade = minRequirement[req];
+        const studentGrade = selectedSubject[req];
+        const requiredGradeValue = gradingSystem[requiredGrade];
+        const studentGradeValue = gradingSystem[studentGrade];
+
+        if (studentGradeValue < requiredGradeValue) {
           isEligible = false;
-          break;
+          break; // If one subject doesn't meet the requirement, break and set eligibility to false
         }
+        else {
+          isEligible = true;
+        }
+
       }
     }
-
     if (isEligible) {
-        // Eligible - Show success message in pop-up
-        showPopup("Success", "You are eligible for the program:");
-        console.log('eligible');
+      // Eligible - Show success message in pop-up
+      showPopup("Success", "You are eligible for the program:");
     } else {
-        // Not eligible - Show fail message in pop-up
-        showPopup("Fail", "You are not eligible for the program:");
-        console.log('uneligible');
+      // Not eligible - Show fail message in pop-up
+      showPopup("Fail", "You are not eligible for the program:");
     }
 
+  }
+
+  //JavaScript function to hide the file input container
+  function hideFileInputContainer() {
+    var fileInputElements = document.querySelectorAll(".fileInput");
+    var invalidUploadImageFeedback = document.querySelector(".invalid-feedback");
+    const fileInput = document.getElementById("fileInput");
+
+    fileInputElements.forEach(function (element) {
+      element.style.display = "none";
+    });
+
+    invalidUploadImageFeedback.style.display = "none";
+    fileInput.style.display = "none";
+
+    console.log("Elements with class 'fileInput' hidden.");
+
+  }
+
+  function showManualInput() {
+    hideFileInputContainer();
+    const fileInput = document.getElementById("fileInput");
+    fileInput.value = null;
+
+    //clear subject containers and its row
+    const subjectContainers = document.querySelectorAll(".qualificationSubject");
+    subjectContainers.forEach(container => {
+      const row = container.closest("tr");
+      if (row) {
+        row.remove();
+      }
+      container.remove();
+    });
+
+    //clear grade containers and its row
+    const gradeContainers = document.querySelectorAll(".qualificationGrade");
+    gradeContainers.forEach(container => {
+      const row = container.closest("tr");
+      if (row) {
+        row.remove();
+      }
+      container.remove();
+    });
+
+    //thead
+    const gradeTableThread = document.getElementById("gradeTableThread")
+
+    gradeTableThread.innerHTML = '';
+
+    //inside one thead got tr 
+    const headerRow = document.createElement("tr")
+
+    //inside one thead got tr then got th which is subject header
+    const subjectHeader = document.createElement("th");
+
+    //in original HTML, it declare in this way: 
+    //<th style="width: 35%;">Subject</th>
+    //so text content is Subject 
+    subjectHeader.textContent = "Subject";
+
+    //width is 35%
+    subjectHeader.style.width = "35%";
+
+    //add subject header inside the tr
+    headerRow.appendChild(subjectHeader);
+
+    //inside one thead got tr then got th which is the grade header
+    const gradeHeader = document.createElement("th");
+
+    //in original HTML, it declare in this way: 
+    //<th style="width: 15%;">Grade</th>
+    //so text content is Grade 
+    gradeHeader.textContent = "Grade";
+
+    //width is 15%
+    gradeHeader.style.width = "15%";
+
+    //add grade header inside the tr
+    headerRow.appendChild(gradeHeader);
+
+    //inside one thead got tr then got th which is subject header
+    const subjectHeaderA = document.createElement("th");
+
+    //in original HTML, it declare in this way: 
+    //<th style="width: 35%;">Subject</th>
+    //so text content is Subject 
+    subjectHeaderA.textContent = "Subject";
+
+    //width is 35%
+    subjectHeaderA.style.width = "35%";
+
+    //add subject header inside the tr
+    headerRow.appendChild(subjectHeaderA);
+
+    //inside one thead got tr then got th which is the grade header
+    const gradeHeaderA = document.createElement("th");
+
+    //in original HTML, it declare in this way: 
+    //<th style="width: 15%;">Grade</th>
+    //so text content is Grade 
+    gradeHeaderA.textContent = "Grade";
+
+    //width is 15%
+    gradeHeaderA.style.width = "15%";
+
+    //add grade header inside the tr
+    headerRow.appendChild(gradeHeaderA);
+
+    gradeTableThread.appendChild(headerRow);
+    //get how many data
+    count = compulsorySubject.length;
+    const numRowsToDisplayA = (count / 2) + 1;
+
+    for (let i = 1; i < numRowsToDisplayA; i++) {
+      addTableDetails();
+    }
+
+    fillFieldWithCompulsorySubject();
+
+    //once user upload result, then they got the flexibility to add new rows
+    //in case OCR cannot capture completely
+    const addRowButton = document.getElementById("addRowButton");
+    addRowButton.removeAttribute("disabled");
+    const deletePreviousRowButton = document.getElementById("deletePreviousRowButton");
+    deletePreviousRowButton.removeAttribute("disabled");
+  }
+
+  function fillFieldWithCompulsorySubject() {
+    const subjectContainers = document.querySelectorAll(".qualificationSubject");
+
+    for (let i = 0; i < subjectContainers.length; i++) {
+      const subjectSelect = subjectContainers[i];
+
+      //Check if the index is within the bounds of compulsorySubject array
+      if (i < compulsorySubject.length) {
+        const compulsorySubjectValue = compulsorySubject[i];
+        // Set the selected subject in the subject container
+        subjectSelect.value = compulsorySubjectValue;
+      }
+    }
   }
 
   // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -453,14 +1262,47 @@ Enrollment
     var forms = document.querySelectorAll('.needs-validation');
     var section2Form = document.querySelector('#section2');
     var submitButton = section2Form.querySelector('#submitBtn');
+    var uploadResultButton = section2Form.querySelector('#uploadResultButton')
+    var manualInputButton = section2Form.querySelector('#manualInputButton')
+
+    var fileInputElements = document.querySelectorAll(".fileInput");
+    const fileInput = document.getElementById("fileInput");
+    const programmeChose = document.getElementById("inputProgramme");
+
 
     function enableOrDisableButton() {
-      if (section2Form.checkValidity()) {
-        submitButton.removeAttribute('disabled');
+      if (programmeChose.value != "") {
+        if (getComputedStyle(fileInput).display == "block") {
+          //got file input?
+          if (fileInput.files.length > 0) {
+            submitButton.removeAttribute('disabled');
+            console.log("1");
+          } else {
+            submitButton.setAttribute('disabled', 'disabled');
+            console.log("4");
+          }
+          //if user choose to manual input
+        } else if (getComputedStyle(fileInput).display == "none") {
+          submitButton.removeAttribute('disabled');
+          console.log("2");
+        } else {
+          submitButton.setAttribute('disabled', 'disabled');
+          console.log("3");
+        }
       } else {
         submitButton.setAttribute('disabled', 'disabled');
       }
     }
+
+    manualInputButton.addEventListener("click", function () {
+      showManualInput();
+      enableOrDisableButton();
+    });
+
+    uploadResultButton.addEventListener("click", function () {
+      enableUploadResultContainer();
+      enableOrDisableButton();
+    });
 
     enableOrDisableButton();
 
@@ -484,6 +1326,7 @@ Enrollment
       }, false);
     });
 
+
     submitButton.addEventListener('click', function (event) {
       if (!section2Form.checkValidity()) {
         event.preventDefault();
@@ -496,7 +1339,8 @@ Enrollment
     }, false);
   })();
 
-function showPopup(title, message) {
+
+  function showPopup(title, message) {
     const popup = document.getElementById("eligibilityPopup");
     const popupTitle = document.getElementById("popupMessageTitle");
     const popupText = document.getElementById("popupMessageText");
@@ -512,9 +1356,53 @@ function showPopup(title, message) {
     // Close the pop-up when the close button is clicked
     const closePopupBtn = document.getElementById("closePopup");
     closePopupBtn.addEventListener("click", function () {
-        popup.style.display = "none";
+      popup.style.display = "none";
     });
-}
+  }
+
+  //pop up need have two parameters - title, message
+  function showDuplicateSubjectPopup(title, message) {
+    const popupDuplicateSubject = document.getElementById("eligibilityPopupDuplicateSubject");
+    const popupTitleDuplicateSubject = document.getElementById("popupMessageTitleDuplicateSubject");
+    const popupTextDuplicateSubject = document.getElementById("popupMessageTextDuplicateSubject");
+
+    //display success or fail
+    popupTitleDuplicateSubject.textContent = title;
+
+    //display message
+    popupTextDuplicateSubject.innerHTML = message;
+
+    //initially none, once at here then change to block (can show)
+    popupDuplicateSubject.style.display = "block";
+
+    // Close the pop-up when the close button is clicked
+    const closePopupBtnDuplicateSubject = document.getElementById("closePopupDuplicateSubject");
+    closePopupBtnDuplicateSubject.addEventListener("click", function () {
+      popupDuplicateSubject.style.display = "none";
+    });
+  }
+
+  //pop up need have two parameters - title, message
+  function showLackSubjectPopup(title, message) {
+    const popupLackSubject = document.getElementById("eligibilityPopupLackSubject");
+    const popupTitleLackSubject = document.getElementById("popupMessageTitleLackSubject");
+    const popupTextLackSubject = document.getElementById("popupMessageTextLackSubject");
+
+    //display success or fail
+    popupTitleLackSubject.textContent = title;
+
+    //display message
+    popupTextLackSubject.innerHTML = message;
+
+    //initially none, once at here then change to block (can show)
+    popupLackSubject.style.display = "block";
+
+    // Close the pop-up when the close button is clicked
+    const closePopupBtnLackSubject = document.getElementById("closePopupLackSubject");
+    closePopupBtnLackSubject.addEventListener("click", function () {
+      popupLackSubject.style.display = "none";
+    });
+  }
 
 </script>
 {%endblock %}
