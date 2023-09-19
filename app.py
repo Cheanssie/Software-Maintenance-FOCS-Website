@@ -627,6 +627,14 @@ def handle_message(message):
     socketio.emit('message', message, room=connected_clients[message['requestId']])
     socketio.emit('message', message, room=( connected_clients["admin-" + message['requestId']]))
 
+@app.route('/removeChatSession', methods=['POST'])
+def removeChatSession():
+    print("test1111111111111111111111111")
+    chatId = request.form['chatId']
+    EnquiryRequest.query.filter_by(chatId=chatId).update({'status': False})
+    db.session.commit()
+    response_data = {"message": "Data received successfully!"}
+    return jsonify(response_data)
 
 if __name__ == "__name__":
     socketio.run(app, debug=True)

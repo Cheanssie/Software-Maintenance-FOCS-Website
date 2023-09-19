@@ -83,15 +83,49 @@
         .border-top {
             border-top: 1px solid #dee2e6 !important;
         }
+
+        .centered-button {
+            height: 30px;
+            /* Adjust the height as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(42, 240, 11);
+        }
+
+        .centered-button:hover {
+            background-color: rgb(34, 220, 5) !important;
+            border: none !important;
+        }
+
+        .centered-button-t {
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(255, 0, 0);
+        }
+
+        .centered-button-t:hover {
+            background-color: rgb(233, 0, 0) !important;
+            border: none !important;
+        }
     </style>
 
 </head>
 
 <main>
     <div class="container">
-
         {% if isSessionExist %}
         <h3 class="h3 mb-3 text-center ">Enquiry Chat Session</h3>
+
+        <div class="d-flex justify-content-center mb-2 ">
+            {% if isSessionExist['status'] == True %}
+            <button class="btn centered-button" type="button">In Progress</button>
+            {% else %}
+            <button class="btn centered-button-t" type="button">Terminated</button>
+            {% endif %}
+        </div>
         <div class="card">
             <div class="row">
                 <div class="col-12">
@@ -105,7 +139,7 @@
                                         class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
                                 </div>
                                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-                                    <div class="font-weight-bold mb-1">{{ r['sender'] }}</div>
+                                    <div class="font-weight-bold mb-1 text-muted ">{{ r['sender'] }}</div>
                                     {{ r['content'] }}
                                     <div class="text-muted small text-nowrap mt-1">
                                         {{ r['date'] }}&nbsp;{{ r['time'] }}
@@ -119,7 +153,7 @@
                                         class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
                                 </div>
                                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                                    <div class="font-weight-bold mb-1">{{ r['sender'] }}</div>
+                                    <div class="font-weight-bold mb-1 text-muted ">{{ r['sender'] }}</div>
                                     {{ r['content'] }}
                                     <div class="text-muted small text-nowrap mt-1">
                                         {{ r['date'] }}&nbsp;{{ r['time'] }}
@@ -134,8 +168,12 @@
 
                     <div class="flex-grow-0 py-3 px-4 border-top">
                         <div class="input-group">
+                            {% if isSessionExist['status'] == True %}
                             <input id="newMsg" type="text" class="form-control" placeholder="Type your message">
-                            <button id="sendBtn" class="btn btn-primary" onclick="sendMessage()" disabled >Send</button>
+                            {% else %}
+                            <input id="newMsg" type="text" class="form-control" placeholder="Session is no longer available" disabled >
+                            {% endif %}
+                            <button id="sendBtn" class="btn btn-primary" onclick="sendMessage()" disabled>Send</button>
                         </div>
                     </div>
 
@@ -154,7 +192,7 @@
 <script type="text/javascript">
     var socket = io.connect("{{request.host_url}}");
 
-    socket.on('connect', function(){
+    socket.on('connect', function () {
         console.log('test222')
         socket.emit('addChatId', { 'chatId': "admin-{{isSessionExist['chatId']}}" });
     });
@@ -171,7 +209,7 @@
                         class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
                 </div>
                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                    <div class="font-weight-bold mb-1">${data['sender']}</div>
+                    <div class="font-weight-bold mb-1 text-muted ">${data['sender']}</div>
                     ${data.content}
                     <div class="text-muted small text-nowrap mt-1">
                         ${data.date}&nbsp;${data.time}
@@ -186,7 +224,7 @@
                         class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
                 </div>
                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                    <div class="font-weight-bold ml-1">${data.sender}</div>
+                    <div class="font-weight-bold ml-1 text-muted ">${data.sender}</div>
                     ${data.content}
                     <div class="text-muted small text-nowrap mt-1">
                         ${data.date}&nbsp;${data.time}
@@ -196,6 +234,7 @@
         }
 
         messages.appendChild(messageContainer);
+        scrollToBottom();
     });
 
     var message_input = document.getElementById('newMsg');
@@ -207,7 +246,7 @@
         sendButton.disabled = true;
     }
 
-    message_input.addEventListener('input', function() {
+    message_input.addEventListener('input', function () {
         var message = message_input.value.trim();
 
         if (message === '') {
@@ -217,4 +256,9 @@
         }
     });
 
+    function scrollToBottom() {
+        var chatContainer = document.getElementById('chat-messages');
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    scrollToBottom();
 </script>
