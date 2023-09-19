@@ -30,8 +30,15 @@
   <link href="{{ url_for('static', filename='assets/css/style.css')}}" rel="stylesheet" />
 
   <style>
-
-    h1, h2, h3, h4, h5, h6, p, a, span{
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    a,
+    span {
       font-family: "Lato", Helvetica, Arial, sans-serif !important;
     }
 
@@ -107,6 +114,10 @@
       top: -100px
     }
 
+    #mobileSearch {
+      display: none;
+    }
+
     df-messenger {
       --df-messenger-bot-message: #eba200;
       --df-messenger-button-titlebar-color: #eba200;
@@ -116,13 +127,22 @@
       --df-messenger-user-message: #878fac;
     }
 
-    /*df-messenger {
-      margin: 0;
-      padding: 0;
-      position: fixed;
-      right: 0;
-      transform: translateX(50%) translateY(50%);
-    }*/
+    @media (max-width: 991px) {
+      #animatedSearch {
+        display: none !important;
+      }
+
+      #mobileSearch {
+        display: block;
+      }
+    }
+
+    #adminBtn{
+      color: #eba200 !important;
+    }
+    #adminBtn:hover{
+      color: #54B4D3 !important;
+    }
   </style>
 
   <!-- =======================================================
@@ -145,7 +165,25 @@
       </div>
 
       <nav id="navbar" class="navbar">
+
         <ul>
+          <li>
+            <form id="mobileSearch" action="{{url_for('searchProgramme')}}" method="POST" class="">
+              <div class="container-fluid d-flex justify-content-center align-items-center p-3 ">
+                <div class="w-100">
+                  <div class="row d-flex justify-content-center my-1 ">
+                    <input type="text" class="form-control h-50 d-block w-75 mt-4 " placeholder="Programme"
+                      aria-label="Programme" aria-describedby="button-addon2" name="programme">
+                  </div>
+                  <div class="row  d-flex justify-content-center my-2  ">
+                    <button
+                      class="btn btn-primary d-flex w-25 align-items-center justify-content-center effect effect-1"
+                      type="submit" id="searchBtn" style="border-radius: 0px; height: 30px;">Search</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </li>
           <li>
             <a class="link-effect nav-link scrollto nav-cus" href="{{ url_for('index')}}">
               <span class="fa-stack d-block me-3 fa-hide">
@@ -280,7 +318,7 @@
       <div class="row">
         <div class="col-md">
           <div class="footer-logo">
-            <a class="navbar-brand" href="#">Contact Us</a>
+            <a class="navbar-brand">Contact Us</a>
             <p>
               FACULTY OF COMPUTING AND INFORMATION TECHNOLOGY <br />
               TUNKU ABDUL RAHMAN UNIVERSITY OF MANAGEMENT AND TECHNOLOGY
@@ -301,18 +339,11 @@
 
         <div class="col-md">
           <div class="list-menu">
-            <h4>Locations</h4>
+            <h3>Locations</h3>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7967.075625883707!2d101.72655700000001!3d3.215255!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc3843bfb6a031%3A0x2dc5e067aae3ab84!2sTunku%20Abdul%20Rahman%20University%20of%20Management%20and%20Technology%20(TAR%20UMT)!5e0!3m2!1sen!2sus!4v1694603779903!5m2!1sen!2sus"
               height="450" style="border: 0; width: 100%;" allowfullscreen="" loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-        </div>
-
-        <div class="col-md">
-          <div class="list-menu">
-            <h4>Admin Panel</h4>
-            <a href="{{ url_for('login')}}" class="btn btn-primary">Login</a>
           </div>
         </div>
 
@@ -324,6 +355,7 @@
             <b style="color: #ffdb4a">Disclaimer Privacy Policy</b> and
             <b style="color: #ffdb4a">ABAC Policy</b>
           </p>
+          <p class="text-center text-decoration-underline "><a id="adminBtn" href="{{ url_for('login')}}">Admin Panel</a></p>
         </div>
       </div>
     </div>

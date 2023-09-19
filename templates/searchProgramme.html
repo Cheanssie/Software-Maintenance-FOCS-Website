@@ -8,30 +8,6 @@ d{% extends "base.html"%} {% block title %} Home {% endblock %} {%block content
   </div>
 
   <div class="container">
-    <form action="{{url_for('searchProgramme')}}" method="POST">
-      <div
-        class="container-fluid mt-5 d-flex justify-content-center align-items-center w-75"
-      >
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Programme"
-            aria-label="Programme"
-            aria-describedby="button-addon2"
-            name="programme"
-          />
-          <button
-            class="btn btn-primary"
-            type="submit"
-            id="button-addon2"
-            style="border-radius: 0"
-          >
-            Search
-          </button>
-        </div>
-      </div>
-    </form>
     <hr />
 
     {% for programme in searchProgramme %}
