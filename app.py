@@ -13,7 +13,7 @@ import uuid
 from ua_parser import user_agent_parser
 import pprint
 from flask_mail import Mail, Message
-
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///FOCS.db"
@@ -35,6 +35,7 @@ app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = 'hardcorestore888@gmail.com'
 app.config['MAIL_PASSWORD'] = 'ommmtwibyfgqtqdf'
 mail = Mail(app)
+socketio = SocketIO(app)
 
 imageAllowedExtension = set(['png', 'jpg', 'jpeg', 'gif'])
  
@@ -571,7 +572,25 @@ def enquiryChat():
 
     return render_template('enquiryChat.html', request_id=request_id, isSessionExist=isSessionExist, chatRecords=chatRecords)
 
+@socketio.on('message')
+def handle_message(message):
+    print(f"Received message: {message}")
+    #Update database
+    currentDateTime = datetime.now()
+    current_date = currentDateTime.strftime("%d-%m-%Y")  # Format as desired (e.g., YYYY-MM-DD)
+    current_time = currentDateTime.strftime("%I:%M%p")  # Format as desired (e.g., 10:50AM)
+
+    new_msg = ChatMessage(time=current_time, date=current_date, content=message['content'], sender=message['sender'], requestId=message['requestId'])
+    db.session.add(new_msg)
+    db.session.commit()    
+
+    message['time'] = current_time
+    message['date'] = current_date
+
+    socketio.emit('message', message)
+
 if __name__ == "__name__":
-    app.run(debug=True)
+    socketio.run(app, debug=True)
+    #app.run(debug=True)
 
 
