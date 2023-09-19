@@ -20,7 +20,7 @@
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.5);
-        z-index: 1;
+        z-index: 999;
         text-align: center;
     }
 
@@ -38,10 +38,12 @@
 <!-- ======= Main Section ======= -->
 <main>
     <div id="form-background" class="d-flex justify-content-center w-75 p-5 m-auto ">
+        
         <form id="enquiryForm" method="POST" action="/process_request" class="p-5 w-75">
             <div>
                 <h3 class="text-center">Enquiry Portal</h3>
             </div>
+            {% if not status %}
             <div class="form-group mb-3">
                 <label for="inputName" class="form-label">Name</label>
                 <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name"
@@ -69,41 +71,17 @@
             <div class="d-flex justify-content-center">
                 <button id="submitBtn" type="submit" class="btn btn-primary">Send Enquiry</button>
             </div>
+            {% else %}
+            <div class="form-group mb-3">
+                <label class="form-label">Enquiry Submitted</label>
+                <!--input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name"
+                    required-->
+            </div>
+            {% endif %}
         </form>
     </div>
-
-    <div id="popup" class="popup" style="display: none;">
-        <div class="popup-content px-5">
-            <h2 id="popupMessageTitle" class="my-2"></h2>
-            <p id="popupMessageText"></p>
-            <p><a href="{{ url_for('index')}}">>> Go back to Home Page</a></p>
-            <button id="closePopup" class="btn btn-primary ">Close</button>
-        </div>
-    </div>
+   
 </main>
 
-<script>
-    function showPopup(title, message) {
-        const popup = document.getElementById("popup");
-        const popupTitle = document.getElementById("popupMessageTitle");
-        const popupText = document.getElementById("popupMessageText");
-        const programmeChose = document.getElementById("inputProgramme");
-
-        const selectedProgram = programmeChose.options[programmeChose.selectedIndex].text;
-
-        popupTitle.textContent = title;
-        popupText.innerHTML = message + "<br/>" + selectedProgram;
-
-        popup.style.display = "block";
-
-        // Close the pop-up when the close button is clicked
-        const closePopupBtn = document.getElementById("closePopup");
-        closePopupBtn.addEventListener("click", function () {
-            popup.style.display = "none";
-        });
-
-
-    }
-</script>
 <!-- End #main -->
 {% endblock %}
