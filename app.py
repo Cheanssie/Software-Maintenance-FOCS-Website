@@ -160,14 +160,12 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    userIP = ipTracker.query.all()
-
     if request.method == 'POST':
         userID = request.form.get('userID')
         password = request.form.get('password')
 
         if(userID == 'admin' and password == 'admin'):
-            return render_template("admin.html", userIP = userIP)
+            return redirect(url_for('admin', page_num=1))    
         else:
             pass
     else:
@@ -178,9 +176,9 @@ def adminEnquiry():
     allEnquiry = EnquiryRequest.query.filter_by(status=True).all()
     return render_template('admin-enquiry.html', allEnquiry=allEnquiry)
 
-@app.route('/admin')
-def admin():
-    userIP = ipTracker.query.all()
+@app.route('/admin/<int:page_num>', methods=['GET', 'POST'])
+def admin(page_num):
+    userIP = ipTracker.query.paginate(per_page = 10, page = page_num, error_out = True)
 
     return render_template('admin.html', userIP = userIP)
 

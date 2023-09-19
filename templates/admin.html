@@ -113,7 +113,7 @@
               class="nav nav-pills flex-sm-column flex-row mb-auto justify-content-between text-truncate"
             >
               <li class="nav-item">
-                <a href="{{url_for('admin')}}" class="nav-link px-2 text-truncate">
+                <a href="{{ url_for('admin', page_num = 1)}}" class="nav-link px-2 text-truncate">
                   <i class="bi bi-house fs-5"></i>
                   <span class="d-none d-sm-inline">IP Tracker</span>
                 </a>
@@ -141,7 +141,7 @@
                 <th>Host Version</th>
               </thead>
               <tbody>
-                {% for ip in userIP %}
+                {% for ip in userIP.items %}
                 <tr>
                   <td>{{ip.id}}</td>
                   <td>{{ip.userIPAddr}}</td>
@@ -153,6 +153,23 @@
                 {% endfor %}
               </tbody>
             </table>
+            <div class="container mt-2">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center ">
+                  <li class="page-item {%if not userIP.has_prev %} disabled {% endif %}"><a href="{{url_for('admin', page_num=userIP.page -1)}}" class="page-link">Previous</a></li>
+              {% for page in userIP.iter_pages() %}
+                {% if page %}
+                  <li class="page-item {%if page == userIP.page %} active {% endif %}"><a href="{{ url_for('admin', page_num=page) }}" class="page-link">{{ page }}</a></li>
+                {% else %}  
+                  ...
+                {% endif %}
+              
+              {% endfor %}
+              <li class="page-item {%if not userIP.has_next %} disabled {% endif %}"><a href="{{url_for('admin', page_num=userIP.page +1)}}" class="page-link">Next</a></li>
+              
+              </ul>
+              </nav>
+              </div>      
           </div>
         </main>
       </div>
