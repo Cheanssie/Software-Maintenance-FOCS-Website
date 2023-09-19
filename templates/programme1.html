@@ -6,6 +6,10 @@
     margin: 0%;
     padding: 0%;
   }
+  p {
+    text-align: justify;
+  text-justify: inter-word;
+  }
 </style>
 
 <div
@@ -25,18 +29,18 @@
 
   <div class="row mt-5">
     <div class="">
-      <ul class="nav justify-content-center nav-tabs nav-justified">
-        <li class="nav-item "><a class="nav-link active" data-bs-toggle="tab" href="#overview">
-            <div class="">Programme Overview</div>
+      <ul class="nav justify-content-center nav-tabs nav-justified navbar-dark">
+        <li class="nav-item "><a class="nav-link active text-dark" data-bs-toggle="tab" href="#overview">
+            <strong>Programme Overview</strong>
           </a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#outline">
-            <div class="">Programme Outline</div>
+        <li class="nav-item "><a class="nav-link text-dark" data-bs-toggle="tab" href="#outline">
+            <strong>Programme Outline</strong>
           </a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#career">
-            <div class="">Career Prospect</div>
+        <li class="nav-item "><a class="nav-link text-dark" data-bs-toggle="tab" href="#career">
+            <strong>Career Prospect</strong>
           </a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#req">
-            <div class="">Mininum Entry Requirement</div>
+        <li class="nav-item "><a class="nav-link text-dark" data-bs-toggle="tab" href="#req">
+            <strong>Mininum Entry Requirement</strong>
           </a></li>
       </ul>
     </div>
@@ -64,10 +68,12 @@
       </div>
       <div id="career" class="tab-pane fade">
         <h4>Career Prospects</h4>
-        {%set careers = prog.progCareer.split("#")%}
-        {%for career in careers%}
-        <p>{{career}}</p>
-        {% endfor %}
+        <ul>
+          {%set careers = prog.progCareer.split("#")%}
+          {%for career in careers%}
+          <li>{{career}}</li>
+          {% endfor %}
+        </ul>
       </div>
       <div id="req" class="tab-pane fade">
         <ul>

@@ -6,6 +6,10 @@
     margin: 0%;
     padding: 0%;
   }
+  p {
+    text-align: justify;
+  text-justify: inter-word;
+  }
 </style>
 
 <div
@@ -34,18 +38,18 @@
 
   <div class="row mt-5">
     <div class="">
-      <ul class="nav justify-content-center nav-tabs nav-justified">
-        <li class="nav-item "><a class="nav-link active" data-bs-toggle="tab" href="#overview">
-            <div class="">Programme Overview</div>
+      <ul class="nav justify-content-center nav-tabs nav-justified navbar-dark">
+        <li class="nav-item "><a class="nav-link active text-dark" data-bs-toggle="tab" href="#overview">
+            <strong>Programme Overview</strong>
           </a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#req">
-            <div class="">Mininum Entry Requirement</div>
+        <li class="nav-item "><a class="nav-link text-dark" data-bs-toggle="tab" href="#req">
+            <strong>Mininum Entry Requirement</strong>
           </a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#outline">
-            <div class="">Programme Outline</div>
+        <li class="nav-item "><a class="nav-link text-dark" data-bs-toggle="tab" href="#outline">
+          <strong>Programme Outline</strong>
           </a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#career">
-            <div class="">Career Prospect</div>
+        <li class="nav-item "><a class="nav-link text-dark" data-bs-toggle="tab" href="#career">
+          <strong>Career Prospect</strong>
           </a></li>
       </ul>
     </div>
@@ -57,44 +61,58 @@
         <h4>Programme Overview:</h4>
         <p>{{prog.progOverview}}</p>
         <h4>Intake</h4>
-        {%set intakes = prog.progIntake.split("#")%}
-        {%for intake in intakes%}
-        <p>{{intake}}</p>
-        {% endfor %}
+        <ul>
+          {%set intakes = prog.progIntake.split("#")%}
+          {%for intake in intakes%}
+          <li>{{intake}}</li>
+          {% endfor %}
+        </ul>
         <h4>Duration</h4>
-        {%set durations = prog.progDuration.split("#")%}
-        {%for duration in durations%}
-        <p>{{duration}}</p>
-        {% endfor %}
+        <ul>
+          {%set durations = prog.progDuration.split("#")%}
+          {%for duration in durations%}
+          <li>{{duration}}</li>
+          {% endfor %}
+        </ul>
         <h4>Campus</h4>
-        {%set campuses = prog.progCampus.split("#")%}
-        {%for campus in campuses%}
-        <p>{{campus}}</p>
-        {% endfor %}
+        <ul>
+          {%set campuses = prog.progCampus.split("#")%}
+          {%for campus in campuses%}
+          <li>{{campus}}</li>
+          {% endfor %}
+        </ul>
       </div>
       <div id="outline" class="tab-pane fade">
         <h4>Programme Outline:</h4>
+        <ul>
         {%set outlines = prog.progOutline.split("#")%}
         {%for outline in outlines%}
-        <p>{{outline}}</p>
+        <li>{{outline}}</li>
         {% endfor %}
+      </ul>
       </div>
       <div id="career" class="tab-pane fade">
         <h4>Career Prospects</h4>
+        <ul>
         {%set careers = prog.progCareer.split("#")%}
         {%for career in careers%}
-        <p>{{career}}</p>
+        <li>{{career}}</li>
         {% endfor %}
+      </ul>
       </div>
       <div id="req" class="tab-pane fade">
         <h4>Entry Requirement</h4>
         <img src="../static/assets/img/{{prog.progReq}}" class="img-fluid">
       </div>
 
-      <button class="btn btn-success m-auto d-flex"><a href="{{ url_for('compareProg',id1=prog.progId, id2='')}}" class="text-white">Compare with other Programme</a></button>
-      <button class="btn btn-primary d-flex m-auto"><a href="{{ url_for('enrollment')}}" class="text-white">Enroll</a></button>
+      <button class="btn btn-success m-auto d-flex"><a href="{{ url_for('compareProg',id1=prog.progId, id2='')}}"
+          class="text-white">Compare with other Programme</a></button>
+
+      <button class="btn btn-primary d-flex m-auto"><a href="{{ url_for('enrollment')}}"
+          class="text-white">Enroll</a></button>
     </div>
   </div>
-  {% endfor %}
+</div>
+{% endfor %}
 </div>
 {% endblock %}
