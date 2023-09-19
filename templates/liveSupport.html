@@ -3,7 +3,8 @@
 {%block content %}
 <style>
     #form-background {
-        background: url("{{url_for('static', filename='assets/img/bg2.jpg')}}");
+        background: url("{{url_for('static', filename='assets/img/bg2.jpg')}}") no-repeat;
+        background-size: cover;
     }
     
     #enquiryForm{
@@ -16,21 +17,25 @@
 <!-- ======= Main Section ======= -->
 <main>
     <div id="form-background" class="d-flex justify-content-center w-75 p-5 m-auto ">
-        <form id="enquiryForm" class="p-5 w-75">
+        <form id="enquiryForm" class="p-5 w-75" method="POST">
             <div>
                 <h3 class="text-center">Enquiry Portal</h3>
             </div>
             <div class="form-group mb-3">
                 <label for="inputName" class="form-label">Name</label>
-                <input type="text" class="form-control" id="inputName" placeholder="Enter name" required>
+                <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name" required>
             </div>
             <div class="form-group mb-3">
                 <label for="inputEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="inputEmail" placeholder="Enter email" required>
+                <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Enter email" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="inputTitle" class="form-label">Email Title</label>
+                <input class="form-control" id="inputTitle" name="inputTitle" placeholder="Enter Title" required>
             </div>
             <div class="form-group mb-3">
                 <label for="inputRequest" class="form-label">Enquiry</label>
-                <textarea class="form-control" id="inputRequest" rows="3" placeholder="Describe your enquiry here" style="max-height: 100px;" required></textarea>
+                <textarea class="form-control" id="inputRequest" name="inputRequest" rows="2" placeholder="Describe your enquiry here" style="max-height: 100px;" required></textarea>
             </div>
             <div class="form-check mb-3 d-flex justify-content-center">
                 <input type="checkbox" class="form-check-input" id="checkAgree" required>

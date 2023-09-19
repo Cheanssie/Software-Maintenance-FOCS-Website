@@ -8,6 +8,7 @@ import os
 import difflib
 import re
 import socket
+import uuid
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///FOCS.db"
@@ -25,6 +26,16 @@ imageAllowedExtension = set(['png', 'jpg', 'jpeg', 'gif'])
  
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in imageAllowedExtension
+
+class EnquiryRequest(db.Model):
+    __tablename__ = "EnquiryRequest"
+
+    chatId = db.Column(db.String(128), primary_key=True, default=str(uuid.uuid4()))
+    chatTitle = db.Column(db.String(128), nullable=False)
+    userName = db.Column(db.String(128), nullable=False)
+    userEmail = db.Column(db.String(128), nullable=False)
+    status = db.Column(db.Boolean, nullable=False)
+
 
 class staffDirectory(db.Model):
     __tablename__ = "staffDirectory"
@@ -481,8 +492,20 @@ def process_ocr():
         
         return jsonify(readResults)
    
-@app.route('/liveSupport')
+@app.route('/liveSupport', methods=('GET', 'POST'))
 def liveSupport():
+    if request.method == 'POST':
+        title = request.form['inputTitle']
+        email = request.form['inputEmail']
+        name = request.form['inputName']
+        details = request.form['inputRequest']
+
+        # Create a new EnquiryRequest object
+        new_request = EnquiryRequest(chatTitle='Your Chat Title', userName='User Name', userEmail='user@example.com', status=True)
+        db.session.add(new_request)
+        db.session.commit()
+        return render_template('liveSupport.html', title=title, email=email, name=name, details=details)
+
     return render_template('liveSupport.html')
 
 
