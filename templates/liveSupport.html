@@ -71,17 +71,19 @@
                 <input type="checkbox" class="form-check-input" id="checkAgree" required>
                 <label class="form-check-label" for="checkAgree">&nbsp;I agree to share these details for enquiry
                     purpose</label>
-                    <div class="invalid-feedback">You must agree to proceed.</div>
             </div>
             <div class="d-flex justify-content-center">
                 <button id="submitBtn" type="submit" class="btn btn-primary">Send Enquiry</button>
             </div>
             {% else %}
             <div class="form-group mb-3 d-block bg-white p-4 m-3">
-                <label class="form-label mb-4 fs-4 d-flex justify-content-center">Enquiry Submitted</label>
-                <input type="text" class="form-control text-center m-auto w-75" id="inputName1" name="inputName1" placeholder="Enter name"
-                    required>
-                    <div class="invalid-feedback">Please enter your name.</div>
+                <label class="form-label mb-4 fs-4 d-flex justify-content-center">Please use the url below to enter chat room</label>
+                <div class="input-group mb-3">
+                    <div id="copyIcon" class="input-group-prepend input-group-text" onclick="copy()" style="width: 40px;height:40px;">
+                        <i class="fa fa-copy" style="font-size: 18px;"></i>
+                    </div>
+                    <input id="chatUrl" type="text" class="form-control text-center" value="{{ url_for('enquiryChat', chatId=chatId, _external=True) }}" readonly>
+                  </div>
                     <button id="enterBtn" type="submit" class="btn btn-primary d-flex mt-4 mx-auto ">Enter</button>
             </div>
             {% endif %}
@@ -121,6 +123,15 @@
     }, false);
   })();
 
+function copy() {
+    const copyIcon = document.getElementById("copyIcon");
+    const inputName1 = document.getElementById("chatUrl");
+
+    copyIcon.addEventListener("click", function () {
+      inputName1.select();
+      document.execCommand("copy");
+    });
+  }
 </script>
 <!-- End #main -->
 {% endblock %}

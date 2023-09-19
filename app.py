@@ -1,6 +1,7 @@
 from flask import Flask, flash, redirect, render_template, url_for, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from datetime import date
+from sqlalchemy import Sequence, Integer
+from datetime import date, datetime
 from werkzeug.utils import secure_filename
 import pytesseract
 from PIL import Image
@@ -26,6 +27,16 @@ imageAllowedExtension = set(['png', 'jpg', 'jpeg', 'gif'])
  
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in imageAllowedExtension
+
+class Message(db.Model):
+    __tablename__ = "Message"
+
+    msgId = db.Column(Integer, Sequence('msg_id_seq'), primary_key=True)
+    time = db.Column(db.String(128), nullable=False)
+    date = db.Column(db.String(500), nullable=False)
+    content = db.Column(db.String(128), nullable=False)
+    sender = db.Column(db.String(128), nullable=False)
+    requestId = db.Column(db.String(128), nullable=False)
 
 class EnquiryRequest(db.Model):
     __tablename__ = "EnquiryRequest"
@@ -505,11 +516,26 @@ def process_request():
     details = request.form['inputRequest']
 
     # Create a new EnquiryRequest object
-    new_request = EnquiryRequest(chatId=str(uuid.uuid4()), chatTitle=title, chatDetails=details, userName=name, userEmail=email, status=True)
+    chatId=str(uuid.uuid4())
+    new_request = EnquiryRequest(chatId=chatId, chatTitle=title, chatDetails=details, userName=name, userEmail=email, status=True)
+    currentDateTime = datetime.now()
+    current_date = currentDateTime.strftime("%d-%m-%Y")  # Format as desired (e.g., YYYY-MM-DD)
+    current_time = currentDateTime.strftime("%I:%M%p")  # Format as desired (e.g., 10:50AM)
+
+    new_msg = Message(time=current_time, date=current_date, content=details, sender=name, requestId=chatId)
+      
     db.session.add(new_request)
+    db.session.add(new_msg)
     db.session.commit()    
     status = True
-    return render_template('liveSupport.html', status=status)
+    return render_template('liveSupport.html', status=status, chatId=chatId)
+
+@app.route('/enquiryChat')
+def enquiryChat():
+    # Get the requestId from the query string
+    request_id = request.args.get('requestId')
+
+    return render_template('enquiryChat.html', request_id=request_id)
 
 if __name__ == "__name__":
     app.run(debug=True)
