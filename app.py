@@ -138,13 +138,14 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    userIP = ipTracker.query.all()
 
     if request.method == 'POST':
         userID = request.form.get('userID')
         password = request.form.get('password')
 
         if(userID == 'admin' and password == 'admin'):
-            return render_template("admin.html")
+            return render_template("admin.html", userIP = userIP)
         else:
             pass
     else:
