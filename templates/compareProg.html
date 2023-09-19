@@ -6,6 +6,10 @@
     margin: 0%;
     padding: 0%;
   }
+  p {
+    text-align: justify;
+  text-justify: inter-word;
+  }
 </style>
 
 <div
@@ -24,18 +28,18 @@
 
   <div class="row mt-5">
     <div class="">
-      <ul class="nav justify-content-center nav-tabs nav-justified">
-        <li class="nav-item "><a class="nav-link active" data-bs-toggle="tab" href="#overview">
-            <div class="">Programme Overview</div>
+      <ul class="nav justify-content-center nav-tabs nav-justified navbar-dark">
+        <li class="nav-item "><a class="nav-link active text-dark" data-bs-toggle="tab" href="#overview">
+          <strong>Programme Overview</strong>
           </a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#req">
-            <div class="">Mininum Entry Requirement</div>
+        <li class="nav-item "><a class="nav-link text-dark" data-bs-toggle="tab" href="#req">
+          <strong>Mininum Entry Requirement</strong>
           </a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#outline">
-            <div class="">Programme Outline</div>
+        <li class="nav-item "><a class="nav-link text-dark" data-bs-toggle="tab" href="#outline">
+          <strong>Programme Outline</strong>
           </a></li>
-        <li class="nav-item "><a class="nav-link" data-bs-toggle="tab" href="#career">
-            <div class="">Career Prospect</div>
+        <li class="nav-item "><a class="nav-link text-dark" data-bs-toggle="tab" href="#career">
+          <strong>Career Prospect</strong>
           </a></li>
       </ul>
     </div>
@@ -94,10 +98,12 @@
               <p>{{prog.progOverview}}</p>
 
               <h4>Intake</h4>
-              {%set intakes = prog.progIntake.split("#")%}
-              {%for intake in intakes%}
-              <p>{{intake}}</p>
-              {% endfor %}
+              <ul>
+                {%set intakes = prog.progIntake.split("#")%}
+                {%for intake in intakes%}
+                <li>{{intake}}</li>
+                {% endfor %}
+              </ul>
 
               <h4>Duration</h4>
               {%set durations = prog.progDuration.split("#")%}
@@ -106,10 +112,12 @@
               {% endfor %}
 
               <h4>Campus</h4>
-              {%set campuses = prog.progCampus.split("#")%}
-              {%for campus in campuses%}
-              <p>{{campus}}</p>
-              {% endfor %}
+              <ul>
+                {%set durations = prog.progDuration.split("#")%}
+                {%for duration in durations%}
+                <li>{{duration}}</li>
+                {% endfor %}
+              </ul>
 
             </div>
             <div class="col">
@@ -120,26 +128,32 @@
               <p>{{compareProg.progOverview}}</p>
 
               <h4>Intake</h4>
+              <ul>
               {% if compareProg is not none and compareProg.progIntake is not none %}
               {%set intakes1 = compareProg.progIntake.split("#")%}
               {%for intake1 in intakes1%}
-              <p>{{intake1}}</p>
+              <li>{{intake1}}</li>
               {% endfor %}
               {% endif %}
+            </ul>
               <h4>Duration</h4>
+              <ul>
               {% if compareProg is not none and compareProg.progDuration is not none%}
               {%set durations1 = compareProg.progDuration.split("#")%}
               {%for duration1 in durations1%}
-              <p>{{duration1}}</p>
+              <li>{{duration1}}</li>
               {% endfor %}
               {% endif %}
+            </ul>
               <h4>Campus</h4>
+              <ul>
               {% if compareProg is not none and compareProg.progCampus is not none %}
               {%set campuses1 = compareProg.progCampus.split("#")%}
               {%for campus1 in campuses1%}
-              <p>{{campus1}}</p>
+              <li>{{campus1}}</li>
               {% endfor %}
               {% endif %}
+            </ul>
             </div>
           </div>
         </div>
@@ -148,19 +162,23 @@
           <div class="row">
             <div class="col">
               <h4>Programme Outline:</h4>
+              <ul>
               {%set outlines = prog.progOutline.split("#")%}
               {%for outline in outlines%}
-              <p>{{outline}}</p>
+              <li>{{outline}}</li>
               {% endfor %}
+            </ul>
             </div>
             <div class="col">
               <h4>Programme Outline:</h4>
+              <ul>
               {% if compareProg is not none and compareProg.progOutline is not none %}
               {% set outlines1 = compareProg.progOutline.split("#") %}
               {% for outline1 in outlines1 %}
-              <p>{{ outline1 }}</p>
+              <li>{{ outline1 }}</li>
               {% endfor %}
               {% endif %}
+            </ul>
             </div>
           </div>
         </div>
@@ -168,20 +186,23 @@
           <div class="row">
             <div class="col">
               <h4>Career Prospects</h4>
-
+              <ul>
               {%set careers = prog.progCareer.split("#")%}
               {%for career in careers%}
-              <p>{{career}}</p>
+              <li>{{career}}</li>
               {% endfor %}
+            </ul>
             </div>
             <div class="col">
               <h4>Career Prospects</h4>
+              <ul>
               {% if compareProg is not none and compareProg.progCareer is not none %}
               {%set careers1 = compareProg.progCareer.split("#")%}
               {%for career1 in careers1%}
-              <p>{{career1}}</p>
+              <li>{{career1}}</li>
               {% endfor %}
               {% endif %}
+            </ul>
             </div>
           </div>
         </div>
