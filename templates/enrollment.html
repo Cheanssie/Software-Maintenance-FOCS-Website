@@ -76,8 +76,7 @@ Enrollment
           </label>
         </div>
       </fieldset>
-      <button type="button" class="btn btn-primary d-block m-auto" onclick="showSection('section2')"
-        id="nextButton">Next</button>
+      <button type="button" class="btn btn-primary d-block m-auto" id="nextButton">Next</button>
     </form>
 
     <form class="mt-1 needs-validation" id="section2" style="display: none;" novalidate>
@@ -135,9 +134,8 @@ Enrollment
       <button type="button" class="btn btn-primary d-inline m-2" onclick="deletePreviousRow()" disabled
         id="deletePreviousRowButton">Delete Row</button>
       <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-primary d-inline m-2" onclick="showSection('section1')">Previous</button>
-        <button type="button" class="btn btn-primary d-inline m-2" onclick="checkEligibility()"
-          id="submitBtn">Submit</button>
+        <button type="button" class="btn btn-primary d-inline m-2" id="previousButton">Previous</button>
+    <button type="button" class="btn btn-primary d-inline m-2" onclick="checkEligibility()" id="submitBtn">Submit</button>
       </div>
     </form>
   </div>
@@ -1230,114 +1228,125 @@ Enrollment
     }
   }
 
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
-  function showSection(sectionId) {
-    const currentSection = document.querySelector('.active-section');
 
-    if (!currentSection) {
-      const targetSection = document.getElementById(sectionId);
-      if (targetSection) {
-        targetSection.style.display = 'block';
-        targetSection.classList.add('active-section');
-        window.scrollTo(0, targetSection.offsetTop); // Scroll to the new section
-      }
-    } else if (currentSection.checkValidity()) {
-      currentSection.style.display = 'none';
-      currentSection.classList.remove('active-section');
 
-      const targetSection = document.getElementById(sectionId);
-      if (targetSection) {
-        targetSection.style.display = 'block';
-        targetSection.classList.add('active-section');
-        window.scrollTo(0, targetSection.offsetTop); // Scroll to the new section
-      }
-    } else {
-      currentSection.classList.add('was-validated');
-    }
-  }
+
+
+
+
+
+
+
+
 
   (function () {
-    'use strict';
+  'use strict';
 
-    var forms = document.querySelectorAll('.needs-validation');
-    var section2Form = document.querySelector('#section2');
-    var submitButton = section2Form.querySelector('#submitBtn');
-    var uploadResultButton = section2Form.querySelector('#uploadResultButton')
-    var manualInputButton = section2Form.querySelector('#manualInputButton')
+  // Select buttons and input elements
+  var submitButton = document.querySelector('#submitBtn');
+  var uploadResultButton = document.querySelector('#uploadResultButton');
+  var manualInputButton = document.querySelector('#manualInputButton');
+  var fileInput = document.getElementById("fileInput");
+  var programmeChose = document.getElementById("inputProgramme");
+  var nextButton = document.querySelector('#nextButton');
+  var previousButton = document.getElementById('previousButton');
 
-    var fileInputElements = document.querySelectorAll(".fileInput");
-    const fileInput = document.getElementById("fileInput");
-    const programmeChose = document.getElementById("inputProgramme");
+  // Flag to check if we've initially validated section1
+  var section1Validated = false;
 
-
-    function enableOrDisableButton() {
-      if (programmeChose.value != "") {
-        if (getComputedStyle(fileInput).display == "block") {
-          //got file input?
-          if (fileInput.files.length > 0) {
-            submitButton.removeAttribute('disabled');
-            console.log("1");
-          } else {
-            submitButton.setAttribute('disabled', 'disabled');
-            console.log("4");
-          }
-          //if user choose to manual input
-        } else if (getComputedStyle(fileInput).display == "none") {
-          submitButton.removeAttribute('disabled');
-          console.log("2");
-        } else {
-          submitButton.setAttribute('disabled', 'disabled');
-          console.log("3");
-        }
+  // Function to enable or disable the "Next" button based on input
+  function enableOrDisableButton() {
+    if (programmeChose.value !== "") {
+      if (getComputedStyle(fileInput).display === "block" && fileInput.files.length > 0) {
+        submitButton.removeAttribute('disabled');
+      } else if (getComputedStyle(fileInput).display === "none") {
+        submitButton.removeAttribute('disabled');
       } else {
         submitButton.setAttribute('disabled', 'disabled');
       }
+    } else {
+      submitButton.setAttribute('disabled', 'disabled');
+    }
+  }
+
+  // Function to validate section1
+  function validateSection1() {
+    var section1Form = document.querySelector('#section1');
+    if (!section1Form.checkValidity()) {
+      // If Section 1 has validation errors, display them
+      section1Form.classList.add('was-validated');
+    } else {
+      // If Section 1 is valid, switch to Section 2
+      showSection('section2');
+      section1Validated = true; // Mark section1 as validated
+    }
+  }
+
+  // JavaScript code
+  function showSection(sectionId) {
+    var currentSection = document.querySelector('.active-section');
+    var targetSection = document.getElementById(sectionId);
+
+    if (currentSection) {
+      currentSection.style.display = 'none';
+      currentSection.classList.remove('active-section');
     }
 
-    manualInputButton.addEventListener("click", function () {
-      showManualInput();
-      enableOrDisableButton();
-    });
+    if (targetSection) {
+      targetSection.style.display = 'block';
+      targetSection.classList.add('active-section');
+      window.scrollTo(0, targetSection.offsetTop);
+    }
+  }
 
-    uploadResultButton.addEventListener("click", function () {
-      enableUploadResultContainer();
-      enableOrDisableButton();
-    });
-
+  // Event listener for the "Next" button
+  nextButton.addEventListener('click', function () {
+    if (section1Validated) {
+      showSection('section2');
+    } else {
+      validateSection1();
+    }
     enableOrDisableButton();
+  });
 
-    forms.forEach(function (form) {
-      var nextButton = form.querySelector('#nextButton');
+  // Event listener for the "Manual Input" button
+  manualInputButton.addEventListener("click", function () {
+    showSection('section2');
+    enableOrDisableButton();
+  });
 
+  // Event listener for the "Upload Result" button
+  uploadResultButton.addEventListener("click", function () {
+    showSection('section2');
+    enableOrDisableButton();
+  });
+
+  // Event listener for input changes in forms
+  var inputElements = document.querySelectorAll('input, select');
+  inputElements.forEach(function (inputElement) {
+    inputElement.addEventListener('input', function () {
       enableOrDisableButton();
-
-      form.addEventListener('input', function () {
-        enableOrDisableButton();
-      });
-
-      nextButton.addEventListener('click', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
-          form.classList.add('was-validated');
-        } else {
-          showSection('section2');
-        }
-      }, false);
     });
+  });
+
+  // Event listener for the "previous" button
+  previousButton.addEventListener('click', function () {
+    showSection('section1');
+  });
+
+})();
 
 
-    submitButton.addEventListener('click', function (event) {
-      if (!section2Form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      } else {
-        alert('Form submitted successfully.');
-      }
 
-      section2Form.classList.add('was-validated');
-    }, false);
-  })();
+
+
+
+
+
+
+
+
+
 
 
   function showPopup(title, message) {
