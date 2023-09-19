@@ -572,6 +572,20 @@ def enquiryChat():
 
     return render_template('enquiryChat.html', request_id=request_id, isSessionExist=isSessionExist, chatRecords=chatRecords)
 
+
+connected_clients = {}
+@socketio.on('connect')
+def handle_connect():
+    print("One client connected")
+
+
+@socketio.on('addChatId')
+def addChatId(data):
+    chat_id = data.get('chatId')
+    # Store the client's socket connection using the chat ID
+    connected_clients[chat_id] = request.sid  # Store the socket ID associated with the chat ID
+    print(f"{connected_clients}")
+
 @socketio.on('message')
 def handle_message(message):
     print(f"Received message: {message}")
@@ -587,7 +601,7 @@ def handle_message(message):
     message['time'] = current_time
     message['date'] = current_date
 
-    socketio.emit('message', message)
+    socketio.emit('message', message, room=connected_clients[message['requestId']])
 
 if __name__ == "__name__":
     socketio.run(app, debug=True)

@@ -154,6 +154,11 @@
 <script type="text/javascript">
     var socket = io.connect("{{request.host_url}}");
 
+    socket.on('connect', function(){
+        console.log('test222')
+        socket.emit('addChatId', { 'chatId': "{{isSessionExist['chatId']}}" });
+    });
+
     socket.on('message', function (data) {
         var messages = document.getElementById('chat-messages');
         var messageContainer = document.createElement('div');
