@@ -114,7 +114,7 @@
       top: -100px
     }
 
-    #mobileSearch{
+    #mobileSearch {
       display: none;
     }
 
@@ -132,18 +132,17 @@
         display: none !important;
       }
 
-      #mobileSearch{
+      #mobileSearch {
         display: block;
       }
     }
 
-    /*df-messenger {
-      margin: 0;
-      padding: 0;
-      position: fixed;
-      right: 0;
-      transform: translateX(50%) translateY(50%);
-    }*/
+    #adminBtn{
+      color: #eba200 !important;
+    }
+    #adminBtn:hover{
+      color: #54B4D3 !important;
+    }
   </style>
 
   <!-- =======================================================
@@ -166,10 +165,10 @@
       </div>
 
       <nav id="navbar" class="navbar">
+
         <ul>
           <li>
-            <form id="mobileSearch" action="{{url_for('searchProgramme')}}" method="POST"
-              class="">
+            <form id="mobileSearch" action="{{url_for('searchProgramme')}}" method="POST" class="">
               <div class="container-fluid d-flex justify-content-center align-items-center p-3 ">
                 <div class="w-100">
                   <div class="row d-flex justify-content-center my-1 ">
@@ -348,13 +347,6 @@
           </div>
         </div>
 
-        <div class="col-md">
-          <div class="list-menu">
-            <h4>Admin Panel</h4>
-            <a href="{{ url_for('login')}}" class="btn btn-primary">Login</a>
-          </div>
-        </div>
-
       </div>
       <div class="copyrights" style="background-color: #2a2c30">
         <div class="container">
@@ -363,6 +355,7 @@
             <b style="color: #ffdb4a">Disclaimer Privacy Policy</b> and
             <b style="color: #ffdb4a">ABAC Policy</b>
           </p>
+          <p class="text-center text-decoration-underline "><a id="adminBtn" href="{{ url_for('login')}}">Admin Panel</a></p>
         </div>
       </div>
     </div>
