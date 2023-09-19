@@ -115,16 +115,17 @@
               </ul>
 
               <h4>Duration</h4>
+              <ul>
               {%set durations = prog.progDuration.split("#")%}
               {%for duration in durations%}
-              <p>{{duration}}</p>
+              <li>{{duration}}</li>
               {% endfor %}
-
+            </ul>
               <h4>Campus</h4>
               <ul>
-                {%set durations = prog.progDuration.split("#")%}
-                {%for duration in durations%}
-                <li>{{duration}}</li>
+                {%set campuses = prog.progCampus.split("#")%}
+                {%for campus in campuses%}
+                <li>{{campus}}</li>
                 {% endfor %}
               </ul>
 
