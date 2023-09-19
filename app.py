@@ -12,6 +12,7 @@ import socket
 import uuid
 from ua_parser import user_agent_parser
 import pprint
+from flask_mail import Mail, Message
 
 
 app = Flask(__name__)
@@ -26,12 +27,21 @@ app.secret_key = "secret_key"
 app.config['UPLOAD_FOLDER'] = imageUploadPath
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
+# Flask-Mail configuration
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = 'hardcorestore888@gmail.com'
+app.config['MAIL_PASSWORD'] = 'ommmtwibyfgqtqdf'
+mail = Mail(app)
+
 imageAllowedExtension = set(['png', 'jpg', 'jpeg', 'gif'])
  
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in imageAllowedExtension
 
-class Message(db.Model):
+class ChatMessage(db.Model):
     __tablename__ = "Message"
 
     msgId = db.Column(Integer, Sequence('msg_id_seq'), primary_key=True)
@@ -536,20 +546,30 @@ def process_request():
     current_date = currentDateTime.strftime("%d-%m-%Y")  # Format as desired (e.g., YYYY-MM-DD)
     current_time = currentDateTime.strftime("%I:%M%p")  # Format as desired (e.g., 10:50AM)
 
-    new_msg = Message(time=current_time, date=current_date, content=details, sender=name, requestId=chatId)
+    new_msg = ChatMessage(time=current_time, date=current_date, content=details, sender=name, requestId=chatId)
       
     db.session.add(new_request)
     db.session.add(new_msg)
     db.session.commit()    
     status = True
+    msg = Message('Hello from TARUMT Enquiry Portal', sender='hardcorestore888@gmail.com', recipients=[email])
+    msg.body = f"Hello,\n\nHere is the link to the chat room: {url_for('enquiryChat', chatId=chatId, _external=True)}\n\nBest regards,\nYour Website Team"
+    mail.send(msg)
     return render_template('liveSupport.html', status=status, chatId=chatId)
 
 @app.route('/enquiryChat')
 def enquiryChat():
     # Get the requestId from the query string
-    request_id = request.args.get('requestId')
+    request_id = request.args.get('chatId')
+    if not request_id:
+        isSessionExist = False
+    else:
+        isSessionExist = EnquiryRequest.query.filter_by(chatId=request_id).first()
+    
+    if isSessionExist:
+        chatRecords = ChatMessage.query.filter_by(requestId=request_id).order_by(ChatMessage.date.asc(), ChatMessage.time.asc()).all()
 
-    return render_template('enquiryChat.html', request_id=request_id)
+    return render_template('enquiryChat.html', request_id=request_id, isSessionExist=isSessionExist, chatRecords=chatRecords)
 
 if __name__ == "__name__":
     app.run(debug=True)
