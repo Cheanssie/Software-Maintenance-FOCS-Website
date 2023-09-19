@@ -99,47 +99,12 @@
             <i class="bi bi-bootstrap fs-2 text-dark"></i>
           </a>
         </div>
-        <div class="flex-grow-1 d-flex align-items-center">
-          <form class="w-100 me-3">
-            <input type="search" class="form-control" placeholder="Search..." />
-          </form>
-          <div class="flex-shrink-0 dropdown">
-            <a
-              href="#"
-              class="d-block link-dark text-decoration-none dropdown-toggle"
-              id="dropdownUser2"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img
-                src="https://via.placeholder.com/28?text=!"
-                alt="user"
-                width="32"
-                height="32"
-                class="rounded-circle"
-              />
-            </a>
-            <ul
-              class="dropdown-menu dropdown-menu-end shadow"
-              aria-labelledby="dropdownUser2"
-              style=""
-            >
-              <li><a class="dropdown-item" href="#">New project...</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul>
-          </div>
-        </div>
       </div>
     </header>
     <div
       class="container-fluid pb-3 flex-grow-1 d-flex flex-column flex-sm-row overflow-auto"
     >
-      <div class="row flex-grow-sm-1 flex-grow-0">
+      <div class="row flex-grow-sm-1 flex-grow-0 w-100">
         <aside
           class="col-sm-3 flex-grow-sm-1 flex-shrink-1 flex-grow-0 sticky-top pb-sm-0 pb-3"
         >
@@ -150,7 +115,7 @@
               <li class="nav-item">
                 <a href="#" class="nav-link px-2 text-truncate">
                   <i class="bi bi-house fs-5"></i>
-                  <span class="d-none d-sm-inline">Home</span>
+                  <span class="d-none d-sm-inline">IP Tracker</span>
                 </a>
               </li>
               <li>
@@ -182,57 +147,30 @@
         </aside>
         <main class="col overflow-auto h-100">
           <div class="bg-light border rounded-3 p-3">
-            <h2>Main</h2>
-            <p>
-              Sriracha biodiesel taxidermy organic post-ironic, Intelligentsia
-              salvia mustache 90's code editing brunch. Butcher polaroid VHS art
-              party, hashtag Brooklyn deep v PBR narwhal sustainable mixtape
-              swag wolf squid tote bag. Tote bag cronut semiotics, raw denim
-              deep v taxidermy messenger bag. Tofu YOLO Etsy, direct trade
-              ethical Odd Future jean shorts paleo. Forage Shoreditch tousled
-              aesthetic irony, street art organic Bushwick artisan cliche
-              semiotics ugh synth chillwave meditation. Shabby chic lomo plaid
-              vinyl chambray Vice. Vice sustainable cardigan, Williamsburg
-              master cleanse hella DIY 90's blog.
-            </p>
-            <p>
-              Ethical Kickstarter PBR asymmetrical lo-fi. Dreamcatcher street
-              art Carles, stumptown gluten-free Kickstarter artisan Wes Anderson
-              wolf pug. Godard sustainable you probably haven't heard of them,
-              vegan farm-to-table Williamsburg slow-carb readymade disrupt deep
-              v. Meggings seitan Wes Anderson semiotics, cliche American Apparel
-              whatever. Helvetica cray plaid, vegan brunch Banksy leggings +1
-              direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's
-              Shoreditch selfies, forage fingerstache food truck occupy YOLO
-              Pitchfork fixie iPhone fanny pack art party Portland.
-            </p>
-            <hr />
-            <h4>More content...</h4>
-            <p>
-              Ethical Kickstarter PBR asymmetrical lo-fi. Dreamcatcher street
-              art Carles, stumptown gluten-free Kickstarter artisan Wes Anderson
-              wolf pug. Godard sustainable you probably haven't heard of them,
-              vegan farm-to-table Williamsburg slow-carb readymade disrupt deep
-              v. Meggings seitan Wes Anderson semiotics, cliche American Apparel
-              whatever. Helvetica cray plaid, vegan brunch Banksy leggings +1
-              direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's
-              Shoreditch selfies, forage fingerstache food truck occupy YOLO
-              Pitchfork fixie iPhone fanny pack art party Portland.
-            </p>
-            <hr />
-            <h4>More content...</h4>
-            <p>
-              Sriracha biodiesel taxidermy organic post-ironic, Intelligentsia
-              salvia mustache 90's code editing brunch. Butcher polaroid VHS art
-              party, hashtag Brooklyn deep v PBR narwhal sustainable mixtape
-              swag wolf squid tote bag. Tote bag cronut semiotics, raw denim
-              deep v taxidermy messenger bag. Tofu YOLO Etsy, direct trade
-              ethical Odd Future jean shorts paleo. Forage Shoreditch tousled
-              aesthetic irony, street art organic Bushwick artisan cliche
-              semiotics ugh synth chillwave meditation. Shabby chic lomo plaid
-              vinyl chambray Vice. Vice sustainable cardigan, Williamsburg
-              master cleanse hella DIY 90's blog.
-            </p>
+            <h2>IP Tracker</h2>
+            <table class="table table-hover table-bordered table-responsive mt-5">
+              <caption class="text-center">List of visited users</caption>
+              <thead>
+                <th>No</th>
+                <th>IP Address</th>
+                <th>Host Name</th>
+                <th>Host Operating System</th>
+                <th>Host Browser</th>
+                <th>Host Version</th>
+              </thead>
+              <tbody>
+                {% for ip in userIP %}
+                <tr>
+                  <td>{{ip.id}}</td>
+                  <td>{{ip.userIPAddr}}</td>
+                  <td>{{ip.userDeviceName}}</td>
+                  <td>{{ip.userPlatform}}</td>
+                  <td>{{ip.userBrowserType}}</td>
+                  <td>{{ip.userBrowserVersion}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
         </main>
       </div>
