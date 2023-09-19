@@ -84,7 +84,7 @@
                     </div>
                     <input id="chatUrl" type="text" class="form-control text-center" value="{{ url_for('enquiryChat', chatId=chatId, _external=True) }}" readonly>
                   </div>
-                    <button id="enterBtn" type="submit" class="btn btn-primary d-flex mt-4 mx-auto ">Enter</button>
+                    <a id="enterBtn" href="{{ url_for('enquiryChat', chatId=chatId, _external=True) }}" class="btn btn-primary d-block w-50  mt-4 mx-auto ">Enter Chat Room</a>
             </div>
             {% endif %}
         </form>
