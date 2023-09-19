@@ -6,28 +6,51 @@
         background: url("{{url_for('static', filename='assets/img/bg2.jpg')}}") no-repeat;
         background-size: cover;
     }
-    
-    #enquiryForm{
+
+    #enquiryForm {
         background-color: rgba(204, 204, 204, 0.953);
         border-radius: 5px;
     }
 
+    .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+        text-align: center;
+    }
+
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 </style>
 
 <!-- ======= Main Section ======= -->
 <main>
     <div id="form-background" class="d-flex justify-content-center w-75 p-5 m-auto ">
-        <form id="enquiryForm" class="p-5 w-75" method="POST">
+        <form id="enquiryForm" method="POST" action="/process_request" class="p-5 w-75">
             <div>
                 <h3 class="text-center">Enquiry Portal</h3>
             </div>
             <div class="form-group mb-3">
                 <label for="inputName" class="form-label">Name</label>
-                <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name" required>
+                <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name"
+                    required>
             </div>
             <div class="form-group mb-3">
                 <label for="inputEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Enter email" required>
+                <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Enter email"
+                    required>
             </div>
             <div class="form-group mb-3">
                 <label for="inputTitle" class="form-label">Email Title</label>
@@ -35,7 +58,8 @@
             </div>
             <div class="form-group mb-3">
                 <label for="inputRequest" class="form-label">Enquiry</label>
-                <textarea class="form-control" id="inputRequest" name="inputRequest" rows="2" placeholder="Describe your enquiry here" style="max-height: 100px;" required></textarea>
+                <textarea class="form-control" id="inputRequest" name="inputRequest" rows="2"
+                    placeholder="Describe your enquiry here" style="max-height: 100px;" required></textarea>
             </div>
             <div class="form-check mb-3 d-flex justify-content-center">
                 <input type="checkbox" class="form-check-input" id="checkAgree" required>
@@ -43,10 +67,43 @@
                     purpose</label>
             </div>
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">Send Enquiry</button>
+                <button id="submitBtn" type="submit" class="btn btn-primary">Send Enquiry</button>
             </div>
-        </form>        
+        </form>
+    </div>
+
+    <div id="popup" class="popup" style="display: none;">
+        <div class="popup-content px-5">
+            <h2 id="popupMessageTitle" class="my-2"></h2>
+            <p id="popupMessageText"></p>
+            <p><a href="{{ url_for('index')}}">>> Go back to Home Page</a></p>
+            <button id="closePopup" class="btn btn-primary ">Close</button>
+        </div>
     </div>
 </main>
+
+<script>
+    function showPopup(title, message) {
+        const popup = document.getElementById("popup");
+        const popupTitle = document.getElementById("popupMessageTitle");
+        const popupText = document.getElementById("popupMessageText");
+        const programmeChose = document.getElementById("inputProgramme");
+
+        const selectedProgram = programmeChose.options[programmeChose.selectedIndex].text;
+
+        popupTitle.textContent = title;
+        popupText.innerHTML = message + "<br/>" + selectedProgram;
+
+        popup.style.display = "block";
+
+        // Close the pop-up when the close button is clicked
+        const closePopupBtn = document.getElementById("closePopup");
+        closePopupBtn.addEventListener("click", function () {
+            popup.style.display = "none";
+        });
+
+
+    }
+</script>
 <!-- End #main -->
 {% endblock %}

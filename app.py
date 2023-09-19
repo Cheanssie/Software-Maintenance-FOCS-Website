@@ -30,8 +30,9 @@ def allowed_file(filename):
 class EnquiryRequest(db.Model):
     __tablename__ = "EnquiryRequest"
 
-    chatId = db.Column(db.String(128), primary_key=True, default=str(uuid.uuid4()))
+    chatId = db.Column(db.String(128), primary_key=True)
     chatTitle = db.Column(db.String(128), nullable=False)
+    chatDetails = db.Column(db.String(500), nullable=False)
     userName = db.Column(db.String(128), nullable=False)
     userEmail = db.Column(db.String(128), nullable=False)
     status = db.Column(db.Boolean, nullable=False)
@@ -492,23 +493,23 @@ def process_ocr():
         
         return jsonify(readResults)
    
-@app.route('/liveSupport', methods=('GET', 'POST'))
+@app.route('/liveSupport')
 def liveSupport():
-    if request.method == 'POST':
-        title = request.form['inputTitle']
-        email = request.form['inputEmail']
-        name = request.form['inputName']
-        details = request.form['inputRequest']
-
-        # Create a new EnquiryRequest object
-        new_request = EnquiryRequest(chatTitle='Your Chat Title', userName='User Name', userEmail='user@example.com', status=True)
-        db.session.add(new_request)
-        db.session.commit()
-        return render_template('liveSupport.html', title=title, email=email, name=name, details=details)
-
     return render_template('liveSupport.html')
 
+@app.route("/process_request", methods=['POST'])
+def process_request():
+    title = request.form['inputTitle']
+    email = request.form['inputEmail']
+    name = request.form['inputName']
+    details = request.form['inputRequest']
 
+    # Create a new EnquiryRequest object
+    new_request = EnquiryRequest(chatId=str(uuid.uuid4()), chatTitle=title, chatDetails=details, userName=name, userEmail=email, status=True)
+    db.session.add(new_request)
+    db.session.commit()    
+    status = True
+    return render_template('liveSupport.html', status=status)
 
 if __name__ == "__name__":
     app.run(debug=True)
