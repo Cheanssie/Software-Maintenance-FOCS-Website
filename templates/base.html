@@ -30,8 +30,15 @@
   <link href="{{ url_for('static', filename='assets/css/style.css')}}" rel="stylesheet" />
 
   <style>
-
-    h1, h2, h3, h4, h5, h6, p, a, span{
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    a,
+    span {
       font-family: "Lato", Helvetica, Arial, sans-serif !important;
     }
 
@@ -107,6 +114,10 @@
       top: -100px
     }
 
+    #mobileSearch{
+      display: none;
+    }
+
     df-messenger {
       --df-messenger-bot-message: #eba200;
       --df-messenger-button-titlebar-color: #eba200;
@@ -114,6 +125,16 @@
       --df-messenger-font-color: white;
       --df-messenger-send-icon: #878fac;
       --df-messenger-user-message: #878fac;
+    }
+
+    @media (max-width: 991px) {
+      #animatedSearch {
+        display: none !important;
+      }
+
+      #mobileSearch{
+        display: block;
+      }
     }
 
     /*df-messenger {
@@ -146,6 +167,24 @@
 
       <nav id="navbar" class="navbar">
         <ul>
+          <li>
+            <form id="mobileSearch" action="{{url_for('searchProgramme')}}" method="POST"
+              class="">
+              <div class="container-fluid d-flex justify-content-center align-items-center p-3 ">
+                <div class="w-100">
+                  <div class="row d-flex justify-content-center my-1 ">
+                    <input type="text" class="form-control h-50 d-block w-75 mt-4 " placeholder="Programme"
+                      aria-label="Programme" aria-describedby="button-addon2" name="programme">
+                  </div>
+                  <div class="row  d-flex justify-content-center my-2  ">
+                    <button
+                      class="btn btn-primary d-flex w-25 align-items-center justify-content-center effect effect-1"
+                      type="submit" id="searchBtn" style="border-radius: 0px; height: 30px;">Search</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </li>
           <li>
             <a class="link-effect nav-link scrollto nav-cus" href="{{ url_for('index')}}">
               <span class="fa-stack d-block me-3 fa-hide">
