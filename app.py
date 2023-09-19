@@ -171,9 +171,9 @@ def login():
     else:
         return render_template("login.html")
 
-@app.route('/adminEnquiry')
-def adminEnquiry():
-    allEnquiry = EnquiryRequest.query.filter_by(status=True).all()
+@app.route('/adminEnquiry/<int:page_num>', methods=['GET', 'POST'])
+def adminEnquiry(page_num):
+    allEnquiry = EnquiryRequest.query.filter_by(status=True).paginate(per_page = 2, page = page_num, error_out = True)
     return render_template('admin-enquiry.html', allEnquiry=allEnquiry)
 
 @app.route('/admin/<int:page_num>', methods=['GET', 'POST'])

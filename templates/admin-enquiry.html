@@ -90,7 +90,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{url_for('adminEnquiry')}}" class="nav-link px-2 text-truncate">
+              <a href="{{ url_for('adminEnquiry', page_num = 1)}}" class="nav-link px-2 text-truncate">
                 <i class="bi bi-speedometer fs-5"></i>
                 <span class="d-none d-sm-inline">Enquiries</span>
               </a>
@@ -109,7 +109,7 @@
               <th class="text-center ">Action</th>
             </thead>
             <tbody>
-              {% for en in allEnquiry %}
+              {% for en in allEnquiry.items %}
               <tr>
                 <td><a href="{{url_for('enquiryChatAdmin', chatId=en.chatId)}}"
                     style="letter-spacing: normal;">{{en.chatTitle}}</a></td>
@@ -121,6 +121,24 @@
               {% endfor %}
             </tbody>
           </table>
+          <div class="container mt-2">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center ">
+                <li class="page-item {%if not allEnquiry.has_prev %} disabled {% endif %}"><a href="{{url_for('adminEnquiry', page_num=allEnquiry.page -1)}}" class="page-link">Previous</a></li>
+            {% for page in allEnquiry.iter_pages() %}
+              {% if page %}
+                <li class="page-item {%if page == allEnquiry.page %} active {% endif %}"><a href="{{ url_for('adminEnquiry', page_num=page) }}" class="page-link">{{ page }}</a></li>
+              {% else %}  
+                ...
+              {% endif %}
+            
+            {% endfor %}
+            <li class="page-item {%if not allEnquiry.has_next %} disabled {% endif %}"><a href="{{url_for('adminEnquiry', page_num=allEnquiry.page +1)}}" class="page-link">Next</a></li>
+            
+            </ul>
+            </nav>
+            </div>
+    
         </div>
       </main>
     </div>
