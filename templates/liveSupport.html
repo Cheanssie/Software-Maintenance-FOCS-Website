@@ -33,12 +33,21 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+
+    .btn-primary {
+        background-color: #eba200;
+        border: #eba200;
+    }
+
+    .btn-primary:hover {
+        background-color: #c98900;
+    }
 </style>
 
 <!-- ======= Main Section ======= -->
 <main>
     <div id="form-background" class="d-flex justify-content-center w-75 p-5 m-auto ">
-        
+
         <form id="enquiryForm" method="POST" action="/process_request" class="p-5 w-75">
             <div>
                 <h3 class="text-center">Enquiry Portal</h3>
@@ -48,13 +57,13 @@
                 <label for="inputName" class="form-label">Name</label>
                 <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Enter name"
                     required>
-                    <div class="invalid-feedback">Please enter your name.</div>
+                <div class="invalid-feedback">Please enter your name.</div>
             </div>
             <div class="form-group mb-3">
                 <label for="inputEmail" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Enter email"
                     required>
-                    <div class="invalid-feedback">Please enter a valid email address.</div>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
             </div>
             <div class="form-group mb-3">
                 <label for="inputTitle" class="form-label">Email Title</label>
@@ -65,7 +74,7 @@
                 <label for="inputRequest" class="form-label">Enquiry</label>
                 <textarea class="form-control" id="inputRequest" name="inputRequest" rows="2"
                     placeholder="Describe your enquiry here" style="max-height: 100px;" required></textarea>
-                    <div class="invalid-feedback">Please describe your enquiry.</div>
+                <div class="invalid-feedback">Please describe your enquiry.</div>
             </div>
             <div class="form-check mb-3 d-flex justify-content-center">
                 <input type="checkbox" class="form-check-input" id="checkAgree" required>
@@ -77,61 +86,65 @@
             </div>
             {% else %}
             <div class="form-group mb-3 d-block bg-white p-4 m-3">
-                <label class="form-label mb-4 fs-4 d-flex justify-content-center">Please use the url below to enter chat room</label>
+                <label class="form-label mb-4 fs-4 d-flex justify-content-center">Please use the url below to enter chat
+                    room</label>
                 <div class="input-group mb-3">
-                    <div id="copyIcon" class="input-group-prepend input-group-text" onclick="copy()" style="width: 40px;height:40px;">
+                    <div id="copyIcon" class="input-group-prepend input-group-text" onclick="copy()"
+                        style="width: 40px;height:40px;">
                         <i class="fa fa-copy" style="font-size: 18px;"></i>
                     </div>
-                    <input id="chatUrl" type="text" class="form-control text-center" value="{{ url_for('enquiryChat', chatId=chatId, _external=True) }}" readonly>
-                  </div>
-                    <a id="enterBtn" href="{{ url_for('enquiryChat', chatId=chatId, _external=True) }}" class="btn btn-primary d-block w-50  mt-4 mx-auto ">Enter Chat Room</a>
+                    <input id="chatUrl" type="text" class="form-control text-center"
+                        value="{{ url_for('enquiryChat', chatId=chatId, _external=True) }}" readonly>
+                </div>
+                <a id="enterBtn" href="{{ url_for('enquiryChat', chatId=chatId, _external=True) }}"
+                    class="btn btn-primary d-block w-50  mt-4 mx-auto ">Enter Chat Room</a>
             </div>
             {% endif %}
         </form>
     </div>
-   
+
 </main>
 
 <script>
 
-(function () {
-    'use strict';
+    (function () {
+        'use strict';
 
-    var submitButton = document.getElementById('submitBtn');
-    var form = document.querySelector('#enquiryForm');
-    var enterButton = document.getElementById('enterBtn');
-    var nameInput = document.getElementById('#inputName1');
+        var submitButton = document.getElementById('submitBtn');
+        var form = document.querySelector('#enquiryForm');
+        var enterButton = document.getElementById('enterBtn');
+        var nameInput = document.getElementById('#inputName1');
 
-    submitButton.addEventListener('click', function (event) {
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
+        submitButton.addEventListener('click', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
 
-      form.classList.add('was-validated');
-    }, false);
+            form.classList.add('was-validated');
+        }, false);
 
-    enterButton.addEventListener('click', function (event) {
-        if (!nameInput.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-        } else {
-            alert('Form submitted successfully.');
-        }
+        enterButton.addEventListener('click', function (event) {
+            if (!nameInput.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            } else {
+                alert('Form submitted successfully.');
+            }
 
-        nameInput.classList.add('was-validated');
-    }, false);
-  })();
+            nameInput.classList.add('was-validated');
+        }, false);
+    })();
 
-function copy() {
-    const copyIcon = document.getElementById("copyIcon");
-    const inputName1 = document.getElementById("chatUrl");
+    function copy() {
+        const copyIcon = document.getElementById("copyIcon");
+        const inputName1 = document.getElementById("chatUrl");
 
-    copyIcon.addEventListener("click", function () {
-      inputName1.select();
-      document.execCommand("copy");
-    });
-  }
+        copyIcon.addEventListener("click", function () {
+            inputName1.select();
+            document.execCommand("copy");
+        });
+    }
 </script>
 <!-- End #main -->
 {% endblock %}

@@ -110,6 +110,15 @@
             background-color: rgb(233, 0, 0) !important;
             border: none !important;
         }
+
+        .btn-primary {
+            background-color: #eba200 !important;
+            border: #eba200;
+        }
+
+        .btn-primary:hover {
+            background-color: #c98900 !important;
+        }
     </style>
 
 </head>
@@ -135,7 +144,7 @@
                             {% if r['sender'] != 'admin'%}
                             <div class="chat-message-left pb-4">
                                 <div>
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                    <img src="../static/assets/img/usserLogo.png"
                                         class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
                                 </div>
                                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
@@ -149,11 +158,11 @@
                             {% else %}
                             <div class="chat-message-right mb-4">
                                 <div>
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                    <img src="../static/assets/img/adminLogo.png"
                                         class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
                                 </div>
                                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                                    <div class="font-weight-bold mb-1 text-muted ">{{ r['sender'] }}</div>
+                                    <div class="font-weight-bold mb-1 text-muted ">Admin</div>
                                     {{ r['content'] }}
                                     <div class="text-muted small text-nowrap mt-1">
                                         {{ r['date'] }}&nbsp;{{ r['time'] }}
@@ -171,7 +180,8 @@
                             {% if isSessionExist['status'] == True %}
                             <input id="newMsg" type="text" class="form-control" placeholder="Type your message">
                             {% else %}
-                            <input id="newMsg" type="text" class="form-control" placeholder="Session is no longer available" disabled >
+                            <input id="newMsg" type="text" class="form-control"
+                                placeholder="Session is no longer available" disabled>
                             {% endif %}
                             <button id="sendBtn" class="btn btn-primary" onclick="sendMessage()" disabled>Send</button>
                         </div>
@@ -205,11 +215,11 @@
             messageContainer.classList.add('chat-message-right', 'mb-4');
             messageContainer.innerHTML = `
                 <div>
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                    <img src="../static/assets/img/adminLogo.png"
                         class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
                 </div>
                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                    <div class="font-weight-bold mb-1 text-muted ">${data['sender']}</div>
+                    <div class="font-weight-bold mb-1 text-muted ">Admin</div>
                     ${data.content}
                     <div class="text-muted small text-nowrap mt-1">
                         ${data.date}&nbsp;${data.time}
@@ -220,7 +230,7 @@
             messageContainer.classList.add('chat-message-left', 'mb-4');
             messageContainer.innerHTML = `
                 <div>
-                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                    <img src="../static/assets/img/userLogo.png"
                         class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
                 </div>
                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
