@@ -229,11 +229,11 @@ def compareProg():
     allProg = Programme.query.filter((Programme.progCategory == 'Degree') | (Programme.progCategory == 'Diploma')).all()
 
     if id2 is None:
-        abc = Programme.query.filter_by(progCategory = selectedProg.progCategory).first()
-        id2 = abc.progId
         selectedProg = Programme.query.filter_by(progId = id1).first()
         progList= Programme.query.filter_by(progCategory = selectedProg.progCategory).all()
         compareProg = Programme.query.filter_by(progId = id2).first()
+        abc = Programme.query.filter_by(progCategory = selectedProg.progCategory).first()
+        id2 = abc.progId
     else:
         selectedProg = Programme.query.filter_by(progId = id1).first()
         progList= Programme.query.filter_by(progCategory = selectedProg.progCategory).all()
