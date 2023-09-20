@@ -57,6 +57,10 @@
     }
 
     @media (max-width: 991px) {
+      .void-overlap {
+        margin-top: 80px !important;
+      }
+
       .nav-cus {
         background-color: white;
         margin-bottom: 15px;
@@ -137,10 +141,11 @@
       }
     }
 
-    #adminBtn{
+    #adminBtn {
       color: #eba200 !important;
     }
-    #adminBtn:hover{
+
+    #adminBtn:hover {
       color: #54B4D3 !important;
     }
   </style>
@@ -355,7 +360,8 @@
             <b style="color: #ffdb4a">Disclaimer Privacy Policy</b> and
             <b style="color: #ffdb4a">ABAC Policy</b>
           </p>
-          <p class="text-center text-decoration-underline "><a id="adminBtn" href="{{ url_for('login')}}">Admin Panel</a></p>
+          <p class="text-center text-decoration-underline "><a id="adminBtn" href="{{ url_for('login')}}">Admin
+              Panel</a></p>
         </div>
       </div>
     </div>
