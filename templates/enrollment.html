@@ -39,6 +39,10 @@ Enrollment
     border: #eba200;
   }
 
+  .active{
+    background-color: #c98900 !important ;
+  }
+
   .btn.btn-primary:disabled {
     background-color: #eba200;
     border: #eba200;
@@ -142,10 +146,10 @@ Enrollment
           </tbody>
         </table>
       </div>
-      <button type="button" class="btn btn-primary d-inline m-2" onclick="addNewRow()" disabled id="addRowButton">Add
+      <button type="button" class="btn btn-primary m-2" onclick="addNewRow()" id="addRowButton" style="border-radius: 0px; background-color: transparent; border: 1px #eba200 solid; color: #c98900; display: none;">Add
         Row</button>
-      <button type="button" class="btn btn-primary d-inline m-2" onclick="deletePreviousRow()" disabled
-        id="deletePreviousRowButton">Delete Row</button>
+      <button type="button" class="btn btn-primary m-2" onclick="deletePreviousRow()"
+        id="deletePreviousRowButton" style="border-radius: 0px; background-color: transparent; border: 1px #eba200 solid; color: #c98900; display: none;">Delete Row</button>
       <div class="d-flex justify-content-center">
         <button type="button" class="btn btn-primary d-inline m-2" id="previousButton">Previous</button>
         <button type="button" class="btn btn-primary d-inline m-2" onclick="checkEligibility()"
@@ -232,10 +236,10 @@ Enrollment
     console.log("Elements with class 'fileInput' shown.");
 
     const addRowButtonA = document.getElementById("addRowButton");
-    addRowButtonA.setAttribute('disabled', 'disabled');
+    addRowButtonA.style.display = 'none'
     console.log("Done")
     const deletePreviousRowButtonA = document.getElementById("deletePreviousRowButton");
-    deletePreviousRowButtonA.setAttribute('disabled', 'disabled');
+    deletePreviousRowButtonA.style.display = 'none'
     console.log("Done")
   }
 
@@ -672,9 +676,9 @@ Enrollment
     //once user upload result, then they got the flexibility to add new rows
     //in case OCR cannot capture completely
     const addRowButton = document.getElementById("addRowButton");
-    addRowButton.removeAttribute("disabled");
+    addRowButton.style.display = 'inline';
     const deletePreviousRowButton = document.getElementById("deletePreviousRowButton");
-    deletePreviousRowButton.removeAttribute("disabled");
+    deletePreviousRowButton.style.display = 'inline';
   }
 
   function fillFieldWithCompulsorySubject() {

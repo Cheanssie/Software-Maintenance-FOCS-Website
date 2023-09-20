@@ -129,7 +129,7 @@
               {% if page %}
                 <li class="page-item {%if page == allEnquiry.page %} active {% endif %}"><a href="{{ url_for('adminEnquiry', page_num=page) }}" class="page-link">{{ page }}</a></li>
               {% else %}  
-                ...
+              &nbsp;...&nbsp;
               {% endif %}
             
             {% endfor %}
