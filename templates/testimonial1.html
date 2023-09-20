@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}
+Testimonials
+{% endblock %}
+
+{%block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <h2>{{aca.acaName}}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <img src="../static/assets/img/{{aca.acaPic}}">
+        </div>
+        <div class="col">
+            <h4>Position</h4>
+            <p>{{aca.acaPosition}}</p>
+            <h4>Programme</h4>
+            <ul>
+                {%set progs = aca.acaProg.split("#") %}
+                {%for prog in progs%}
+                <li>{{prog}}</li>
+                {% endfor %}
+            </ul>
+            <h4>Major of Study/Specialization</h4>
+            <p>{{aca.acaMajor}}</p>
+            <h4>Area of Interest</h4>
+            <ul>
+            {%set aois = aca.acaAoi.split("#")%}
+            {%for aoi in aois%}
+                <li>{{aoi}}</li>
+                {% endfor %}
+            </ul>
+            <p>{{aca.acaAoi}}</p>
+            <h4>Contact Method</h4>
+            <p>{{aca.acaEmail}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h4>Biography</h4>
+            {%set bios = aca.acaBio.split("#") %}
+            {%for bio in bios%}
+            <p>{{bio}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{%endblock %}

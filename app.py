@@ -80,6 +80,21 @@ class staffDirectory(db.Model):
     def __repr__(self):
         return f'{self.staffName}'
     
+class Academician(db.Model):
+    __tablename__="Academician"
+
+    acaId = db.Column(db.Integer, primary_key=True)
+    acaName = db.Column(db.String(128))
+    acaPosition = db.Column(db.String(256))
+    acaProg = db.Column(db.String(256))
+    acaMajor = db.Column(db.String(128))
+    acaAoi = db.Column(db.String(256))
+    acaBio = db.Column(db.String(2048))
+    acaPic = db.Column(db.String(128))
+    acaEmail = db.Column (db.String(128))
+    def __repr__(self):
+        return f'Item {self.acaName}'
+    
 class Award(db.Model):
     __tablename__ = "Award"
 
@@ -306,7 +321,14 @@ def events(page_num):
 
 @app.route('/testimonials')
 def testimonials():
-    return render_template("testimonials.html")
+    acaList = Academician.query.all()
+    return render_template("testimonials.html", acaList = acaList)
+
+@app.route('/testimonial1')
+def testimonial1():
+    id= request.args.get('id')
+    aca = Academician.query.filter_by(acaId = id).first()
+    return render_template("testimonial1.html",aca=aca)
 
 @app.route('/collaborationPartners')
 def collaborationPartners():
