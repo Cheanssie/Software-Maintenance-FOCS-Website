@@ -644,8 +644,11 @@ def handle_message(message):
     message['time'] = current_time
     message['date'] = current_date
 
-    socketio.emit('message', message, room=connected_clients[message['requestId']])
-    socketio.emit('message', message, room=( connected_clients["admin-" + message['requestId']]))
+    if connected_clients.get(message['requestId']):
+        socketio.emit('message', message, room=connected_clients[message['requestId']])
+
+    if connected_clients.get("admin-" + message['requestId']):
+        socketio.emit('message', message, room=(connected_clients["admin-" + message['requestId']]))
 
 @app.route('/removeChatSession', methods=['POST'])
 def removeChatSession():
