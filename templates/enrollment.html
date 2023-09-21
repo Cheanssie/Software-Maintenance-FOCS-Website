@@ -39,8 +39,8 @@ Enrollment
     border: #eba200;
   }
 
-  .active{
-    background-color: #c98900 !important ;
+  .active {
+    background-color: #c98900 !important;
   }
 
   .btn.btn-primary:disabled {
@@ -93,7 +93,8 @@ Enrollment
           </label>
         </div>
       </fieldset>
-      <button type="button" class="btn btn-primary d-block m-auto" id="nextButton" onclick="setActiveButton()">Next</button>
+      <button type="button" class="btn btn-primary d-block m-auto" id="nextButton"
+        onclick="setActiveButton()">Next</button>
     </form>
 
     <form class="mt-1 needs-validation" id="section2" style="display: none;" novalidate>
@@ -146,10 +147,12 @@ Enrollment
           </tbody>
         </table>
       </div>
-      <button type="button" class="btn btn-primary m-2" onclick="addNewRow()" id="addRowButton" style="border-radius: 0px; background-color: transparent; border: 1px #eba200 solid; color: #c98900; display: none;">Add
+      <button type="button" class="btn btn-primary m-2" id="addRowButton" onclick="addNewRow()"
+        style="border-radius: 0px; background-color: transparent; border: 1px #eba200 solid; color: #c98900; display: none;">Add
         Row</button>
-      <button type="button" class="btn btn-primary m-2" onclick="deletePreviousRow()"
-        id="deletePreviousRowButton" style="border-radius: 0px; background-color: transparent; border: 1px #eba200 solid; color: #c98900; display: none;">Delete Row</button>
+      <button type="button" class="btn btn-primary m-2" id="deletePreviousRowButton" onclick="deletePreviousRow()"
+        style="border-radius: 0px; background-color: transparent; border: 1px #eba200 solid; color: #c98900; display: none;">Delete
+        Row</button>
       <div class="d-flex justify-content-center">
         <button type="button" class="btn btn-primary d-inline m-2" id="previousButton">Previous</button>
         <button type="button" class="btn btn-primary d-inline m-2" onclick="checkEligibility()"
@@ -191,6 +194,7 @@ Enrollment
 
   //once user press upload result button then will show the container
   function enableUploadResultContainer() {
+
     if (gradeTableThread) {
       // Select the <tr> (table row) you want to remove
       const headerRowToRemove = gradeTableThread.querySelector("tr");
@@ -236,11 +240,10 @@ Enrollment
     console.log("Elements with class 'fileInput' shown.");
 
     const addRowButtonA = document.getElementById("addRowButton");
-    addRowButtonA.style.display = 'none'
-    console.log("Done")
+    addRowButtonA.style.display = "none";
     const deletePreviousRowButtonA = document.getElementById("deletePreviousRowButton");
-    deletePreviousRowButtonA.style.display = 'none'
-    console.log("Done")
+    deletePreviousRowButtonA.style.display = "none";
+
   }
 
   const subjectAbbreviation = {
@@ -360,86 +363,136 @@ Enrollment
       .then((response) => response.json())
       .then((data) => {
 
-        //thead
-        const gradeTableThread = document.getElementById("gradeTableThread")
-        gradeTableThread.innerHTML = '';
+        if (fileInput.files.length == 0) {
+          console.log("1111");
+          if (gradeTableThread) {
+            // Select all <tr> (table rows) in the table body
+            const rowsToRemove = gradeTableThread.querySelectorAll("tbody tr");
 
-        const headerRow = document.createElement("tr");
-
-        //create and add the first subject and grade headers inside tr
-        headerRow.appendChild(createTableHeader("Subject", "35%"));
-        headerRow.appendChild(createTableHeader("Grade", "15%"));
-
-        //create and add the second subject and grade headers inside tr
-        headerRow.appendChild(createTableHeader("Subject", "35%"));
-        headerRow.appendChild(createTableHeader("Grade", "15%"));
-
-        //add inside th
-        gradeTableThread.appendChild(headerRow);
-
-        //get how many data
-        count = Object.keys(data).length;
-        const numRowsToDisplay = (count / 2) + 1;
-
-        for (let i = 1; i < numRowsToDisplay; i++) {
-          addTableDetails();
-        }
-
-        //return elements with class = qualificationSubject 
-        const subjectContainers = document.querySelectorAll(".qualificationSubject");
-
-        //return elements with class = qualificationGrade
-        const gradeContainers = document.querySelectorAll(".qualificationGrade");
-
-        //return count of data
-        const dataKeys = Object.keys(data);
-
-        //One subject has many select
-        //Iterate over each subject and grade container
-        for (let i = 0; i < subjectContainers.length; i++) {
-          const subjectSelect = subjectContainers[i];
-          const gradeSelect = gradeContainers[i];
-
-          //Check if there is data for this row
-          //data format: {"BM": "A+"}
-          if (i < dataKeys.length) {
-            //subjectKey = "BM"
-            const subjectKey = dataKeys[i];
-            //gradeValue = "A+"
-            const gradeValue = data[subjectKey];
-
-            //Iterate over options and set the selected index when there's a match
-            for (let j = 0; j < subjectSelect.options.length; j++) {
-              if (subjectSelect.options[j].value == subjectKey) {
-                subjectSelect.selectedIndex = j;
-                break;
-              }
+            // Check if there are rows to remove
+            if (rowsToRemove.length > 0) {
+              // Remove all rows from the table body
+              rowsToRemove.forEach(row => {
+                row.remove();
+              });
             }
 
-            for (let k = 0; k < gradeSelect.options.length; k++) {
-              if (gradeSelect.options[k].value == gradeValue) {
-                gradeSelect.selectedIndex = k;
-                break;
-              }
+            // Select the <thead> element
+            const tableHead = gradeTableThread.querySelector("thead");
+
+            // Check if the <thead> element exists
+            if (tableHead) {
+              // Remove the <thead> element
+              tableHead.remove();
             }
-          } else {
-            // No data for this row, so reset the selections
-            subjectSelect.selectedIndex = 0;
-            gradeSelect.selectedIndex = 0;
           }
-        }
 
+          // Clear subject containers and its row
+          const subjectContainersUploadFile = document.querySelectorAll(".qualificationSubject");
+          subjectContainersUploadFile.forEach(container => {
+            const row = container.closest("tr");
+            if (row) {
+              row.remove();
+            }
+            container.remove();
+          });
+
+          // Clear grade containers and its row
+          const gradeContainersUploadFile = document.querySelectorAll(".qualificationGrade");
+          gradeContainersUploadFile.forEach(container => {
+            const row = container.closest("tr");
+            if (row) {
+              row.remove();
+            }
+            container.remove();
+          });
+        }
+        else {
+          enableUploadResultContainer();
+          //thead
+          const gradeTableThread = document.getElementById("gradeTableThread")
+          gradeTableThread.innerHTML = '';
+
+          const headerRow = document.createElement("tr");
+
+          //create and add the first subject and grade headers inside tr
+          headerRow.appendChild(createTableHeader("Subject", "35%"));
+          headerRow.appendChild(createTableHeader("Grade", "15%"));
+
+          //create and add the second subject and grade headers inside tr
+          headerRow.appendChild(createTableHeader("Subject", "35%"));
+          headerRow.appendChild(createTableHeader("Grade", "15%"));
+
+          //add inside th
+          gradeTableThread.appendChild(headerRow);
+
+          //get how many data
+          count = Object.keys(data).length;
+          const numRowsToDisplay = (count / 2) + 1;
+
+          for (let i = 1; i < numRowsToDisplay; i++) {
+            addTableDetails();
+          }
+
+          //return elements with class = qualificationSubject 
+          const subjectContainers = document.querySelectorAll(".qualificationSubject");
+
+          //return elements with class = qualificationGrade
+          const gradeContainers = document.querySelectorAll(".qualificationGrade");
+
+          //return count of data
+          const dataKeys = Object.keys(data);
+
+          //One subject has many select
+          //Iterate over each subject and grade container
+          for (let i = 0; i < subjectContainers.length; i++) {
+            const subjectSelect = subjectContainers[i];
+            const gradeSelect = gradeContainers[i];
+
+            //Check if there is data for this row
+            //data format: {"BM": "A+"}
+            if (i < dataKeys.length) {
+              //subjectKey = "BM"
+              const subjectKey = dataKeys[i];
+              //gradeValue = "A+"
+              const gradeValue = data[subjectKey];
+
+              //Iterate over options and set the selected index when there's a match
+              for (let j = 0; j < subjectSelect.options.length; j++) {
+                if (subjectSelect.options[j].value == subjectKey) {
+                  subjectSelect.selectedIndex = j;
+                  break;
+                }
+              }
+
+              for (let k = 0; k < gradeSelect.options.length; k++) {
+                if (gradeSelect.options[k].value == gradeValue) {
+                  gradeSelect.selectedIndex = k;
+                  break;
+                }
+              }
+            } else {
+              // No data for this row, so reset the selections
+              subjectSelect.selectedIndex = 0;
+              gradeSelect.selectedIndex = 0;
+            }
+          }
+
+          //once user upload result, then they got the flexibility to add new rows
+          //in case OCR cannot capture completely
+          const addRowButton = document.getElementById("addRowButton");
+          addRowButton.style.display = "inline-block";
+          addRowButton.removeAttribute("disabled");
+          const deletePreviousRowButton = document.getElementById("deletePreviousRowButton");
+          deletePreviousRowButton.style.display = "inline-block";
+          deletePreviousRowButton.removeAttribute("disabled");
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
 
-    //once user upload result, then they got the flexibility to add new rows
-    //in case OCR cannot capture completely
-    const addRowButton = document.getElementById("addRowButton");
-    addRowButton.removeAttribute("disabled");
-    const deletePreviousRowButton = document.getElementById("deletePreviousRowButton");
-    deletePreviousRowButton.removeAttribute("disabled");
+
   }
 
   function addNewRow() {
@@ -460,9 +513,16 @@ Enrollment
     "BM": "E",
     "BI": "C",
     "MM": "C",
+    "SEJ": "E"
+  };
+
+  const minRequirementComputerScience = {
+    "BM": "E",
+    "BI": "C",
+    "MM": "C",
     "SEJ": "E",
     "MT": "C"
-  };
+  }
 
   const gradingSystem = {
     "A+": 5,
@@ -504,7 +564,53 @@ Enrollment
 
   }
 
-  const compulsorySubject = ["BM", "BI", "MM", "SEJ", "MT"]
+  const compulsorySubject = ["BM", "BI", "MM", "SEJ"]
+  const compulsorySubjectComputerScience = ["BM", "BI", "MM", "SEJ", "MT"]
+
+  function displayError(errorMessage) {
+    showLackSubjectPopup("Error", errorMessage);
+  }
+
+  function findMissingSubjects(compulsorySubject, subjectContainer) {
+    const missingSubjects = [];
+
+    for (const subject of compulsorySubject) {
+      let found = false;
+
+      for (const container of subjectContainer) {
+        const containerSubject = container.value.trim();
+
+        if (containerSubject == subject) {
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        missingSubjects.push(subject);
+      }
+    }
+
+    return missingSubjects;
+  }
+
+  function checkMinimumRequirements(minRequirements, selectedSubject, gradingSystem) {
+    for (const req in minRequirements) {
+      if (selectedSubject.hasOwnProperty(req)) {
+        const requiredGrade = minRequirements[req];
+        const studentGrade = selectedSubject[req];
+        const requiredGradeValue = gradingSystem[requiredGrade];
+        const studentGradeValue = gradingSystem[studentGrade];
+
+        if (studentGradeValue < requiredGradeValue) {
+          return false; //if one subject doesn't meet then fail
+        }
+      }
+    }
+
+    return true; //all subject meets
+  }
+
 
   //check whether student is eligible or not
   function checkEligibility() {
@@ -514,41 +620,30 @@ Enrollment
     let isEligible = false;
     let selectedSubject = {};
 
-    //create an array to track which compulsory subjects are missing
-    const missingSubjects = [];
+    var programmeChosen = document.getElementById("inputProgramme");
 
-    //iterate over each compulsory subject
-    for (const subject of compulsorySubject) {
-      let found = false;
+    let requiredSubjects = [];
+    let errorMessage = "";
 
-      //iterate over each subject container
-      for (const container of subjectContainer) {
-        const containerSubject = container.value.trim();
-
-        //if subject found in this container then not need continue find
-        if (containerSubject == subject) {
-          found = true;
-          break;
-        }
-      }
-
-      //if the subject is not found in any container, add it to the missingSubjects array
-      if (!found) {
-        missingSubjects.push(subject);
-      }
+    //check required subjects based on programme selected
+    if (programmeChosen.value == 'CS') {
+      requiredSubjects = compulsorySubjectComputerScience;
+      errorMessage = "Required Subject That Must Fill: Bahasa Melayu, Bahasa Inggeris, Mathematics, Sejarah, Additional Mathematics";
+    }
+    else {
+      requiredSubjects = compulsorySubject;
+      errorMessage = "Required Subject That Must Fill: Bahasa Melayu, Bahasa Inggeris, Mathematics, Sejarah";
     }
 
-    // Check if any compulsory subjects are missing
+    //return missingSubjects
+    const missingSubjects = findMissingSubjects(requiredSubjects, subjectContainer);
+
     if (missingSubjects.length > 0) {
-      console.log(`The following compulsory subjects are missing: ${missingSubjects.join(', ')}`);
-      showLackSubjectPopup("Error", "Required Subject That Must Fill: Bahasa Melayu, Bahasa Inggeris, Mathematics, Sejarah, Additional Mathematics");
+      displayError(errorMessage);
       return;
-      // Display an error message or take necessary action here
     } else {
       console.log('All compulsory subjects are present in the containers.');
-      // Continue with your desired logic
     }
-
 
     for (let i = 0; i < subjectContainer.length; i++) {
       if (subjectContainer[i].value != "") {
@@ -574,32 +669,24 @@ Enrollment
       return;
     }
 
-    //iterate across the min requirement
-    for (const req in minRequirement) {
-
-      //if true then baru proceed to compare
-      if (selectedSubject.hasOwnProperty(req)) {
-        const requiredGrade = minRequirement[req];
-        const studentGrade = selectedSubject[req];
-        const requiredGradeValue = gradingSystem[requiredGrade];
-        const studentGradeValue = gradingSystem[studentGrade];
-
-        if (studentGradeValue < requiredGradeValue) {
-          isEligible = false;
-          break; // If one subject doesn't meet the requirement, break and set eligibility to false
-        }
-        else {
-          isEligible = true;
-        }
-
-      }
+    let minimumRequirements = {};
+    if (programmeChosen.value == 'CS') {
+      minimumRequirements = minRequirementComputerScience;
     }
+    else {
+      minimumRequirements = minRequirement;
+    }
+
+    isEligible = checkMinimumRequirements(minimumRequirements, selectedSubject, gradingSystem);
+
     if (isEligible) {
       // Eligible - Show success message in pop-up
       showPopup("Success", "You are eligible for the program:");
+      return;
     } else {
       // Not eligible - Show fail message in pop-up
       showPopup("Fail", "You are not eligible for the program:");
+      return;
     }
 
   }
@@ -619,6 +706,34 @@ Enrollment
 
     console.log("Elements with class 'fileInput' hidden.");
 
+  }
+
+  function manualInputActive() {
+    var programmeChosenForManualInput = document.getElementById("inputProgramme");
+
+    if (programmeChosenForManualInput.value == "CS") {
+      count = compulsorySubjectComputerScience.length;
+    }
+    else {
+      count = compulsorySubject.length;
+    }
+
+    //get how many data
+    const numRowsToDisplayA = (count / 2) + 1;
+
+    for (let i = 1; i < numRowsToDisplayA; i++) {
+      addTableDetails();
+      console.log(count);
+    }
+
+    fillFieldWithCompulsorySubject();
+
+    //once user upload result, then they got the flexibility to add new rows
+    //in case OCR cannot capture completely
+    const addRowButton = document.getElementById("addRowButton");
+    addRowButton.style.display = 'inline';
+    const deletePreviousRowButton = document.getElementById("deletePreviousRowButton");
+    deletePreviousRowButton.style.display = 'inline';
   }
 
   function showManualInput() {
@@ -663,12 +778,21 @@ Enrollment
     //add inside th
     gradeTableThread.appendChild(headerRow);
 
+    var programmeChosenForManualInput = document.getElementById("inputProgramme");
+
+    if (programmeChosenForManualInput.value == "CS") {
+      count = compulsorySubjectComputerScience.length;
+    }
+    else {
+      count = compulsorySubject.length;
+    }
+
     //get how many data
-    count = compulsorySubject.length;
     const numRowsToDisplayA = (count / 2) + 1;
 
     for (let i = 1; i < numRowsToDisplayA; i++) {
       addTableDetails();
+      console.log(count);
     }
 
     fillFieldWithCompulsorySubject();
@@ -683,16 +807,26 @@ Enrollment
 
   function fillFieldWithCompulsorySubject() {
     const subjectContainers = document.querySelectorAll(".qualificationSubject");
+    var programmeChosenForManualInputField = document.getElementById("inputProgramme");
 
     for (let i = 0; i < subjectContainers.length; i++) {
       const subjectSelect = subjectContainers[i];
 
-      //Check if the index is within the bounds of compulsorySubject array
-      if (i < compulsorySubject.length) {
-        const compulsorySubjectValue = compulsorySubject[i];
-        // Set the selected subject in the subject container
-        subjectSelect.value = compulsorySubjectValue;
+      if (programmeChosenForManualInputField.value == "CS") {
+        if (i < compulsorySubjectComputerScience.length) {
+          const compulsorySubjectValue = compulsorySubjectComputerScience[i];
+          // Set the selected subject in the subject container
+          subjectSelect.value = compulsorySubjectValue;
+        }
       }
+      else {
+        if (i < compulsorySubject.length) {
+          const compulsorySubjectValue = compulsorySubject[i];
+          // Set the selected subject in the subject container
+          subjectSelect.value = compulsorySubjectValue;
+        }
+      }
+
     }
   }
 
@@ -756,6 +890,49 @@ Enrollment
       }
     }
 
+    fileInput.addEventListener('change', function () {
+      if (uploadResultButton.classList.contains("active")) {
+        uploadFile();
+      }
+    })
+
+    const subjectContainers = document.querySelectorAll(".qualificationSubject");
+    const gradeContainers = document.querySelectorAll(".qualificationGrade");
+
+    let allSubjectsHaveValue = true; // Initialize as true
+
+    for (let i = 0; i < subjectContainers.length; i++) {
+      const subjectValue = subjectContainers[i].value;
+      const gradeValue = gradeContainers[i].value;
+
+      if (subjectValue.trim() === "") {
+        allSubjectsHaveValue = false;
+        break; 
+      }
+
+      if (gradeValue.trim() !== "") {
+        //at least one grade container has a value
+        allSubjectsHaveValue = false;
+        break; 
+      }
+    }
+    programmeChose.addEventListener('input', function () {
+      if (uploadResultButton.classList.contains("active")) {
+        if (fileInput.files.length > 0) {
+          uploadFile();
+        }
+        else {
+          enableUploadResultContainer();
+        }
+
+      }
+      else if (manualInputButton.classList.contains("active")) {
+        if (allSubjectsHaveNoGrade) {
+          showManualInput();
+        }
+      }
+    });
+
     // Event listener for the "Next" button
     nextButton.addEventListener('click', function () {
       if (section1Validated) {
@@ -800,8 +977,8 @@ Enrollment
   })();
 
   function setActiveButton() {
-    manualInputButton.classList.remove("active");
     uploadResultButton.classList.add("active");
+    manualInputButton.classList.remove("active");
   }
 
   function showPopup(title, message) {
