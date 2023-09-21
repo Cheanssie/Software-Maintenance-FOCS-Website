@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}
-Testimonials
+Academicians
 {% endblock %}
 
 {%block content %}
@@ -35,7 +35,7 @@ Testimonials
             {%for aca in acaList%}
             <div class="card-hover">
               <div class="card h-100">
-                <a href="{{ url_for('testimonial1',id=aca.acaId)}}" class="card-link">
+                <a href="{{ url_for('academician1',id=aca.acaId)}}" class="card-link">
                   <img src="../static/assets/img/{{aca.acaPic}}" class="card-img-top" alt="">
                 </a>
                 <div class="card-body">
@@ -44,9 +44,10 @@ Testimonials
                 </div>
               </div>
             </div>
+            {% endfor %}
           </div>
         </div>
-        {% endfor %}
+        
         <div class="col-3">
           <h4 class="m-2 fs-6">More</h4>
           <ul class="list-group list-group-flush">

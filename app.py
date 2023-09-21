@@ -319,16 +319,16 @@ def events(page_num):
         event = Event.query.paginate(per_page = 8, page = page_num, error_out = True)
     return render_template("events.html", events=event)
 
-@app.route('/testimonials')
-def testimonials():
+@app.route('/academician')
+def academician():
     acaList = Academician.query.all()
-    return render_template("testimonials.html", acaList = acaList)
+    return render_template("academicians.html", acaList = acaList)
 
-@app.route('/testimonial1')
-def testimonial1():
+@app.route('/academician1')
+def academician1():
     id= request.args.get('id')
     aca = Academician.query.filter_by(acaId = id).first()
-    return render_template("testimonial1.html",aca=aca)
+    return render_template("academician1.html",aca=aca)
 
 @app.route('/collaborationPartners')
 def collaborationPartners():
