@@ -2,7 +2,8 @@
 
 ![image](https://github.com/LamontChean/FOCS_Website/assets/101232039/252c66c4-8c6e-4c28-9bbe-fc9f743c1d01)
 
-Additional Information: Featuring a chat system between admin & client 
+## Additional Information:
+Featuring a chat system between admin & client 
 
 ------------------ Ignore Below ------------------
 
